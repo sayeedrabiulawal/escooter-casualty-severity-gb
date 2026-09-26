@@ -37,6 +37,7 @@ PAPER_DIR = PROJECT_ROOT / "paper"
 BIB_PATH = PAPER_DIR / "references.bib"
 SCAN_PATH = PROJECT_ROOT / "docs" / "prior-work-scan.txt"
 RAW_PATH = PROJECT_ROOT / "docs" / "crossref-results.json"
+SCAN_RAW_PATH = PROJECT_ROOT / "docs" / "prior-work-results.json"
 
 API = "https://api.crossref.org/works"
 HEADERS = {
@@ -343,8 +344,12 @@ def main() -> int:
             params = {"query.bibliographic": params, "rows": 10}
         results[name] = run_search(name, params)
 
-    RAW_PATH.write_text(json.dumps(results, indent=2), encoding="utf-8")
-    print(f"\nRaw JSON written to {RAW_PATH}")
+    # The two runs must not share a JSON file. crossref-results.json is the
+    # provenance record for references.bib, so overwriting it with scan results
+    # would break the trail between the bibliography and its source metadata.
+    raw_path = SCAN_RAW_PATH if args.check_scoop else RAW_PATH
+    raw_path.write_text(json.dumps(results, indent=2), encoding="utf-8")
+    print(f"\nRaw JSON written to {raw_path}")
 
     # A prior-work scan is a decision aid, not a citation list. Dumping its hits
     # into references.bib would pollute the bibliography with off-topic results

@@ -28,3 +28,7 @@ paper/*.pdf
 paper/*.aux
 paper/*.log
 paper/*.out
+
+# Zenodo deposit build artefacts. Regenerable in seconds by:
+#   python src/make_deposit.py --include-pdf paper/manuscript.pdf
+outputs/deposit/

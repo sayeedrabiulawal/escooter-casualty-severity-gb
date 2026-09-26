@@ -14,6 +14,13 @@ scipy>=1.11
 # src/prepare_data.py, not just by the download helper.
 openpyxl>=3.1
 
+# PDF rendering of the manuscript, since this machine has no pandoc or LaTeX.
+# fpdf2 is pure Python and needs no system packages.
+fpdf2>=2.8
+
+# Verifying the rendered PDF actually contains the expected text.
+pypdf>=4.0
+
 # Visualisation
 matplotlib>=3.7
 seaborn>=0.12

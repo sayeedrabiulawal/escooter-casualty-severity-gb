@@ -275,6 +275,10 @@ The reframed contribution statement is in `paper/manuscript.md` §1.
 
 ## 8. What remains
 
+**See [`docs/TONIGHT.md`](docs/TONIGHT.md) for the exact steps to deposit the software
+record today.** The code is complete and ready; the preprint needs the literature review
+first.
+
 ### To finish the paper
 
 - [ ] Curate the 99 Crossref references: read them, delete any that do not support
