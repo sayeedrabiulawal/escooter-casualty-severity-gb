@@ -12,8 +12,9 @@ It edits in place and prints a diff summary. Run with --dry-run first.
 
 Usage:
     python src/personalise.py --dry-run
-    python src/personalise.py --surname Khan --orcid 0000-0002-1234-5678 \
-        --affiliation "University of Example" --github https://github.com/me/repo
+    python src/personalise.py --given "Rabiul Awal" --family "Sayeed" \
+        --affiliation "Department of Civil Engineering, Example University" \
+        --orcid 0000-0002-1234-5678 --github https://github.com/me/repo
 """
 
 from __future__ import annotations
@@ -38,15 +39,20 @@ TARGETS = [
     "docs/zenodo-release-checklist.md",
 ]
 
+# Files whose remaining placeholder mentions are documentation rather than live
+# metadata, and so must not be reported as outstanding work.
+DOCUMENTATION_ONLY = {"docs/zenodo-release-checklist.md"}
+
 # Placeholder forms found in this repository. Kept as explicit alternatives rather
 # than a loose pattern, so ordinary bracketed prose is never rewritten by accident.
 PLACEHOLDER_PATTERNS = [
-    r"\[surname[^\]]*\]",
-    r"\[Surname\]",
-    r"\[Your University\]",
+    r"\[Full name\]",
+    r"\[Family name\]",
+    r"\[Given names\]",
+    r"\[Affiliation\]",
+    r"\[ORCID\]",
     r"\[username\]/\[repo\]",
     r"\[GitHub URL\]",
-    r"\[add before release\]",
     r"0000-0000-0000-0000",
 ]
 
@@ -54,28 +60,41 @@ PLACEHOLDER_PATTERNS = [
 # Patterns used to DETECT remaining placeholders. Kept separate from the
 # substitution list so reporting works even when no replacement values are given,
 # and so an unreplaced placeholder can still be found afterwards.
+#
+# The legacy forms are listed too: this repository previously encoded the author as
+# "Sayed [surname]", which wrongly treated Sayeed as a given name. Both spellings are
+# checked so a stale placeholder cannot survive unnoticed.
 DETECT_PATTERNS = [
-    (r"\[Surname\]", "surname"),
-    (r"Sayed \[surname[^\]]*\]", "author name"),
-    (r"\[Your University\]", "affiliation"),
-    (r"\[username\]/\[repo\]", "github url"),
-    (r"\[GitHub URL\]", "github url"),
-    (r"\[add before release\]", "orcid"),
+    (r"\[Full name\]", "author name"),
+    (r"Sayed \[surname[^\]]*\]", "author name (legacy form)"),
+    (r"\[Family name\]", "family name"),
+    (r"\[Surname\]", "family name (legacy form)"),
+    (r"\[Given names\]", "given names"),
+    (r"\[Affiliation\]", "affiliation"),
+    (r"\[Your University\]", "affiliation (legacy form)"),
+    (r"\[ORCID\]", "orcid"),
+    (r"\[add before release\]", "orcid/affiliation (legacy form)"),
+    (r"\[username\]/\[repo\]", "repository url"),
+    (r"\[GitHub URL\]", "repository url"),
     (r"0000-0000-0000-0000", "orcid"),
     (r"\[TODO[^\]]*\]", "TODO"),
 ]
 
 
 def build_replacements(
-    surname: str, orcid: str, affiliation: str, github: str
+    given: str, family: str, orcid: str, affiliation: str, github: str
 ) -> list[tuple[str, str, str]]:
     """Return (pattern, replacement, label) triples in priority order.
+
+    Given names and family name are substituted separately because the two are
+    ordered and labelled differently in each format: "Sayeed, Rabiul Awal" in
+    Zenodo, family-names/given-names in CFF, "Rabiul Awal Sayeed" in prose.
 
     Order matters: the full GitHub URL must be substituted before the bare
     `[username]/[repo]` fragments, or the fragments are consumed first and a
     malformed URL is left behind.
     """
-    surname_full = surname
+    full = f"{given} {family}".strip()
     replacements: list[tuple[str, str, str]] = []
 
     if github:
@@ -84,28 +103,42 @@ def build_replacements(
         )
         replacements.append((r"\[username\]/\[repo\]", github, "github url"))
         replacements.append((r"\[GitHub URL\]", github, "github url"))
-    if surname:
-        # The author line renders as "Sayed `[surname]`", so the backticks must be
-        # consumed together with the placeholder. Replacing only the bracketed part
-        # leaves `Khan` visible in the output.
-        replacements.append((r"`\[surname[^\]]*\]`", surname_full, "surname"))
-        replacements.append((r"\[Surname\]", surname_full, "surname"))
-        replacements.append((r"Sayed \[surname[^\]]*\]", f"Sayed {surname_full}", "author name"))
-        replacements.append((r"\[surname[^\]]*\]", surname_full, "surname"))
+    if family:
+        replacements.append((r"\[Family name\]", family, "family name"))
+        replacements.append((r"\[Surname\]", family, "family name"))
+    if given:
+        replacements.append((r"\[Given names\]", given, "given names"))
+    if full:
+        # Author lines previously rendered as "Sayed `[surname]`", so the backticks
+        # must be consumed together with the placeholder. Replacing only the
+        # bracketed part would leave the surrounding ticks behind.
+        replacements.append((r"`\[surname[^\]]*\]`", full, "author name"))
+        replacements.append((r"Sayed \[surname[^\]]*\]", full, "author name"))
+        replacements.append((r"\[Full name\]", full, "author name"))
     if orcid:
         cleaned = orcid.replace("https://orcid.org/", "").strip()
+        replacements.append((r"\[ORCID\]", cleaned, "orcid"))
         replacements.append((r"0000-0000-0000-0000", cleaned, "orcid"))
-        replacements.append((r"\[add before release\]", cleaned, "orcid"))
     if affiliation:
+        replacements.append((r"\[Affiliation\]", affiliation, "affiliation"))
         replacements.append((r"\[Your University\]", affiliation, "affiliation"))
 
     return replacements
 
 
 def analyse() -> dict[str, list[tuple[str, int]]]:
-    """Count remaining placeholders per file without changing anything."""
+    """Count remaining placeholders per file without changing anything.
+
+    Documentation files are skipped. The release checklist has to *show* the
+    placeholder syntax in order to explain it, so reporting those mentions would
+    send the reader hunting for a placeholder that does not exist. A miss here
+    cannot hide a broken record, because verify_zenodo_json() checks the real
+    metadata strictly.
+    """
     report: dict[str, list[tuple[str, int]]] = {}
     for relative in TARGETS:
+        if relative in DOCUMENTATION_ONLY:
+            continue
         path = PROJECT_ROOT / relative
         if not path.exists():
             continue
@@ -158,36 +191,21 @@ ABSENT_GITHUB_RULES: list[tuple[str, str, str]] = [
     ("progress.md", r"\[username\]/\[repo\]", "the archived deposit"),
 ]
 
-# CITATION.cff ships with a commented-out ORCID/affiliation block. Left in place it
-# would still assert these are required, which is not true and would mislead a reader
-# of the archived record.
+# CITATION.cff ships with a commented-out ORCID line. Left in place it would still
+# assert an ORCID is expected, which is not true and would mislead a reader of the
+# archived record.
 ABSENT_OPTIONAL_METADATA_RULES: list[tuple[str, str, str]] = [
-    (
-        "CITATION.cff",
-        r"^\s*# TODO: uncomment and complete before releasing[^\n]*\n(?:\s*#[^\n]*\n)*",
-        "",
-    ),
+    ("CITATION.cff", r"^\s*# orcid: [^\n]*\n", ""),
 ]
 
 
-def apply_rules(rules: list[tuple[str, str, str]], dry_run: bool) -> int:
-    """Apply (file, pattern, replacement) rules. Returns the number of edits made."""
-    edits = 0
-    for relative, pattern, replacement in rules:
-        path = PROJECT_ROOT / relative
-        if not path.exists():
-            continue
-        text = path.read_text(encoding="utf-8")
-        new_text, count = re.subn(pattern, replacement, text, flags=re.M)
-        if count:
-            edits += count
-            if not dry_run:
-                path.write_text(new_text, encoding="utf-8")
-    return edits
+def _creator_name(given: str, family: str) -> str:
+    """Zenodo wants "Family, Given"; the comma is dropped if a part is missing."""
+    return f"{family}, {given}".strip().strip(",").strip()
 
 
 def update_zenodo_json(
-    surname: str, orcid: str, affiliation: str, github: str, dry_run: bool
+    given: str, family: str, orcid: str, affiliation: str, github: str, dry_run: bool
 ) -> list[str]:
     """Edit .zenodo.json with the json module so the file cannot become invalid.
 
@@ -208,8 +226,8 @@ def update_zenodo_json(
     creators = data.get("creators") or [{}]
     creator = creators[0]
 
-    if surname:
-        creator["name"] = f"{surname}, Sayed"
+    if family or given:
+        creator["name"] = _creator_name(given, family)
     creator["affiliation"] = affiliation or DEFAULT_AFFILIATION
     if not affiliation:
         notes.append(f"affiliation defaulted to '{DEFAULT_AFFILIATION}'")
@@ -241,9 +259,25 @@ def update_zenodo_json(
 
     if not dry_run:
         path.write_text(
-            json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            json.dumps(data, indent=4, ensure_ascii=False) + "\n", encoding="utf-8"
         )
     return notes
+
+
+def apply_rules(rules: list[tuple[str, str, str]], dry_run: bool) -> int:
+    """Apply (file, pattern, replacement) rules. Returns the number of edits made."""
+    edits = 0
+    for relative, pattern, replacement in rules:
+        path = PROJECT_ROOT / relative
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        new_text, count = re.subn(pattern, replacement, text, flags=re.M)
+        if count:
+            edits += count
+            if not dry_run:
+                path.write_text(new_text, encoding="utf-8")
+    return edits
 
 
 def verify_zenodo_json() -> bool:
@@ -258,7 +292,17 @@ def verify_zenodo_json() -> bool:
     blob = json.dumps(data)
     problems = [
         placeholder
-        for placeholder in ("0000-0000-0000", "[Surname]", "[Your University]", "[username]", "[TODO")
+        for placeholder in (
+            "0000-0000-0000",
+            "[Full name]",
+            "[Family name]",
+            "[Given names]",
+            "[Affiliation]",
+            "[Surname]",
+            "[Your University]",
+            "[username]",
+            "[TODO",
+        )
         if placeholder in blob
     ]
     if problems:
@@ -293,19 +337,20 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description=__doc__,
         epilog=(
-            "Only --surname is required. Affiliation defaults to "
-            f"'{DEFAULT_AFFILIATION}'. ORCID and --github are optional, and their "
-            "placeholders are removed cleanly if not supplied."
+            "Both --given and --family are required for a complete author name. "
+            f"Affiliation defaults to '{DEFAULT_AFFILIATION}'. ORCID and --github are "
+            "optional, and their placeholders are removed cleanly if not supplied."
         ),
     )
-    parser.add_argument("--surname", default="", help="Your family name (the one value worth supplying)")
+    parser.add_argument("--given", default="", help="Given names, e.g. 'Rabiul Awal'")
+    parser.add_argument("--family", default="", help="Family name, e.g. 'Sayeed'")
     parser.add_argument("--orcid", default="", help="ORCID iD, e.g. 0000-0002-1234-5678 (optional)")
-    parser.add_argument("--affiliation", default="", help="Institution (optional)")
+    parser.add_argument("--affiliation", default="", help="Institution and department (optional)")
     parser.add_argument("--github", default="", help="Public repository URL (optional)")
     parser.add_argument("--dry-run", action="store_true", help="Show changes without writing")
     args = parser.parse_args()
 
-    if not any([args.surname, args.orcid, args.affiliation, args.github]):
+    if not any([args.given, args.family, args.orcid, args.affiliation, args.github]):
         print("No details supplied. Showing what is still missing.\n")
         report = analyse()
         if not report:
@@ -316,18 +361,18 @@ def main() -> int:
             for label, count in found:
                 print(f"    {count:>2} x {label}")
         print(
-            "\nMinimum needed: --surname. Everything else is optional:\n"
+            "\nMinimum needed: --given and --family. Everything else is optional:\n"
             "  ORCID        free at https://orcid.org (about 2 minutes, recommended)\n"
             "  affiliation  defaults to 'Independent Researcher' if omitted\n"
             "  github       omit if the code is not public yet; the deposit still holds it"
         )
         return 0
 
-    if not args.surname:
+    if not (args.given and args.family):
         print(
-            "[warn] --surname not supplied, so the author name keeps its placeholder.\n"
-            "       An author placeholder in a permanent record looks broken, so\n"
-            "       supply at least this one value.",
+            "[warn] --given and --family are both needed, otherwise the author name\n"
+            "       keeps a placeholder. An author placeholder in a permanent record\n"
+            "       looks broken, so supply both.",
             file=sys.stderr,
         )
 
@@ -344,18 +389,20 @@ def main() -> int:
 
     suffix = " (DRY RUN - nothing written)" if args.dry_run else ""
     print(f"Personalising metadata{suffix}\n")
+    print(f"  author : {args.given} {args.family}".rstrip())
+    print(f"  affil  : {args.affiliation or DEFAULT_AFFILIATION}")
 
     # 1. Structured edit of the Zenodo metadata, via the json module.
     notes = update_zenodo_json(
-        args.surname, cleaned_orcid, args.affiliation, args.github, args.dry_run
+        args.given, args.family, cleaned_orcid, args.affiliation, args.github, args.dry_run
     )
-    print("  .zenodo.json handled with the json module (cannot become invalid)")
+    print("\n  .zenodo.json handled with the json module (cannot become invalid)")
     for note in notes:
         print(f"    - {note}")
 
     # 2. Substitute any supplied values across the text files.
     patterns = build_replacements(
-        args.surname, cleaned_orcid, args.affiliation, args.github
+        args.given, args.family, cleaned_orcid, args.affiliation, args.github
     )
     counts = apply_all(patterns, dry_run=args.dry_run)
     for relative, count in counts.items():

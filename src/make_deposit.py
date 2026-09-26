@@ -125,16 +125,32 @@ def write_metadata_sheets() -> tuple[Path, Path]:
     creators = zenodo.get("creators", [{}])
     author = creators[0] if creators else {}
     related = zenodo.get("related_identifiers", [])
+    # No default placeholder: if no repository was supplied, the line is omitted
+    # entirely. A leftover "[your repository URL]" would invite someone to paste it
+    # into a permanent record, and a blank "ORCID:" reads as a missing value rather
+    # than an optional one that was deliberately left out.
     github = next(
         (r["identifier"] for r in related if "github" in str(r.get("identifier", "")).lower()),
-        "[your repository URL]",
+        "",
     )
+    orcid = str(author.get("orcid", "") or "").strip()
+    orcid_line = f"                         ORCID: {orcid}\n" if orcid else ""
+    # The two records relate to the repository differently, so the label differs.
+    def _repo_line(relation: str) -> str:
+        return (
+            f"  {relation:<22} {github}          (resource type: Software)\n"
+            if github
+            else ""
+        )
+
+    repo_line_preprint = _repo_line("isSupplementedBy")
+    repo_line_software = _repo_line("isSourceOf")
 
     header = (
         "ZENODO MANUAL UPLOAD - METADATA TO PASTE\n"
         + "=" * 74
         + "\n\nPaste each value into the matching field in the Zenodo upload form.\n"
-        "Fill any remaining [bracket] before publishing.\n\n"
+        "Anything still in [brackets] must be filled before publishing.\n\n"
     )
 
     preprint_sheet = header + (
@@ -147,8 +163,7 @@ Resource type            Publication  ->  Preprint
 Title                    {zenodo.get('title', '')}
 
 Creators                 {author.get('name', '')}
-                         ORCID: {author.get('orcid', '')}
-                         Affiliation: {author.get('affiliation', '')}
+{orcid_line}                         Affiliation: {author.get('affiliation', '')}
 
 Description              Copy the Abstract from paper/manuscript.md verbatim.
                          Paste as HTML: use <p> for paragraphs and <strong> for bold.
@@ -162,8 +177,7 @@ Publication date         Today's date
 Version                  v1.0.0
 
 Related identifiers
-  isSupplementedBy       {github}          (resource type: Software)
-  isDerivedFrom          https://www.gov.uk/government/statistical-data-sets/road-safety-open-data    (dataset)
+{repo_line_preprint}  isDerivedFrom          https://www.gov.uk/government/statistical-data-sets/road-safety-open-data    (dataset)
 
 Notes                    {zenodo.get('notes', '')}
 
@@ -171,8 +185,8 @@ FILES TO UPLOAD
   - the manuscript PDF
   - optionally {ARCHIVE_NAME}
 
-WARNING: a published Zenodo record cannot be deleted. Proofread the title, your
-name, and the ORCID before clicking publish.
+WARNING: a published Zenodo record cannot be deleted. Proofread the title and your
+name -- as you want them cited, permanently -- before clicking publish.
 """
     )
 
@@ -186,8 +200,7 @@ Resource type            Software
 Title                    Analysis code: {zenodo.get('title', '')}
 
 Creators                 {author.get('name', '')}
-                         ORCID: {author.get('orcid', '')}
-                         Affiliation: {author.get('affiliation', '')}
+{orcid_line}                         Affiliation: {author.get('affiliation', '')}
 
 Description              Paste as HTML:
                          <p>Reproducible analysis pipeline for a comparative study
@@ -209,14 +222,12 @@ Version                  v1.0.0
 Programming language     Python
 
 Related identifiers
-  isSourceOf             {github}          (resource type: Software)
-  isDerivedFrom          https://www.gov.uk/government/statistical-data-sets/road-safety-open-data    (dataset)
+{repo_line_software}  isDerivedFrom          https://www.gov.uk/government/statistical-data-sets/road-safety-open-data    (dataset)
 
 FILES TO UPLOAD
   - {ARCHIVE_NAME}
 
-This record is complete and ready tonight. The preprint record needs the literature
-review finished first.
+This record is complete and ready to deposit tonight.
 """
     )
 

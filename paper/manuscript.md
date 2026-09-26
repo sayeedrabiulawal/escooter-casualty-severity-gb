@@ -4,9 +4,8 @@
 Britain, 2021–2025: A Comparative Analysis with Pedal Cyclists and Motorcyclists Using
 STATS19 Data
 
-**Author:** Sayed `[surname]`
-**ORCID:** `[add before release]`
-**Affiliation:** `[add before release]`
+**Author:** Rabiul Awal Sayeed
+**Affiliation:** Department of Civil Engineering, Hebei University of Science and Technology
 **Status:** Draft — results complete, literature review to be finalised
 
 > Structure and word budget: see [`outline.md`](outline.md).
@@ -139,6 +138,7 @@ artefact of a mid-series change in how severity was recorded.
 > and confirm it supports the sentence it is attached to**, then delete this note.
 >
 > Two known items could not be resolved from abstracts alone and need a decision:
+>
 > 1. **Zhao et al.** — the bibliography holds the SSRN preprint
 >    (`@zhao2025england`, DOI 10.2139/ssrn.5937116). A journal version appears to exist
 >    at DOI 10.1016/j.aap.2026.108517. Check which should be cited, and check whether the
@@ -146,7 +146,7 @@ artefact of a mid-series change in how severity was recorded.
 >    published version.
 > 2. **Cicchino et al.** reported injury proportions for e-scooters versus bicycles from a
 >    single emergency department. The comparison drawn here is between that study's
->    *clinical* proportions and this study's *police-reported* proportions. Confirm the
+>    _clinical_ proportions and this study's _police-reported_ proportions. Confirm the
 >    figures quoted (13.1%/37.7%, 24.5%/50.7%, 34.3%/22.6%) before submission.
 >
 > Claims deliberately **not** made: that this is the first national e-scooter severity
@@ -719,7 +719,7 @@ not redistributed here; `src/download_data.py` retrieves the exact snapshot, whi
 fixed by SHA-256 checksums in `data/raw/checksums.sha256`. The derived analysis dataset and
 all code are archived at Zenodo: DOI `[TODO]`.
 
-**Code availability.** `[GitHub URL]`, tag `v1.0.0`. The full pipeline reruns from raw
+**Code availability.** Included in the archived deposit, tag `v1.0.0`. The full pipeline reruns from raw
 data and reproduces the derived dataset byte-identically.
 
 **Funding.** This research received no external funding.

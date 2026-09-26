@@ -4,7 +4,8 @@ Everything on the technical side is already done. What remains requires **your
 identity and accounts** — I cannot create an ORCID iD or authenticate to Zenodo on
 your behalf, and you should not route credentials through an assistant.
 
-Repository state: committed and tagged **`v1.0.0`** (commit `5c3c647`).
+Repository state: commits after tag **`v1.0.1`** (`b0c2696` at the time of writing).
+Run `git describe --tags` for the current position.
 
 ---
 
@@ -16,35 +17,45 @@ name (as you want it cited, forever), and the abstract before clicking publish.
 
 ---
 
-## Step 1 — Personalise the metadata `[YOUR ACTION]`
+## Step 1 — Personalise the metadata `[DONE]`
 
-Four placeholders must be filled. All are marked `[TODO]` or `[bracketed]`.
+The helper script sets every placeholder from one source of truth, so the name cannot
+drift between files. It was run with:
+
+```bash
+python src/personalise.py \
+  --given "Rabiul Awal" --family "Sayeed" \
+  --affiliation "Department of Civil Engineering, Hebei University of Science and Technology"
+```
+
+To change any value later, re-run with the corrected argument; the script is idempotent.
+ORCID and `--github` are optional, and their fields are **removed cleanly** if not
+supplied, because a placeholder like `0000-0000-0000-0000` in a permanent record looks
+broken. Neither was supplied, so both were removed.
 
 ### 1a. `CITATION.cff`
 
 ```yaml
 authors:
-    - family-names: "[Surname]" # your actual surname
-      given-names: "Sayed"
-      orcid: "https://orcid.org/0000-0000-0000-0000" # uncomment and fill
-      affiliation: "[Your University]" # uncomment and fill
-repository-code: "https://github.com/[username]/[repo]"
+    - family-names: "Sayeed"
+      given-names: "Rabiul Awal"
+      affiliation: "Department of Civil Engineering, Hebei University of Science and Technology"
 ```
 
 ### 1b. `.zenodo.json`
 
-- `creators[0].name` → `"[Surname], Sayed"`
-- `creators[0].orcid` → your real ORCID
-- `creators[0].affiliation` → your institution
-- `related_identifiers[0].identifier` → your GitHub URL
+- `creators[0].name` → `"Sayeed, Rabiul Awal"`
+- `creators[0].orcid` → removed (no ORCID supplied)
+- `creators[0].affiliation` → `"Department of Civil Engineering, Hebei University of Science and Technology"`
+- `related_identifiers[0].identifier` → GitHub link removed; the STATS19 dataset link is kept
 
 ### 1c. `LICENSE`
 
-Replace `Copyright (c) 2026 Sayed [surname]` with your full name.
+Copyright holder is now `Rabiul Awal Sayeed` (see also `LICENSE-CC-BY-4.0.md`).
 
 ### 1d. `paper/manuscript.md`
 
-- Author block and ORCID
+- Author and affiliation are set; the ORCID line was removed, not left blank
 - The two `[TODO]` declarations: **funding** and **AI use**
 - **The literature review (§2)** — see the warning below
 - **§5.2 comparison with literature**

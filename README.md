@@ -159,6 +159,9 @@ five-year trend analysis, and the injury-based-reporting robustness analysis. Se
 
 See [`CITATION.cff`](CITATION.cff). A DOI will be minted on Zenodo at release.
 
+**Author:** Rabiul Awal Sayeed — Department of Civil Engineering, Hebei University of
+Science and Technology, Shijiazhuang, China.
+
 ## Status
 
 Analysis complete and reproducible. The manuscript's methods and results are written;

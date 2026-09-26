@@ -21,15 +21,11 @@ keywords:
     - STATS19
     - transportation engineering
 authors:
-    - family-names: "[Surname]"
-      given-names: "Sayed"
-      # TODO: uncomment and complete before releasing. Both are required for Zenodo.
-      # orcid: "https://orcid.org/0000-0000-0000-0000"
-      # affiliation: "[Your University]"
+    - family-names: "Sayeed"
+      given-names: "Rabiul Awal"
+      affiliation: "Department of Civil Engineering, Hebei University of Science and Technology"
 # TODO: add the Zenodo DOI after the first deposit, then re-release.
 # doi: "10.5281/zenodo.XXXXXXX"
-repository-code: "https://github.com/[username]/[repo]"
-url: "https://github.com/[username]/[repo]"
 references:
     - type: dataset
       title: "Road safety open data (STATS19)"

@@ -1,6 +1,6 @@
 # Research Plan — E-Scooter Casualties in Great Britain
 
-**Author:** Sayed `[surname — fill in]`
+**Author:** Rabiul Awal Sayeed
 **Started:** 2026-09-26
 **Target completion:** 2026-11-21 (8 weeks)
 **Deliverable:** One preprint with DOI on Zenodo + submission to one indexed journal
@@ -407,7 +407,7 @@ PUBLICATIONS AND RESEARCH
 Personal Transporter (E-Scooter) Casualties in Great Britain, 2021–2025.
 Preprint. Zenodo. DOI: 10.5281/zenodo.XXXXXXX
   - Under review at [Journal Name]
-  - Code and analysis repository: github.com/[username]/[repo]
+  - Code and analysis repository: github.com/the archived deposit
 
 [N. Surname] et al. (2026). [Repo title] (v1.0.0) [Computer software].
 Zenodo. DOI: 10.5281/zenodo.YYYYYYY
@@ -485,13 +485,18 @@ that require your own accounts. See `progress.md` for the full log and
 
 ### Remaining, in priority order
 
-1. **Write the literature review (§2) and §5.2.** Read the papers; prune the 99
-   references to the ~40 you actually use. **Do not cite unread papers.** This is the
-   only substantial writing left, and it is the part that most needs your judgement.
-2. **Fill the four metadata placeholders**: your surname, ORCID, affiliation, GitHub
-   URL. Listed in `docs/zenodo-release-checklist.md` Step 1.
+1. ~~Write the literature review (§2) and §5.2~~ — **drafted**; §2 is 1,703 words and
+   §5.2 is 630. They were written from publisher abstracts, so each cited paper still
+   needs reading in full by you before the note at the top of §2 is deleted. **Do not
+   cite unread papers.** This is the part that most needs your judgement.
+2. ~~Fill the metadata placeholders~~ — **done**. Author is Rabiul Awal Sayeed,
+   Department of Civil Engineering, Hebei University of Science and Technology.
+   Applied with `src/personalise.py`, which sets every file from one source of truth.
+   ORCID and a repository URL were not supplied, so those fields were removed cleanly
+   rather than left as placeholders.
 3. **Create an ORCID iD and a public GitHub repository**, then link the repo to Zenodo
-   so the `v1.0.0` tag is archived and minted a DOI.
+   so the tag is archived and minted a DOI. Both are optional for the deposit, but an
+   ORCID is worth having and takes about two minutes.
 4. **Consider an exposure-denominator proxy.** This remains the study's weakest point
    and the most likely reason a reviewer rejects it. Even a crude denominator would
    materially strengthen the paper. If none can be sourced honestly, the limitations

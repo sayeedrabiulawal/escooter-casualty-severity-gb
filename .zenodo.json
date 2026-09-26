@@ -3,9 +3,8 @@
     "description": "<p>Analysis of five years (2021-2025) of UK STATS19 police-reported collision data comparing injury severity between e-scooter, pedal cycle, and motorcycle casualties. Severity is measured as killed or seriously injured (KASI).</p><p><strong>Key findings:</strong></p><ul><li>E-scooter casualty counts were stable across the period (1,102 in 2021 to 1,162 in 2025), but the KASI proportion rose from 0.284 (95% CI 0.258-0.311) to 0.358 (0.331-0.386).</li><li>E-scooter casualties were younger than pedal cyclists (median age 22 vs 35) and predominantly urban (94.0% vs 84.0%).</li><li>After adjustment for age, sex, speed limit, lighting, road type, urban/rural classification and junction detail, e-scooter casualties had 1.59 times the odds of KASI compared with pedal cyclists (95% CI 1.49-1.69).</li><li>The estimate was robust to correction for the concurrent change to injury-based severity reporting: 1.56 (1.47-1.66) using the DfT severity adjustment, and 1.64 (1.50-1.78) restricted to injury-based-reporting forces.</li></ul><p><strong>Important limitation:</strong> no exposure denominator exists for this mode, so these are severity proportions among casualties, not estimates of risk per trip or per kilometre.</p><p>Includes the full analysis code, which reproduces the derived dataset byte-identically from the raw data. Raw data is not redistributed; it is retrieved from the Department for Transport by the included script.</p>",
     "creators": [
         {
-            "name": "[Surname], Sayed",
-            "affiliation": "[Your University]",
-            "orcid": "0000-0000-0000-0000"
+            "name": "Sayeed, Rabiul Awal",
+            "affiliation": "Department of Civil Engineering, Hebei University of Science and Technology"
         }
     ],
     "keywords": [
@@ -24,12 +23,6 @@
     "access_right": "open",
     "language": "eng",
     "related_identifiers": [
-        {
-            "relation": "isSupplementedBy",
-            "identifier": "https://github.com/[username]/[repo]",
-            "resource_type": "software",
-            "scheme": "url"
-        },
         {
             "relation": "isDerivedFrom",
             "identifier": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data",

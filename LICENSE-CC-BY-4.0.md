@@ -11,6 +11,8 @@ if changes were made.
 
 Full licence text: <https://creativecommons.org/licenses/by/4.0/legalcode>
 
+Copyright (c) 2026 Rabiul Awal Sayeed.
+
 ---
 
 ## Which licence applies to what

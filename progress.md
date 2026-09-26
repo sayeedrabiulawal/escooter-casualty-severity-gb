@@ -2,7 +2,7 @@
 
 **Project:** Spatiotemporal Patterns and Severity Determinants of Powered Personal
 Transporter (E-Scooter) Casualties in Great Britain, 2021–2025
-**Author:** Sayed `[surname]`
+**Author:** Rabiul Awal Sayeed
 **Started:** 2026-09-26
 **Last updated:** 2026-09-26
 
@@ -28,6 +28,8 @@ because a master's application reviewer may well read the repository.
 | §5.2 vs literature    | Done — 630 words, incl. explicit comparison with Zhao et al.                          |
 | Citation rendering    | Done — PDF now resolves citations and prints a real reference list                    |
 | PDF layout            | Done — checked mechanically, 16 pages, no text inside any margin                      |
+| Author metadata       | Done — Rabiul Awal Sayeed, Hebei University of Science and Technology                 |
+| ORCID / repository    | Not provided — fields removed cleanly; optional for deposit                           |
 | Manuscript draft      | In progress — all sections drafted; 3 working-note markers remain                     |
 | Zenodo packaging      | In progress                                                                           |
 | **Blocking issue**    | **None. The prior-work overlap (below) requires a framing change, not new analysis.** |
@@ -322,7 +324,7 @@ outside the 22 mm margin. Two separate causes:
 Two smaller defects found in the same pass: numbered/bullet markers rendered as `?`
 (U+2022 is not in latin-1; a hyphen marker is used instead), and fpdf2 tables draw their
 rules marginally outside the width they are given, so a **centred** full-width table
-overhung *both* margins. Tables are now inset by 1.6 mm and left-aligned.
+overhung _both_ margins. Tables are now inset by 1.6 mm and left-aligned.
 
 Also corrected: `set_auto_page_break(margin=18)` allowed body text to come within 18 mm of
 the bottom edge — closer than the 22 mm margin it was supposed to respect. It now breaks
@@ -334,7 +336,39 @@ any ink falls inside a margin, so this cannot ship unnoticed again. Layout fault
 invisible in the usual checks: the PDF opens, the page count is right, and the text is
 simply cut off or stranded in the margin.
 
+### Author metadata added
+
+Name and affiliation are now set in every file that needs them:
+
+| Field       | Value                                                                       |
+| ----------- | --------------------------------------------------------------------------- |
+| Full name   | Rabiul Awal Sayeed                                                          |
+| Given names | Rabiul Awal                                                                 |
+| Family name | Sayeed                                                                      |
+| Affiliation | Department of Civil Engineering, Hebei University of Science and Technology |
+| ORCID       | not supplied — field removed                                                |
+| Repository  | not supplied — link removed                                                 |
+
+`src/personalise.py` had to be corrected first. It previously encoded the author as
+"Sayed `[surname]`", which treated **Sayeed as a given name** — so it would have
+produced "Sayeed, Sayeed" in the Zenodo metadata. Names are now carried as separate
+given-names and family-name values, which is also what CITATION.cff requires. The
+script was corrected rather than the files being edited by hand, so the single
+source of truth still holds and the values cannot drift apart.
+
+Written by `--given "Rabiul Awal" --family "Sayeed" --affiliation "Department of Civil
+Engineering, Hebei University of Science and Technology"`. Re-run with a corrected
+argument to change any value; the script is idempotent.
+
+**Neither an ORCID iD nor a public repository URL was supplied.** Both fields were
+removed rather than left as placeholders, because `0000-0000-0000-0000` in a permanent
+record looks broken. Zenodo accepts a creator without either, so this is publishable as
+it stands. An ORCID is still worth registering before the deposit: it is free, takes a
+couple of minutes, and cannot be added to this DOI afterwards without publishing a new
+version.
+
 ### Fixes made while drafting §2
+
 - **Seven duplicate BibTeX keys** were found (`cipriani2024make`, `thompson2024spatial`,
   `lovelace2019stats`, `hama2019stats`, `bauernschuster2020speed`, `n.d.table`,
   `2015collision`). Duplicate keys mean one entry silently shadows another. Removed;
@@ -376,9 +410,10 @@ simply cut off or stranded in the margin.
 
 - [x] `CITATION.cff` created
 - [x] `LICENSE` created (MIT for code)
-- [ ] Add CC-BY-4.0 for the paper text and figures
-- [ ] `.zenodo.json` metadata prepared
-- [ ] Create ORCID and a public GitHub repository
+- [x] CC-BY-4.0 for the paper text and figures
+- [x] `.zenodo.json` metadata prepared
+- [x] Author, affiliation, and licences personalised via `src/personalise.py`
+- [ ] Create ORCID (optional) and a public GitHub repository
 - [ ] Link ORCID to Zenodo
 - [ ] Tag the release `v1.0.0`
 - [ ] Deposit, then record the DOI in `CITATION.cff` and the manuscript
