@@ -499,25 +499,25 @@ be.
 
 ## 10. File map
 
-| File                                  | Purpose                                                        |
-| ------------------------------------- | -------------------------------------------------------------- |
-| `plan.md`                             | Full research plan, timeline, publishing and application steps |
-| `progress.md`                         | This file                                                      |
-| `README.md`                           | How to reproduce                                               |
-| `docs/data-notes.md`                  | Data audit trail: codes, decisions, bugs, findings             |
-| `docs/prior-work-scan.txt`            | Papers that may overlap — read before claiming novelty         |
-| `docs/guide-search-report.txt`        | How the e-scooter code was located                             |
-| `docs/escooter-inspection.txt`        | Verification against the real data                             |
-| `paper/outline.md`                    | Section-by-section outline with word budget                    |
-| `paper/manuscript.md`                 | The draft                                                      |
-| `paper/manuscript.pdf`                | Rendered preprint, 16 pages                                    |
-| `paper/references.bib`                | 91 DOI-verified references, keys checked unique                |
-| `src/render_manuscript.py`            | Markdown -> PDF, resolves citations, builds the reference list |
-| `src/check_layout.py`                 | Fails if rendered text falls inside a page margin              |
-| `outputs/qa/`                         | Page rasters used to verify layout (git-ignored)               |
-| `outputs/logs/`                       | Run logs from each stage                                       |
+| File                                  | Purpose                                                         |
+| ------------------------------------- | --------------------------------------------------------------- |
+| `plan.md`                             | Full research plan, timeline, publishing and application steps  |
+| `progress.md`                         | This file                                                       |
+| `README.md`                           | How to reproduce                                                |
+| `docs/data-notes.md`                  | Data audit trail: codes, decisions, bugs, findings              |
+| `docs/prior-work-scan.txt`            | Papers that may overlap — read before claiming novelty          |
+| `docs/guide-search-report.txt`        | How the e-scooter code was located                              |
+| `docs/escooter-inspection.txt`        | Verification against the real data                              |
+| `paper/outline.md`                    | Section-by-section outline with word budget                     |
+| `paper/manuscript.md`                 | The draft                                                       |
+| `paper/manuscript.pdf`                | Rendered preprint, 16 pages                                     |
+| `paper/references.bib`                | 91 DOI-verified references, keys checked unique                 |
+| `src/render_manuscript.py`            | Markdown -> PDF, resolves citations, builds the reference list  |
+| `src/check_layout.py`                 | Fails if rendered text falls inside a page margin               |
+| `outputs/qa/`                         | Page rasters used to verify layout (git-ignored)                |
+| `outputs/logs/`                       | Run logs from each stage                                        |
 | `outputs/figures/`                    | Six 300 dpi figures, numbered in the order the paper cites them |
-| `outputs/tables/`                     | Ten result tables                                              |
-| `docs/reading-list.md`                | 100 candidates with verbatim abstracts, by manuscript section  |
-| `docs/reading-list.csv`               | The same, as a tracking sheet with a blank `read` column       |
-| `docs/literature-review-worksheet.md` | Paragraph-by-paragraph scaffold for §2 and §5.2                |
+| `outputs/tables/`                     | Ten result tables                                               |
+| `docs/reading-list.md`                | 100 candidates with verbatim abstracts, by manuscript section   |
+| `docs/reading-list.csv`               | The same, as a tracking sheet with a blank `read` column        |
+| `docs/literature-review-worksheet.md` | Paragraph-by-paragraph scaffold for §2 and §5.2                 |

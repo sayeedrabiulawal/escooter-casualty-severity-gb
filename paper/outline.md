@@ -134,6 +134,7 @@ Walk through the significant predictors in order of effect size. State the refer
 
 Table 5 (Model B), Table 6 (Model C), Figure 5 (forest plot).
 Give the key odds ratio for e-scooter vs. the reference mode, with its CI, in a sentence.
+
 ### 4.5 Sensitivity analyses
 
 Report whether conclusions held. If they did not, **say so clearly**. A paper that reports a failed robustness check honestly is more trustworthy than one that hides it.

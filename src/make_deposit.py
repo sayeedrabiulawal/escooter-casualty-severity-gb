@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 import zipfile
 from pathlib import Path
 
@@ -49,14 +50,53 @@ INCLUDE_FILES = [
 
 # Never include these, wherever they appear.
 EXCLUDE_NAMES = {".gitkeep", "crossref-results.json", "prior-work-results.json"}
-EXCLUDE_SUFFIXES = {".pyc", ".pyo"}
+EXCLUDE_SUFFIXES = {".pyc", ".pyo", ".pdf"}
 EXCLUDE_DIR_PARTS = {"__pycache__", ".venv", ".git"}
 
-ARCHIVE_NAME = "escooter-casualty-severity-gb-v1.0.0.zip"
+ARCHIVE_STEM = "escooter-casualty-severity-gb"
+
+
+def archive_name(version: str) -> str:
+    return f"{ARCHIVE_STEM}-{version}.zip"
+
+
+def git_version() -> tuple[str, bool]:
+    """Return (version label, exact_tag_exists) for the current commit.
+
+    The label was previously hardcoded, and it drifted: the archive was named
+    v1.0.0 while containing code several commits past the v1.0.1 tag. A deposit is
+    permanent, so a version that disagrees with its contents is worse than no
+    version at all. Deriving it from git makes the label truthful by construction.
+
+    An exact tag is preferred. Off a tag, `git describe` is used, which yields
+    something like v1.0.1-7-gd9b86f9 -- honest, but not usable as a release
+    version, so the caller warns.
+    """
+    def run(*args: str) -> str:
+        return subprocess.run(
+            ["git", *args],
+            cwd=PROJECT_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        ).stdout.strip()
+
+    exact = run("describe", "--tags", "--exact-match")
+    if exact:
+        return exact, True
+    described = run("describe", "--tags", "--always")
+    return described or "0.0.0-unknown", False
 
 
 def should_include(path: Path) -> bool:
     if any(part in EXCLUDE_DIR_PARTS for part in path.parts):
+        return False
+    # Generated PDFs are build artefacts, and the manuscript PDF is the property of
+    # the publication record rather than the software record. "paper" is an included
+    # directory, so without this the draft manuscript would ship inside the software
+    # archive -- which is how a working draft with author-facing notes nearly ended
+    # up in a permanent deposit. Pass --include-pdf to add it back deliberately.
+    if path.suffix == ".pdf":
         return False
     if path.suffix in EXCLUDE_SUFFIXES:
         return False
@@ -96,21 +136,20 @@ def collect(extra_files: list[Path]) -> list[Path]:
     return sorted(unique.values(), key=lambda p: str(p.relative_to(PROJECT_ROOT)))
 
 
-def build_archive(files: list[Path]) -> Path:
+def build_archive(files: list[Path], archive: Path) -> Path:
     DEPOSIT_DIR.mkdir(parents=True, exist_ok=True)
-    archive = DEPOSIT_DIR / ARCHIVE_NAME
     if archive.exists():
         archive.unlink()
 
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as bundle:
         for path in files:
-            arcname = Path("escooter-casualty-severity-gb") / path.relative_to(PROJECT_ROOT)
+            arcname = Path(ARCHIVE_STEM) / path.relative_to(PROJECT_ROOT)
             bundle.write(path, arcname=str(arcname))
 
     return archive
 
 
-def write_metadata_sheets() -> tuple[Path, Path]:
+def write_metadata_sheets(version: str, archive: str) -> tuple[Path, Path]:
     """Write field-by-field metadata for the two Zenodo records.
 
     Zenodo's manual upload form is pasted into, not scripted, so the most useful
@@ -174,7 +213,7 @@ Licence                  CC-BY-4.0
 Access                   Open
 DOI                      Leave blank - Zenodo mints it
 Publication date         Today's date
-Version                  v1.0.0
+Version                  {version}
 
 Related identifiers
 {repo_line_preprint}  isDerivedFrom          https://www.gov.uk/government/statistical-data-sets/road-safety-open-data    (dataset)
@@ -183,7 +222,7 @@ Notes                    {zenodo.get('notes', '')}
 
 FILES TO UPLOAD
   - the manuscript PDF
-  - optionally {ARCHIVE_NAME}
+  - optionally {archive}
 
 WARNING: a published Zenodo record cannot be deleted. Proofread the title and your
 name -- as you want them cited, permanently -- before clicking publish.
@@ -218,14 +257,14 @@ Keywords                 {', '.join(zenodo.get('keywords', []))}
 Language                 English
 Licence                  MIT
 Access                   Open
-Version                  v1.0.0
+Version                  {version}
 Programming language     Python
 
 Related identifiers
 {repo_line_software}  isDerivedFrom          https://www.gov.uk/government/statistical-data-sets/road-safety-open-data    (dataset)
 
 FILES TO UPLOAD
-  - {ARCHIVE_NAME}
+  - {archive}
 
 This record is complete and ready to deposit tonight.
 """
@@ -251,6 +290,16 @@ def main() -> int:
 
     extra = [Path(p) if Path(p).is_absolute() else PROJECT_ROOT / p for p in args.include_pdf]
 
+    version, exact = git_version()
+    if not exact:
+        print(
+            f"  [WARN] HEAD is not on a tag, so the version is '{version}'.\n"
+            "         A deposit is permanent, and a version like v1.0.1-7-gd9b86f9 is\n"
+            "         not a release version. Tag the commit first and rebuild:\n"
+            "             git tag v1.0.2\n"
+            "         Otherwise the archive will be labelled with a moving target."
+        )
+
     print("Collecting deposit files...")
     files = collect(extra)
     print(f"  {len(files)} file(s) selected")
@@ -258,14 +307,16 @@ def main() -> int:
     total_bytes = sum(f.stat().st_size for f in files)
     print(f"  {total_bytes / 1e6:.2f} MB uncompressed")
 
-    archive = build_archive(files)
+    archive_path = DEPOSIT_DIR / archive_name(version)
+    archive = build_archive(files, archive_path)
     digest = hashlib.sha256(archive.read_bytes()).hexdigest()
     print(f"\nArchive: {archive}")
+    print(f"  version: {version}")
     print(f"  size  : {archive.stat().st_size / 1e6:.2f} MB")
     print(f"  files : {len(files)}")
     print(f"  SHA256: {digest}")
 
-    preprint_sheet, software_sheet = write_metadata_sheets()
+    preprint_sheet, software_sheet = write_metadata_sheets(version, archive.name)
 
     print("\nMetadata sheets written:")
     print(f"  {preprint_sheet.relative_to(PROJECT_ROOT)}")

@@ -43,53 +43,45 @@ A software DOI is a normal, respected deposit. It is honest, and it is finished.
 
 ---
 
-## Good news: you don't need ORCID, an affiliation, or GitHub
+## Metadata status: done
 
-None of those are required to deposit on Zenodo. The tooling now handles their
-absence by **removing** the fields cleanly, because a placeholder like
+The author name and affiliation are already set in every file, via
+`src/personalise.py`, so there is nothing to fill in here.
+
+| Item         | Value                                                                       |
+| ------------ | --------------------------------------------------------------------------- |
+| Author       | Rabiul Awal Sayeed                                                          |
+| Affiliation  | Department of Civil Engineering, Hebei University of Science and Technology |
+| ORCID iD     | not supplied — the `orcid` field was **removed**, not left as a placeholder  |
+| GitHub repo  | not supplied — the GitHub link was removed; the code is still in the deposit |
+
+ORCID and a repository URL are **not required** by Zenodo. The tooling handles their
+absence by removing the fields cleanly, because a placeholder like
 `0000-0000-0000-0000` in a permanent record looks broken.
 
-| Thing        | Required?                   | What happens if you skip it                                  |
-| ------------ | --------------------------- | ------------------------------------------------------------ |
-| Your surname | **Yes** — the one essential | Author name would read as a placeholder                      |
-| ORCID iD     | No                          | The `orcid` field is removed from the metadata               |
-| Affiliation  | No                          | Defaults to **"Independent Researcher"**                     |
-| GitHub repo  | No                          | The GitHub link is removed; the code is still in the deposit |
+Registering an ORCID at <https://orcid.org> takes about two minutes and is genuinely
+worth doing, but note that it **cannot be added to this DOI afterwards** without
+publishing a new version. If you want it on the record, register before you deposit.
 
-**"Independent Researcher" is the correct and honest affiliation** for someone not
-currently enrolled or employed at an institution. It is a standard value on Zenodo, and
-it is what you are. Do not invent an affiliation.
-
-You can add ORCID and an affiliation later by publishing a new version — so registering
-one is worth doing when you have five minutes, but it should not hold up tonight.
+To change any value later, re-run `src/personalise.py` with the corrected argument; it
+is idempotent.
 
 ---
 
-## Step 1 — Fill in your surname (1 minute)
+## Step 1 — Optional: add an ORCID before depositing
 
-Replace `YourSurname` with your actual family name. Everything else is optional, so
-this is a complete command:
+Everything else is already set. This is the only metadata step left, and it is purely\noptional.
 
-```powershell
-cd 'd:\Apply\Sayed'
-& .venv\Scripts\python.exe src/personalise.py --dry-run --surname "YourSurname"
-```
-
-Check the dry run, then run it again **without** `--dry-run`.
-
-### If you do have an ORCID, add it
-
-Registering takes about two minutes at <https://orcid.org> and is genuinely worth doing
-— it links your publications to you permanently. If you have one:
+Registering takes about two minutes at <https://orcid.org> and is genuinely worth doing\n— it links your publications to you permanently. If you register one:
 
 ```powershell
 & .venv\Scripts\python.exe src/personalise.py `
-    --surname "YourSurname" `
+    --given "Rabiul Awal" --family "Sayeed" `
     --orcid "0000-0000-0000-0000"
 ```
 
-Add `--affiliation "University Name"` if you are currently at an institution, and
-`--github "https://github.com/you/repo"` if you make a public repo.
+Add `--github "https://github.com/you/repo"` if you make a public repo. Re-running
+replaces the existing values, so this is safe to repeat.
 
 The script **verifies** afterwards that `.zenodo.json` still parses and contains no
 placeholders. It also prints anything it could not resolve, including the manuscript
@@ -97,23 +89,33 @@ placeholders. It also prints anything it could not resolve, including the manusc
 
 ---
 
-## Step 2 — Build the archive (30 seconds)
+## Step 2 — Tag, then build the archive (1 minute)
+
+The archive name and the version field come from `git describe`, so **tag the commit
+first**. Without a tag you get a version like `v1.0.1-7-gd9b86f9`, which is honest but
+is not a release version, and that label is permanent once deposited.
 
 ```powershell
-& .venv\Scripts\python.exe src/make_deposit.py --include-pdf paper/manuscript.pdf
+git tag v1.0.0 -f      # only if the first deposit should be v1.0.0; see the note below
+& .venv\Scripts\python.exe src/make_deposit.py
 ```
 
 This produces:
 
-| File                                                       | What it is                       |
-| ---------------------------------------------------------- | -------------------------------- |
-| `outputs/deposit/escooter-casualty-severity-gb-v1.0.0.zip` | The archive to upload (~0.85 MB) |
-| `outputs/deposit/zenodo-metadata-SOFTWARE.txt`             | Field-by-field metadata to paste |
-| `outputs/deposit/zenodo-metadata-PREPRINT.txt`             | Same, for later                  |
+| File                                                          | What it is                       |
+| ------------------------------------------------------------- | -------------------------------- |
+| `outputs/deposit/escooter-casualty-severity-gb-<version>.zip` | The archive to upload (~1.4 MB)  |
+| `outputs/deposit/zenodo-metadata-SOFTWARE.txt`                | Field-by-field metadata to paste |
+| `outputs/deposit/zenodo-metadata-PREPRINT.txt`                | Same, for the preprint record    |
 
-Raw data and the derived dataset are **deliberately excluded**. They are already
-published by the Department for Transport and regenerate from the included scripts.
-That is why a 380 MB project becomes a 0.85 MB deposit.
+**The manuscript PDF is deliberately excluded** unless you pass
+`--include-pdf paper/manuscript.pdf`. The PDF belongs to the publication record, not
+the software record, and while the manuscript is a draft it still carries
+`TODO — VERIFY BEFORE SUBMITTING` notes. Do not put a draft PDF in a permanent archive.
+
+Raw data and the derived dataset are excluded too. They are already published by the
+Department for Transport and regenerate from the included scripts. That is why a
+380 MB project becomes a ~1.4 MB deposit.
 
 ---
 
@@ -122,7 +124,8 @@ That is why a 380 MB project becomes a 0.85 MB deposit.
 1. Sign in at <https://zenodo.org>. Signing in **with ORCID** is easiest if you have
    one; otherwise register an account with your email.
 2. Click **New upload**.
-3. Upload `escooter-casualty-severity-gb-v1.0.0.zip`.
+3. Upload the archive, `escooter-casualty-severity-gb-<version>.zip` — take the exact
+   filename from the build output, since it carries the version.
 4. Open `outputs/deposit/zenodo-metadata-SOFTWARE.txt` and paste each field into the
    matching box.
 5. Set **Resource type: Software**, **Licence: MIT**, **Access: Open**.
