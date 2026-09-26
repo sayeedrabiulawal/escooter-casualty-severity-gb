@@ -456,7 +456,10 @@ individuals are identifiable and no ethical approval was required.
 E-scooter casualties were **substantially younger** than pedal cyclists (median 22 vs 35
 years) and markedly more urban (94.0% vs 84.0% and 69.8%). Their KASI proportion (30.9%)
 sat between pedal cycling (25.3%) and motorcycling (33.8%), while their fatality
-proportion (0.75%) was closer to cycling (0.57%) than to motorcycling (2.08%).
+proportion (0.75%) was closer to cycling (0.57%) than to motorcycling (2.08%). Figure 1
+shows the age and sex distributions underlying those differences.
+
+![Figure 1. Age and sex distribution by mode, as a proportion within each sex. E-scooter casualties peak sharply at ages 16-24 (33.3% of male and 33.0% of female casualties) and fall away rapidly with age, whereas pedal cyclists peak at 25-34 and are spread across all adult ages. Around a quarter of e-scooter casualties were under 16 (22.3% of males, 25.2% of females), a higher share than for either pedal cycling (12.0%, 8.0%) or motorcycling (1.2%, 4.0%).](outputs/figures/fig1_age_sex.png)
 
 ### 4.2 RQ1 — counts stable, severity rising
 
@@ -468,12 +471,16 @@ proportion (0.75%) was closer to cycling (0.57%) than to motorcycling (2.08%).
 | 2024 | 1,096                | 0.316 (0.289–0.344)      |
 | 2025 | 1,162                | **0.358 (0.331–0.386)**  |
 
-Casualty counts were **flat** across the five years, varying by less than 6% around their
-mean. This does not support a narrative of rapidly escalating e-scooter casualties in
-this dataset. What changed was **severity**: the KASI proportion rose from 0.284 to
-0.358, an increase whose 2021 and 2025 confidence intervals do not overlap. The e-scooter
-KASI proportion thus converged toward the motorcycle level while pedal cycling remained
-essentially flat across the period.
+Casualty counts were **flat** across the five years (Figure 2), varying by less than 6%
+around their mean. This does not support a narrative of rapidly escalating e-scooter
+casualties in this dataset. What changed was **severity**: the KASI proportion rose from
+0.284 to 0.358 (Figure 3), an increase whose 2021 and 2025 confidence intervals do not
+overlap. The e-scooter KASI proportion thus converged toward the motorcycle level while
+pedal cycling remained essentially flat across the period.
+
+![Figure 2. Reported casualties by mode and year. E-scooter counts are essentially flat across 2021-2025, on a much smaller base than the pedal cycle and motorcycle series, both of which vary considerably more in absolute terms.](outputs/figures/fig2_trends.png)
+
+![Figure 3. KASI proportion by mode and year, with 95% Wilson score intervals. The e-scooter series rises from 0.284 in 2021 to 0.358 in 2025, and those two intervals do not overlap, whereas the pedal cycle series stays broadly level.](outputs/figures/fig3_kasi_proportion.png)
 
 Because a rising severity proportion can be produced either by more severe collisions or
 by changing reporting practice, §4.5 tests the second explanation directly.
@@ -491,7 +498,10 @@ size this test is near-certain to be significant, so the proportions — not the
 are the meaningful result. E-scooter casualties were the most urban of the three groups,
 consistent with where rental schemes operate and where private use concentrates. Counts
 by police force area were also tabulated; the largest shares fell in the forces covering
-London and other major conurbations.
+London and other major conurbations. Figure 4 shows the urban/rural split for all three
+modes.
+
+![Figure 4. Urban and rural distribution of casualties by mode. E-scooter casualties are the most urban of the three groups, and motorcyclists the least.](outputs/figures/fig4_urban_rural.png)
 
 ### 4.4 RQ3 — determinants of severity among e-scooter casualties
 
@@ -536,7 +546,9 @@ Adjusted for age, sex, speed limit, lighting, road type, urban/rural, and juncti
 
 E-scooter casualties had **1.59 times the odds of being killed or seriously injured**
 compared with pedal cyclists after adjustment, and this was higher than the motorcycle
-estimate.
+estimate. Figure 5 shows the full set of adjusted coefficients.
+
+![Figure 5. Adjusted odds ratios for killed or seriously injured (Model B, 95% CI, log scale). Rows in bold are the focal mode comparison. Reference categories, which do not appear as rows: pedal cycle, age 0-15, female, 20 mph, darkness with lights lit, dual carriageway, rural, crossroads.](outputs/figures/fig5_odds_ratios.png)
 
 The mode × speed-limit interaction was not statistically significant for e-scooters at
 any speed limit (all p > 0.29), indicating the elevated odds were not concentrated in a
@@ -557,7 +569,10 @@ by which the headline result could be an artefact, so it was tested three ways:
 
 **The estimate was stable between 1.56 and 1.64 across all three specifications.** The
 elevated severity odds for e-scooter casualties therefore cannot be attributed to the
-change in severity-recording practice.
+change in severity-recording practice. Figure 6 shows the three specifications side by
+side.
+
+![Figure 6. E-scooter and motorcycle odds ratios for KASI against pedal cycling, across three specifications. Whichever correction is applied, the e-scooter estimate stays between 1.56 and 1.64, and its interval does not reach 1 in any specification.](outputs/figures/fig6_ibr_robustness.png)
 
 The rising e-scooter KASI proportion also survived adjustment, though the gap between raw
 and adjusted proportions narrowed from +0.017 in 2021 to +0.003 in 2025 as IBR coverage
@@ -722,6 +737,10 @@ all code are archived at Zenodo: DOI `[TODO]`.
 **Code availability.** Included in the archived deposit, tag `v1.0.0`. The full pipeline reruns from raw
 data and reproduces the derived dataset byte-identically.
 
+**Figure availability.** Figures 1-6 are embedded in this manuscript and are also
+archived individually as 300 dpi PNG files under `outputs/figures/` in the deposit, so
+they can be reused or reprinted without extracting them from the PDF.
+
 **Funding.** This research received no external funding.
 
 **Conflicts of interest.** The author declares no conflict of interest.
@@ -744,7 +763,7 @@ editing).
 
 ## References
 
-Managed in `references.bib` (99 entries, each with a DOI verified against Crossref).
+Managed in `references.bib` (91 entries, each with a DOI verified against Crossref).
 Regenerate or check for prior work with:
 
 ```

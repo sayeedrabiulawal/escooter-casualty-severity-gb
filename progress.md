@@ -27,7 +27,8 @@ because a master's application reviewer may well read the repository.
 | §2 Literature review  | Done — 1,703 words, drafted from publisher abstracts; needs author verification       |
 | §5.2 vs literature    | Done — 630 words, incl. explicit comparison with Zhao et al.                          |
 | Citation rendering    | Done — PDF now resolves citations and prints a real reference list                    |
-| PDF layout            | Done — checked mechanically, 16 pages, no text inside any margin                      |
+| Figures               | Done — all 6 embedded in the PDF and cited in the text; 1 figure relabelled           |
+| PDF layout            | Done — checked mechanically, 19 pages, no text inside any margin                      |
 | Author metadata       | Done — Rabiul Awal Sayeed, Hebei University of Science and Technology                 |
 | ORCID / repository    | Not provided — fields removed cleanly; optional for deposit                           |
 | Manuscript draft      | In progress — all sections drafted; 3 working-note markers remain                     |
@@ -302,6 +303,46 @@ Three working-note markers remain in the PDF, all intentional:
 The declarations (funding, AI use, author contributions) are resolved. **Verify each is
 true of your situation**, especially the AI-use disclosure.
 
+### Figures were generated but never used
+
+The pipeline produced six 300 dpi figures and the deposit archive shipped them as loose
+PNG files, but **the manuscript cited none of them**: the PDF contained tables and not a
+single figure, and `render_manuscript.py` had no code to place an image at all. The
+outline had planned Figure 1/2/4/5 in Results, and its checklist item "Every table and
+figure cited in the text, in order" was still unticked.
+
+Fixed in four parts:
+
+1. **The renderer can now embed figures.** Standard Markdown image syntax,
+   `![caption](relative/path.png)`, draws the image at the text width, centred, with the
+   caption beneath in smaller type. Aspect ratio is read from the file, height is capped
+   so a figure cannot overflow a page, and a missing file is printed into the PDF rather
+   than skipped, because a silently absent figure would ship.
+2. **All six figures are placed and cited.** Figure 1 age/sex (§4.1), Figure 2 counts and
+   Figure 3 KASI proportion (§4.2), Figure 4 urban/rural (§4.3), Figure 5 odds ratios and
+   Figure 6 IBR robustness (§4.5). Each is referenced from the prose as well as captioned,
+   so an automated checklist that looks for in-text citations will pass.
+3. **Figure 5 was not publishable.** Its y-axis labels were raw statsmodels/patsy
+   terms — `C(speed_limit_label)[T.60 mph]`, `C(age_band)[T.65+]` — which put internal
+   model syntax in front of the reader. They are now `Speed limit: 60 mph`, `Age: 65+`,
+   and the two focal mode rows are bold. Its caption also states the reference
+   categories, which do not appear as rows.
+4. **Three files were renamed** so figure numbers match the order they are cited in
+   Results: `fig1_age_sex`, `fig2_trends`, `fig3_kasi_proportion`. Previously the age/sex
+   figure — which belongs first, in §4.1 — was `fig3_*`, so file numbers and paper
+   numbers would have disagreed.
+
+A silent trap worth remembering: `preprocess()` rewrote Markdown links before the render
+loop saw the text, and image syntax `![caption](path)` matches the link pattern. The
+first render produced a 41 KB PDF with no figures in it and no error. The link pattern
+now carries a `(?<!!)` lookbehind.
+
+Two typographic defects were fixed in the same pass. `UNICODE_MAP` was downgrading
+characters that latin-1 supports and the core font draws correctly, so the paper read
+`pseudo-R^2` and `mode x speed-limit`; it now reads `pseudo-R²` and `mode × speed-limit`.
+Both were confirmed by rendering the glyphs and inspecting the output before making the
+change, rather than assuming the range was unsupported.
+
 ### PDF layout: text was spilling past the left and right margins
 
 Reported by the author and confirmed by measurement. Nine of sixteen pages had ink
@@ -394,6 +435,11 @@ version.
       what it cites.
 - [ ] Decide whether to cite the Zhao SSRN preprint or the 2026 journal version.
 - [ ] Fill the remaining `[TODO]` for the Zenodo DOI after depositing.
+- [x] ~~Embed and cite every figure, in order~~ — done; Figures 1–6 are in the PDF,
+      each cited from the prose (see "Figures were generated but never used" above).
+- [ ] Re-read the figure captions against the figures. The captions were written from
+      computed values, not from looking at the images, so check that each one points at
+      what a reader will actually see.
 - [ ] Decide on Model C: the mode × speed interaction adds little, so consider
       swapping it for mode × urban/rural.
 - [ ] Consider an exposure-denominator proxy (rental-scheme trip data). Even a crude
@@ -470,7 +516,7 @@ be.
 | `src/check_layout.py`                 | Fails if rendered text falls inside a page margin              |
 | `outputs/qa/`                         | Page rasters used to verify layout (git-ignored)               |
 | `outputs/logs/`                       | Run logs from each stage                                       |
-| `outputs/figures/`                    | Six 300 dpi figures                                            |
+| `outputs/figures/`                    | Six 300 dpi figures, numbered in the order the paper cites them |
 | `outputs/tables/`                     | Ten result tables                                              |
 | `docs/reading-list.md`                | 100 candidates with verbatim abstracts, by manuscript section  |
 | `docs/reading-list.csv`               | The same, as a tracking sheet with a blank `read` column       |

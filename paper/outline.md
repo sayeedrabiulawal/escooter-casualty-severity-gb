@@ -105,11 +105,19 @@ Secondary analysis of fully anonymised, aggregate, publicly available data — n
 
 ## 4. Results (2,000 words)
 
+> **Note — this outline predates the finished Results.** The manuscript gained a
+> subsection for cohort characteristics and now numbers Results as 4.1 Cohort
+> characteristics, 4.2 RQ1, 4.3 RQ2, 4.4 RQ3, 4.5 RQ4 (with the sensitivity analyses
+> inside 4.5). Figures are numbered by the order they are cited, and files are named to
+> match: `fig1_age_sex`, `fig2_trends`, `fig3_kasi_proportion`, `fig4_urban_rural`,
+> `fig5_odds_ratios`, `fig6_ibr_robustness`. All six are embedded in the PDF and cited
+> in the text.
+
 Answer the RQs **in order**. One subsection each. No interpretation here — save it for the discussion.
 
 ### 4.1 RQ1 — Trends
 
-Figure 1 (counts), Figure 2 (KASI proportion with CI), Table 2.
+Figure 2 (counts), Figure 3 (KASI proportion with CI), Table 2.
 Report counts, the direction of change, and whether the change is in counts, severity, or both. Note explicitly that a rising count with a stable proportion means growth in exposure, not deteriorating safety.
 
 ### 4.2 RQ2 — Spatial distribution
@@ -126,7 +134,6 @@ Walk through the significant predictors in order of effect size. State the refer
 
 Table 5 (Model B), Table 6 (Model C), Figure 5 (forest plot).
 Give the key odds ratio for e-scooter vs. the reference mode, with its CI, in a sentence.
-
 ### 4.5 Sensitivity analyses
 
 Report whether conclusions held. If they did not, **say so clearly**. A paper that reports a failed robustness check honestly is more trustworthy than one that hides it.
@@ -192,7 +199,7 @@ No new material. Restate the contribution in two sentences, the main finding in 
 
 - [ ] Word count within the journal's limit
 - [ ] Abstract self-contained, with numbers
-- [ ] Every table and figure cited in the text, in order
+- [x] Every table and figure cited in the text, in order — Figures 1–6 embedded and cited
 - [ ] Reference list complete, DOIs where available
 - [ ] Reference style matches the target journal exactly
 - [ ] Author name, ORCID, and affiliation correct

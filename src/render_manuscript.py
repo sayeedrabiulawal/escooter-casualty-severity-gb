@@ -33,6 +33,7 @@ import unicodedata
 from pathlib import Path
 
 from fpdf import FPDF, XPos, YPos
+from PIL import Image
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -42,17 +43,27 @@ MARGIN = 22
 BODY_FONT = "Times"
 BODY_SIZE = 10.5
 
-# Characters fpdf2's core fonts (latin-1) cannot encode. Mapped rather than dropped
-# so text does not lose meaning.
+# Figures are drawn at the full text width unless that would make them taller than
+# this, in which case the height is capped and the width reduced to match. A figure
+# taller than the text area would be split across pages by fpdf2, which is worse than
+# a slightly smaller image.
+FIGURE_MAX_HEIGHT_MM = 172.0
+
+# Characters fpdf2's core fonts cannot encode, mapped rather than dropped so text does
+# not lose meaning. latin-1 covers U+00A0-U+00FF, and the core Times font has real
+# glyphs for that range: superscripts and the multiplication sign are deliberately NOT
+# listed here, because mapping them would turn "pseudo-R\u00b2" into "pseudo-R^2" and
+# "mode \u00d7 speed" into "mode x speed". Verified by rendering both and inspecting the
+# output rather than assuming the range was unsupported.
 UNICODE_MAP = {
     "\u2013": "-", "\u2014": "-", "\u2012": "-", "\u2010": "-", "\u2011": "-",
     "\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"',
-    "\u2026": "...", "\u00a0": " ", "\u2022": "-", "\u00b7": "-", "\u2032": "'",
-    "\u2033": "\"", "\u2010": "-", "\u2011": "-",
-    "\u2264": "<=", "\u2265": ">=", "\u00d7": "x", "\u2212": "-",
+    "\u2026": "...", "\u00a0": " ", "\u2022": "-", "\u2032": "'",
+    "\u2033": '"',
+    "\u2264": "<=", "\u2265": ">=", "\u2212": "-",
     "\u2192": "->", "\u2190": "<-", "\u2248": "~",
-    "\u00b5": "u", "\u03b1": "alpha", "\u03b2": "beta", "\u03c7": "chi",
-    "\u00b2": "^2", "\u00b3": "^3", "\u00bd": "1/2",
+    "\u03b1": "alpha", "\u03b2": "beta", "\u03c7": "chi",
+    "\u00bd": "1/2",
 }
 
 LATEX_SYMBOLS = {
@@ -135,7 +146,11 @@ def preprocess(text: str) -> str:
             return label
         return f"{label} ({target})"
 
-    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", render_link, text)
+    # The lookbehind is essential: image syntax is ![caption](path), which this
+    # pattern would otherwise match as a link and rewrite into plain text, so the
+    # figure line would never reach the render loop as an image. It cost a silent
+    # failure once already, where the PDF rendered with no figures in it.
+    text = re.sub(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)", render_link, text)
     # Bare angle-bracket URLs become plain URLs.
     text = re.sub(r"<((?:https?|mailto):[^>]+)>", r"\1", text)
     # Backticked code loses its ticks but keeps the text, which is what a reader needs.
@@ -388,9 +403,9 @@ def _list_item(
 def _ensure_room(pdf: FPDF, needed_mm: float) -> None:
     """Start a new page if `needed_mm` no longer fits inside the text area.
 
-    A rule or a heading near the foot of a page would otherwise be drawn inside the
-    bottom margin, outside the printable block. multi_cell breaks pages on its own,
-    but pdf.line() and a lone heading do not, so they are checked explicitly.
+    A rule, a heading, or a figure near the foot of a page would otherwise be drawn
+    inside the bottom margin, outside the printable block. multi_cell breaks pages on
+    its own, but pdf.line() and pdf.image() do not, so they are checked explicitly.
     """
     if pdf.get_y() + needed_mm > pdf.h - pdf.b_margin:
         pdf.add_page()
@@ -415,6 +430,8 @@ def _gather(lines: list[str], index: int, first: str) -> tuple[str, int]:
             break
         if is_table_row(candidate):
             break
+        if IMAGE_RE.match(candidate):
+            break
         if re.match(r"^[-*+]\s", candidate) or re.match(r"^\d+\.\s", candidate):
             break
         if re.fullmatch(r"-{3,}", candidate):
@@ -422,6 +439,52 @@ def _gather(lines: list[str], index: int, first: str) -> tuple[str, int]:
         chunks.append(candidate)
         cursor += 1
     return " ".join(chunks), cursor
+
+
+def _figure(pdf: FPDF, source: str, caption: str, width: float) -> None:
+    """Draw an image at the text width, centred, with a caption beneath it.
+
+    The aspect ratio comes from the file rather than from the Markdown, so a figure
+    can be regenerated at a different size without silently distorting it here. A
+    missing file is reported in the PDF rather than skipped, because a silently
+    absent figure is easy to miss and would ship in the preprint.
+    """
+    path = (PROJECT_ROOT / source).resolve()
+    if not path.exists():
+        print(f"  [WARN] figure not found, so it will not appear: {source}")
+        _block(pdf, width, 5, latin1_safe(f"[missing figure: {source}]"), markdown=True)
+        return
+
+    try:
+        with Image.open(path) as image:
+            px_width, px_height = image.size
+    except OSError as exc:
+        print(f"  [WARN] figure could not be read: {source} ({exc})")
+        return
+    if px_width <= 0:
+        print(f"  [WARN] figure has zero width: {source}")
+        return
+
+    aspect = px_height / px_width
+    draw_width = width
+    draw_height = draw_width * aspect
+    if draw_height > FIGURE_MAX_HEIGHT_MM:
+        draw_height = FIGURE_MAX_HEIGHT_MM
+        draw_width = draw_height / aspect
+
+    # Keep the image and its caption together on one page.
+    _ensure_room(pdf, draw_height + 14)
+    pdf.set_x(pdf.l_margin + (width - draw_width) / 2)
+    pdf.image(str(path), w=draw_width, h=draw_height)
+    pdf.ln(2.5)
+
+    if caption:
+        pdf.set_font(BODY_FONT, "", BODY_SIZE - 1.5)
+        pdf.set_text_color(60)
+        _block(pdf, width, 4.6, latin1_safe(caption), markdown=True)
+        pdf.set_text_color(0)
+        pdf.set_font(BODY_FONT, "", BODY_SIZE)
+    pdf.ln(3.5)
 
 
 class ManuscriptPDF(FPDF):
@@ -440,6 +503,12 @@ class ManuscriptPDF(FPDF):
 
 def is_table_row(line: str) -> bool:
     return line.strip().startswith("|") and line.strip().endswith("|")
+
+
+# Markdown image syntax carrying a caption: ![caption](relative/path.png). The path
+# is resolved against the project root, so figures are referenced as
+# outputs/figures/fig1_trends.png.
+IMAGE_RE = re.compile(r"^!\[(?P<caption>.*?)\]\((?P<source>[^)]+)\)\s*$")
 
 
 def is_table_separator(line: str) -> bool:
@@ -537,6 +606,19 @@ def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
             _block(pdf, width, 6.5, latin1_safe(title))
             pdf.set_font(BODY_FONT, "", BODY_SIZE)
             pdf.ln(1.2)
+            index += 1
+            continue
+
+        # Figure: ![caption](path). Checked before tables and paragraphs so an
+        # image line is never absorbed into surrounding prose.
+        image = IMAGE_RE.match(stripped)
+        if image:
+            _figure(
+                pdf,
+                image.group("source").strip(),
+                image.group("caption").strip(),
+                width,
+            )
             index += 1
             continue
 

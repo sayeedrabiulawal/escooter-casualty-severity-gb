@@ -3,12 +3,14 @@ Publication figures for the e-scooter casualty study.
 
 Run AFTER analysis.py so the derived fields and outputs exist.
 
-Produces, in outputs/figures/:
-  fig1_trends.png          Casualty counts by mode and year (RQ1)
-  fig2_kasi_proportion.png KASI proportion with 95% CI by mode and year (RQ1)
-  fig3_age_sex.png         Age and sex distribution by mode
-  fig4_urban_rural.png     Urban/rural split by mode (RQ2)
-  fig5_odds_ratios.png     Forest plot of Model B odds ratios (RQ4)
+Produces, in outputs/figures/: (N = the figure's number in the manuscript, which
+follows the order the figures are cited in Results)
+  fig1_age_sex.png         Age and sex distribution by mode (section 4.1)
+  fig2_trends.png          Casualty counts by mode and year (RQ1, section 4.2)
+  fig3_kasi_proportion.png KASI proportion with 95% CI by mode and year (RQ1, 4.2)
+  fig4_urban_rural.png     Urban/rural split by mode (RQ2, section 4.3)
+  fig5_odds_ratios.png     Forest plot of Model B odds ratios (RQ4, section 4.5)
+  fig6_ibr_robustness.png  Mode effect across IBR specifications (section 4.5)
 
 Journal-ready defaults: 300 dpi, no chartjunk, greyscale-safe palette so the
 figures survive being printed in black and white.
@@ -19,6 +21,7 @@ Usage:
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import matplotlib
@@ -47,6 +50,40 @@ STYLES = {
     "pedal_cycle": {"color": "#555555", "linestyle": "--", "marker": "s"},
     "motorcycle": {"color": "#999999", "linestyle": ":", "marker": "^"},
 }
+
+# Model terms arrive from statsmodels as patsy formula notation, for example
+#   C(speed_limit_label)[T.60 mph]
+# Printed straight onto an axis that puts internal syntax in front of the reader, so
+# each term is rewritten as "<Predictor>: <level>". The names below come from the
+# manuscript's variable list, not from the data guide, so they match the text.
+PREDICTOR_NAMES = {
+    "mode": "Mode",
+    "age_band": "Age",
+    "sex_of_casualty_label": "Sex",
+    "speed_limit_label": "Speed limit",
+    "light_conditions_label": "Lighting",
+    "road_type_label": "Road type",
+    "urban_or_rural_area_label": "Area",
+    "junction_detail_label": "Junction",
+}
+
+TERM_RE = re.compile(r"^C\((?P<column>[^)]+)\)\[T\.(?P<level>.+)\]$")
+
+
+def pretty_term(term: str) -> str:
+    """Rewrite a patsy term as a readable axis label.
+
+    An unrecognised term is returned unchanged rather than dropped, so a predictor
+    added later appears on the figure with a raw name instead of silently vanishing.
+    """
+    match = TERM_RE.match(str(term).strip())
+    if not match:
+        return str(term).strip()
+    column = match.group("column")
+    level = match.group("level")
+    if column == "mode":
+        level = LABELS.get(level, level.replace("_", " "))
+    return f"{PREDICTOR_NAMES.get(column, column)}: {level}"
 
 plt.rcParams.update(
     {
@@ -94,7 +131,7 @@ def load_data() -> tuple[pd.DataFrame, pd.DataFrame]:
 # ---------------------------------------------------------------------------
 
 
-def fig1_trends(trends: pd.DataFrame) -> None:
+def fig2_trends(trends: pd.DataFrame) -> None:
     fig, ax = plt.subplots(figsize=(5.5, 3.4))
     for mode in MODES:
         subset = trends[trends["mode"] == mode].sort_values("year")
@@ -106,10 +143,10 @@ def fig1_trends(trends: pd.DataFrame) -> None:
     ax.set_title("Reported casualties by mode")
     ax.legend()
     ax.set_xticks(sorted(trends["year"].unique()))
-    save(fig, "fig1_trends.png")
+    save(fig, "fig2_trends.png")
 
 
-def fig2_kasi_proportion(trends: pd.DataFrame) -> None:
+def fig3_kasi_proportion(trends: pd.DataFrame) -> None:
     fig, ax = plt.subplots(figsize=(5.5, 3.4))
     for mode in MODES:
         subset = trends[trends["mode"] == mode].sort_values("year")
@@ -130,10 +167,10 @@ def fig2_kasi_proportion(trends: pd.DataFrame) -> None:
     ax.set_title("KASI proportion with 95% confidence intervals")
     ax.legend()
     ax.set_xticks(sorted(trends["year"].unique()))
-    save(fig, "fig2_kasi_proportion.png")
+    save(fig, "fig3_kasi_proportion.png")
 
 
-def fig3_age_sex(frame: pd.DataFrame) -> None:
+def fig1_age_sex(frame: pd.DataFrame) -> None:
     if "age_band" not in frame.columns or "sex_of_casualty" not in frame.columns:
         print("  [skip] fig3: age_band or sex_of_casualty missing")
         return
@@ -163,7 +200,7 @@ def fig3_age_sex(frame: pd.DataFrame) -> None:
         ax.tick_params(axis="x", rotation=45)
         ax.legend(title="", fontsize=7)
     axes[0].set_ylabel("Proportion within sex")
-    save(fig, "fig3_age_sex.png")
+    save(fig, "fig1_age_sex.png")
 
 
 def fig4_urban_rural(frame: pd.DataFrame) -> None:
@@ -207,7 +244,13 @@ def fig5_odds_ratios() -> None:
     table = table.sort_values("odds_ratio")
     y = np.arange(len(table))
 
-    fig, ax = plt.subplots(figsize=(6.0, max(3.0, 0.28 * len(table))))
+    labels = [pretty_term(term) for term in table.index]
+    # Widen the figure for the labels: they can run to 50 characters, and at a fixed
+    # width they would squeeze the plotting area down to a sliver.
+    longest = max(len(label) for label in labels)
+    fig, ax = plt.subplots(
+        figsize=(max(6.0, 0.062 * longest), max(3.0, 0.30 * len(table)))
+    )
     ax.errorbar(
         table["odds_ratio"],
         y,
@@ -225,9 +268,14 @@ def fig5_odds_ratios() -> None:
     ax.axvline(1.0, color="#999999", linestyle="--", linewidth=1)
     ax.set_xscale("log")
     ax.set_yticks(y)
-    ax.set_yticklabels([str(i) for i in table.index], fontsize=7)
-    ax.set_xlabel("Odds ratio (log scale)")
-    ax.set_title("Adjusted odds ratios for KASI\n(95% CI, model B)")
+    ax.set_yticklabels(labels, fontsize=7.5)
+    # The focal comparison is mode, and it sits mid-list when sorted by odds ratio.
+    # Marking those two rows makes the headline result findable at a glance.
+    for tick, term in zip(ax.get_yticklabels(), table.index):
+        if str(term).startswith("C(mode)"):
+            tick.set_fontweight("bold")
+    ax.set_xlabel("Adjusted odds ratio for killed or seriously injured (log scale)")
+    ax.set_title("Adjusted odds ratios for KASI (95% CI, Model B)")
     ax.grid(axis="x", alpha=0.25)
     ax.grid(axis="y", visible=False)
     save(fig, "fig5_odds_ratios.png")
@@ -334,9 +382,9 @@ def main() -> int:
     print("=== Figures ===\n")
     frame, trends = load_data()
 
-    fig1_trends(trends)
-    fig2_kasi_proportion(trends)
-    fig3_age_sex(frame)
+    fig1_age_sex(frame)
+    fig2_trends(trends)
+    fig3_kasi_proportion(trends)
     fig4_urban_rural(frame)
     fig5_odds_ratios()
     fig6_ibr_robustness()

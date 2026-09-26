@@ -55,10 +55,15 @@ Step 4 is not optional. It confirms which code identifies an e-scooter **in the 
 you actually downloaded**, rather than trusting the guide or a remembered value.
 
 Step 8 is not optional either. `render_manuscript.py` resolves the `[@key]` citations
-in `manuscript.md` against `references.bib` into author-year text and generates the
-reference list from the works actually cited. `check_layout.py` then rasterises every
-page and fails if any ink landed inside a margin — layout errors are otherwise
-invisible, because the PDF still opens and simply has text cut off or stranded.
+in `manuscript.md` against `references.bib` into author-year text, generates the
+reference list from the works actually cited, and embeds every `![caption](path)`
+figure inline. `check_layout.py` then rasterises every page and fails if any ink
+landed inside a margin — layout errors are otherwise invisible, because the PDF still
+opens and simply has text cut off or stranded.
+
+Figure filenames are numbered to match the order they are cited in Results, so
+`fig1_age_sex.png` is Figure 1 of the paper. If you reorder the Results section,
+reorder the figures too, or the numbers and the files will disagree.
 
 ## Repository layout
 
@@ -96,13 +101,14 @@ invisible, because the PDF still opens and simply has text cut off or stranded.
 │   ├── render_manuscript.py   Markdown -> print-ready PDF, resolving citations
 │   └── check_layout.py        Fail if rendered text falls inside a page margin
 ├── outputs/
-│   ├── figures/               Six 300 dpi greyscale-safe figures
+│   ├── figures/               Six 300 dpi greyscale-safe figures, numbered as in the paper
 │   ├── tables/                Ten result tables as CSV
+│   ├── qa/                    Page rasters used to verify PDF layout (git-ignored)
 │   └── logs/                  Run logs from each stage
 └── paper/
     ├── outline.md             Section-by-section outline with word budget
     ├── manuscript.md          The draft
-    ├── manuscript.pdf         Rendered preprint (16 pages)
+    ├── manuscript.pdf         Rendered preprint (19 pages, 6 figures embedded)
     └── references.bib         91 DOI-verified references, keys checked unique
 ```
 
