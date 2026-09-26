@@ -1,0 +1,191 @@
+=== STATS19 preparation ===
+
+Loading collision <- dft-road-casualty-statistics-collision-last-5-years.csv
+Loading vehicle   <- dft-road-casualty-statistics-vehicle-last-5-years.csv
+Loading casualty  <- dft-road-casualty-statistics-casualty-last-5-years.csv
+
+Collision - 513,801 rows x 44 columns
+  collision_index                                100.0% populated   e.g. [202417H105824, 202517M115025, 202517L306225, 202417S104724]
+  collision_year                                 100.0% populated   e.g. [2024, 2025, 2021, 2023]
+  collision_ref_no                               100.0% populated   e.g. [17H105824, 17M115025, 17L306225, 17S104724]
+  location_easting_osgr                          100.0% populated   e.g. [448628.0, 452379.0, 459273.0, 440460.0]
+  location_northing_osgr                         100.0% populated   e.g. [533968.0, 519038.0, 523811.0, 517548.0]
+  longitude                                      100.0% populated   e.g. [-1.247, -1.19147, -1.0839, -1.37599]
+  latitude                                       100.0% populated   e.g. [54.6984, 54.56387, 54.606, 54.55157]
+  police_force                                   100.0% populated   e.g. [17, 11, 7, 4]
+  collision_severity                             100.0% populated   e.g. [2, 3, 1]
+  number_of_vehicles                             100.0% populated   e.g. [2, 3, 4, 1]
+  number_of_casualties                           100.0% populated   e.g. [1, 3, 2, 6]
+  date                                           100.0% populated   e.g. [03/10/2024, 29/11/2025, 01/06/2025, 20/04/2024]
+  day_of_week                                    100.0% populated   e.g. [5, 7, 1, 6]
+  time                                           100.0% populated   e.g. [16:06, 16:34, 22:07, 14:40]
+  local_authority_district                       100.0% populated   e.g. [-1, 241, 470, 240]
+  local_authority_ons_district                   100.0% populated   e.g. [E06000001, E06000002, E06000003, E06000004]
+  local_authority_highway                        100.0% populated   e.g. [E06000001, E06000002, E06000003, E06000004]
+  local_authority_highway_current                100.0% populated   e.g. [E06000001, E06000002, E06000003, E06000004]
+  first_road_class                               100.0% populated   e.g. [6, 3, 1, 4]
+  first_road_number                              100.0% populated   e.g. [0, 171, 1042, 66]
+  road_type                                      100.0% populated   e.g. [6, 3, 1, 7]
+  speed_limit                                    100.0% populated   e.g. [30, 60, 40, 70]
+  junction_detail_historic                       100.0% populated   e.g. [-1, 0, 1, 2]
+  junction_detail                                100.0% populated   e.g. [0, 13, -1, 19]
+  junction_control                               100.0% populated   e.g. [-1, 4, 2, 3]
+  second_road_class                              100.0% populated   e.g. [-1, 6, 3, 4]
+  second_road_number                             100.0% populated   e.g. [-1, 0, 1027, 6280]
+  pedestrian_crossing_human_control_historic     100.0% populated   e.g. [-1, 0, 9, 2]
+  pedestrian_crossing_physical_facilities_historic  100.0% populated   e.g. [-1, 5, 0, 1]
+  pedestrian_crossing                            100.0% populated   e.g. [0, 14, -1, 17]
+  light_conditions                               100.0% populated   e.g. [1, 4, 6, 7]
+  weather_conditions                             100.0% populated   e.g. [1, 6, 9, 2]
+  road_surface_conditions                        100.0% populated   e.g. [1, 2, 4, 3]
+  special_conditions_at_site                     100.0% populated   e.g. [-1, 0, 1, 9]
+  carriageway_hazards_historic                   100.0% populated   e.g. [-1, 9, 0, 2]
+  carriageway_hazards                            100.0% populated   e.g. [0, 17, 11, -1]
+  urban_or_rural_area                            100.0% populated   e.g. [1, 2, 3, -1]
+  did_police_officer_attend_scene_of_accident    100.0% populated   e.g. [1, 3, 2]
+  trunk_road_flag                                100.0% populated   e.g. [2, 1, -1]
+  lsoa_of_accident_location                      100.0% populated   e.g. [E01012005, E01012090, E01032560, E01012269]
+  ... and 4 more columns
+
+Vehicle - 937,265 rows x 32 columns
+  collision_index                                100.0% populated   e.g. [2021622100736, 2021010319369, 2021122100703, 2021471117441]
+  collision_year                                 100.0% populated   e.g. [2021, 2022, 2023, 2024]
+  collision_ref_no                               100.0% populated   e.g. [622100736, 010319369, 122100703, 471117441]
+  vehicle_reference                              100.0% populated   e.g. [1, 2, 3, 5]
+  vehicle_type                                   100.0% populated   e.g. [9, 10, 19, 8]
+  towing_and_articulation                        100.0% populated   e.g. [0, 9, -1, 5]
+  vehicle_manoeuvre_historic                     100.0% populated   e.g. [18, 99, 2, 5]
+  vehicle_manoeuvre                              100.0% populated   e.g. [19, 99, 2, 5]
+  vehicle_direction_from                         100.0% populated   e.g. [2, 9, 0, 1]
+  vehicle_direction_to                           100.0% populated   e.g. [6, 9, 0, 7]
+  vehicle_location_restricted_lane_historic      100.0% populated   e.g. [0, 99, 9, 6]
+  vehicle_location_restricted_lane               100.0% populated   e.g. [0, 99, 9, 6]
+  junction_location                              100.0% populated   e.g. [1, 9, 2, 4]
+  skidding_and_overturning                       100.0% populated   e.g. [0, 9, 1, 5]
+  hit_object_in_carriageway                      100.0% populated   e.g. [0, 99, 11, 10]
+  vehicle_leaving_carriageway                    100.0% populated   e.g. [0, 9, 1, 5]
+  hit_object_off_carriageway                     100.0% populated   e.g. [0, 99, 1, 9]
+  first_point_of_impact                          100.0% populated   e.g. [4, 9, 2, 1]
+  vehicle_left_hand_drive                        100.0% populated   e.g. [1, 9, 2, -1]
+  journey_purpose_of_driver_historic             100.0% populated   e.g. [6, 1, 3, 2]
+  journey_purpose_of_driver                      100.0% populated   e.g. [6, 1, 7, 2]
+  sex_of_driver                                  100.0% populated   e.g. [1, 2, 3, -1]
+  age_of_driver                                  100.0% populated   e.g. [35, 25, 50, 28]
+  age_band_of_driver                             100.0% populated   e.g. [6, 5, 8, 9]
+  engine_capacity_cc                             100.0% populated   e.g. [1998, 1598, 1796, 2792]
+  propulsion_code                                100.0% populated   e.g. [2, 1, -1, 12]
+  age_of_vehicle                                 100.0% populated   e.g. [10, 9, 11, 7]
+  generic_make_model                             100.0% populated   e.g. [CHEVROLET CRUZE, -1, FORD TOURNEO, HONDA NC750]
+  driver_imd_decile                              100.0% populated   e.g. [4, 2, 7, 6]
+  lsoa_of_driver                                 100.0% populated   e.g. [W01000966, E01002078, E01027646, E01031513]
+  escooter_flag                                  100.0% populated   e.g. [0, 1]
+  driver_distance_banding                        100.0% populated   e.g. [-1, 1, 3, 2]
+
+Casualty - 652,821 rows x 24 columns
+  collision_index                                100.0% populated   e.g. [2022522205219, 2021010288881, 2021010288939, 2021010289554]
+  collision_year                                 100.0% populated   e.g. [2022, 2021, 2023, 2024]
+  collision_ref_no                               100.0% populated   e.g. [522205219, 010288881, 010288939, 010289554]
+  vehicle_reference                              100.0% populated   e.g. [2, 1, 3, 4]
+  casualty_reference                             100.0% populated   e.g. [1, 2, 3, 126]
+  casualty_class                                 100.0% populated   e.g. [1, 3, 2]
+  sex_of_casualty                                100.0% populated   e.g. [1, 2, -1, 9]
+  age_of_casualty                                100.0% populated   e.g. [20, 7, 21, 11]
+  age_band_of_casualty                           100.0% populated   e.g. [4, 2, 5, 3]
+  casualty_severity                              100.0% populated   e.g. [2, 3, 1]
+  pedestrian_location                            100.0% populated   e.g. [0, 9, 8, 5]
+  pedestrian_movement                            100.0% populated   e.g. [0, 6, 4, 1]
+  car_passenger                                  100.0% populated   e.g. [0, -1, 2, 1]
+  bus_or_coach_passenger                         100.0% populated   e.g. [0, 1, -1, 3]
+  pedestrian_road_maintenance_worker             100.0% populated   e.g. [0, 2, -1, 1]
+  casualty_type                                  100.0% populated   e.g. [-1, 0, 1, 2]
+  casualty_imd_decile                            100.0% populated   e.g. [4, 1, 3, 2]
+  lsoa_of_casualty                               100.0% populated   e.g. [E01033362, E01004340, E01001823, E01000931]
+  enhanced_casualty_severity                     100.0% populated   e.g. [-1, 3, 5, 7]
+  casualty_injury_based                          100.0% populated   e.g. [0, 1]
+  casualty_adjusted_severity_serious             100.0% populated   e.g. [1.0, 0.0, 0.13352, 0.16205]
+  casualty_adjusted_severity_slight              100.0% populated   e.g. [0.0, 1.0, 0.86648, 0.83795]
+  casualty_distance_banding                      100.0% populated   e.g. [-1, 1, 2, 4]
+  escooter_flag                                  100.0% populated   e.g. [0, 1]
+
+--- Join key validation ---
+  [ OK ] 'collision_index' is unique across 513,801 collisions.
+  [ OK ] collision_index+vehicle_reference is unique across 937,265 vehicle records.
+
+--- Mode column candidates ---
+
+vehicle:
+  [ FOUND] vehicle_type
+  [ FOUND] escooter_flag
+
+casualty:
+  [ FOUND] casualty_type
+  [ FOUND] escooter_flag
+
+--- Verified code check ---
+  vehicle_type == 33  (e-scooter)        6,901 vehicles
+  vehicle_type == 1   (pedal cycle)     81,486 vehicles
+  motorcycle codes [2, 3, 4, 5, 23, 97]   87,294 vehicles
+  vehicle_type == 22  (mobility scooter, EXCLUDED)   1,628
+  [ OK ] E-scooter code confirmed present in this release.
+
+--- Building analysis dataset ---
+  Vehicle link: 652,821 of 652,821 casualties matched to their own vehicle (100.0%)
+
+--- Missing value conversion -> NaN ---
+
+  Pass 1: sentinel -1
+    casualty_type                                    61 ( 0.01%)
+    sex_of_casualty                               6,304 ( 0.97%)
+    age_of_casualty                              14,106 ( 2.16%)
+    vehicle_type                                    240 ( 0.04%)
+    vehicle_manoeuvre                            10,587 ( 1.62%)
+    sex_of_driver                                   956 ( 0.15%)
+    age_of_driver                                35,575 ( 5.45%)
+    speed_limit                                       3 ( 0.00%)
+    junction_detail                              23,043 ( 3.53%)
+    light_conditions                                 48 ( 0.01%)
+    weather_conditions                               17 ( 0.00%)
+    urban_or_rural_area                               8 ( 0.00%)
+
+  Pass 2: field-specific unknown codes (from the data guide)
+  Read unknown-code definitions for 58 field(s) from the data guide.
+    casualty_type                                 2,310 ( 0.35%)  codes=[97, 98, 99]
+    sex_of_casualty                                 129 ( 0.02%)  codes=[9]
+    vehicle_type                                  3,718 ( 0.57%)  codes=[97, 98, 99]
+    vehicle_manoeuvre                            44,466 ( 6.81%)  codes=[99]
+    sex_of_driver                                27,817 ( 4.26%)  codes=[3]
+    road_type                                    14,178 ( 2.17%)  codes=[9]
+    junction_detail                               1,521 ( 0.23%)  codes=[99]
+    light_conditions                             10,198 ( 1.56%)  codes=[7]
+    weather_conditions                           15,891 ( 2.43%)  codes=[9]
+    urban_or_rural_area                              59 ( 0.01%)  codes=[3]
+  652,821 casualty records, 42 columns
+
+--- Missingness on key analysis fields ---
+  casualty_severity           0.00% missing
+  is_kasi                     0.00% missing
+  severity_unknown            0.00% missing
+  casualty_escooter_flag      0.00% missing
+  vehicle_escooter_flag       0.00% missing
+  casualty_type               0.36% missing
+  vehicle_type                0.61% missing
+  sex_of_casualty             0.99% missing
+  age_of_casualty             2.16% missing
+  speed_limit                 0.00% missing
+  light_conditions            1.57% missing
+  road_type                   2.17% missing
+  urban_or_rural_area         0.01% missing
+  date                        0.00% missing
+
+Report these in the paper. Do not silently drop unknown values -
+quantify them and run a sensitivity analysis.
+
+Wrote D:\Apply\Sayed\data\processed\analysis_dataset.csv (117.0 MB)
+SHA-256: eb95fc2d5f27960a1a61ad7e64fe4125f73b08c069b677d48895acc1fe691634
+Record this hash in docs/data-notes.md ù it fixes the exact dataset used.
+
+Next steps:
+  1. Check the verified code counts above are non-zero.
+  2. Confirm the missingness report against docs/data-notes.md.
+  3. Record the dataset SHA-256 in docs/data-notes.md.
+  4. Then run: python src/analysis.py

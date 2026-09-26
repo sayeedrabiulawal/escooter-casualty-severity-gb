@@ -1,0 +1,122 @@
+vehicle   rows: 937,265
+casualty  rows: 652,821
+collision rows: 513,801
+
+==============================================================================
+vehicle: e-scooter related columns present?
+==============================================================================
+  Columns matching 'scooter': ['escooter_flag']
+  [OK] escooter_flag present
+
+==============================================================================
+casualty: e-scooter related columns present?
+==============================================================================
+  Columns matching 'scooter': ['escooter_flag']
+  [OK] escooter_flag present
+
+==============================================================================
+vehicle: escooter_flag coverage by year
+==============================================================================
+
+  Counts of escooter_flag by collision_year:
+escooter_flag        0     1
+  collision_year              
+  2021            185078  1365
+  2022            192131  1414
+  2023            188516  1299
+  2024            182192  1322
+  2025            182562  1386
+
+  Records flagged as e-scooter (flag == 1) per year:
+    2021:  1,365
+    2022:  1,414
+    2023:  1,299
+    2024:  1,322
+    2025:  1,386
+
+  >> Years with any e-scooter records: [2021, 2022, 2023, 2024, 2025]
+
+==============================================================================
+casualty: escooter_flag coverage by year
+==============================================================================
+
+  Counts of escooter_flag by collision_year:
+escooter_flag        0     1
+  collision_year              
+  2021            127107  1102
+  2022            134326  1154
+  2023            131860  1117
+  2024            127176  1096
+  2025            126721  1162
+
+  Records flagged as e-scooter (flag == 1) per year:
+    2021:  1,102
+    2022:  1,154
+    2023:  1,117
+    2024:  1,096
+    2025:  1,162
+
+  >> Years with any e-scooter records: [2021, 2022, 2023, 2024, 2025]
+
+==============================================================================
+Do escooter_flag and vehicle_type==33 agree?
+==============================================================================
+
+  escooter_flag == 1       n=  6,786   years=[2021, 2022, 2023, 2024, 2025]
+
+  vehicle_type == 33       n=  6,901   years=[2021, 2022, 2023, 2024, 2025]
+
+  Agreement matrix:
+    flag==1 AND type==33 :   6,786
+    flag==1 AND type!=33 :       0
+    flag!=1 AND type==33 :     115
+
+==============================================================================
+vehicle_type codes used on e-scooter records
+==============================================================================
+vehicle_type
+  33    6786
+
+==============================================================================
+Full vehicle_type code list (from the DfT data guide)
+==============================================================================
+     1  Pedal cycle
+     2  Motorcycle 50cc and under
+     3  Motorcycle 125cc and under
+     4  Motorcycle over 125cc and up to 500cc
+     5  Motorcycle over 500cc
+     8  Taxi/Private hire car
+     9  Car
+    10  Minibus (8 - 16 passenger seats)
+    11  Bus or coach (17 or more pass seats)
+    16  Ridden horse
+    17  Agricultural vehicle
+    18  Tram
+    19  Van / Goods 3.5 tonnes mgw or under
+    20  Goods over 3.5t. and under 7.5t
+    21  Goods 7.5 tonnes mgw and over
+    22  Mobility scooter   <== mobility scooter, NOT an e-scooter
+    23  Electric motorcycle
+    33  Personal powered transporter   <== PERSONAL POWERED TRANSPORTER (e-scooter)
+    90  Other vehicle
+    97  Motorcycle - unknown cc
+    98  Goods vehicle - unknown weight
+    99  Unknown vehicle type (self rep only)
+   103  Motorcycle - Scooter (1979-1998)
+   104  Motorcycle (1979-1998)
+   105  Motorcycle - Combination (1979-1998)
+   106  Motorcycle over 125cc (1999-2004)
+   108  Taxi (excluding private hire cars) (1979-2004)
+   109  Car (including private hire cars) (1979-2004)
+   110  Minibus/Motor caravan (1979-1998)
+   113  Goods over 3.5 tonnes (1979-1998)
+    -1  Data missing or out of range
+
+==============================================================================
+INTERPRETATION
+==============================================================================
+  Use whichever mechanism gives the longest defensible study period, and
+  state the choice explicitly in the paper's methods section.
+
+  Then record the decision in docs/data-notes.md and update the mode
+  definition in src/analysis.py.

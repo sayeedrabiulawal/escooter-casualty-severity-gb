@@ -1,0 +1,55 @@
+cff-version: 1.2.0
+message: "If you use this analysis or code, please cite it as below."
+title: "Severity of Powered Personal Transporter (E-Scooter) Casualties in Great Britain, 2021-2025: A Comparative Analysis with Pedal Cyclists and Motorcyclists Using STATS19 Data"
+version: 1.0.0
+date-released: "2026-11-21"
+license: MIT
+type: software
+abstract: >-
+  Analysis code and derived data for a comparative study of e-scooter casualty
+  severity in Great Britain, using UK STATS19 road safety open data with pedal
+  cyclists and motorcyclists as comparison groups. E-scooter casualties had 1.59
+  times the adjusted odds of being killed or seriously injured compared with pedal
+  cyclists (95% CI 1.49-1.69), and the estimate was robust to correction for a
+  mid-series change in severity-recording practice.
+keywords:
+  - e-scooter
+  - micromobility
+  - road safety
+  - injury severity
+  - powered personal transporter
+  - STATS19
+  - transportation engineering
+authors:
+  - family-names: "[Surname]"
+    given-names: "Sayed"
+    # TODO: uncomment and complete before releasing. Both are required for Zenodo.
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    # affiliation: "[Your University]"
+# TODO: add the Zenodo DOI after the first deposit, then re-release.
+# doi: "10.5281/zenodo.XXXXXXX"
+repository-code: "https://github.com/[username]/[repo]"
+url: "https://github.com/[username]/[repo]"
+references:
+  - type: dataset
+    title: "Road safety open data (STATS19)"
+    authors:
+      - name: "Department for Transport (United Kingdom)"
+    url: "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data"
+    notes: "Crown copyright, Open Government Licence v3.0. Not relicensed here."
+  - type: article
+    title: >-
+      England-wide injury-severity analysis of e-scooter riders using a Bayesian
+      spatial field model
+    authors:
+      - family-names: "Zhao"
+        given-names: "Jingjing"
+      - family-names: "Konstantinoudis"
+        given-names: "Garyfallos"
+      - family-names: "Heydari"
+        given-names: "Shahram"
+    doi: "10.1016/j.aap.2026.108517"
+    year: 2026
+    notes: >-
+      Prior work that overlaps this study. Cited and positioned against in the
+      manuscript; see progress.md section 6.

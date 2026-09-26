@@ -1,0 +1,1738 @@
+{
+  "GB e-scooter severity": [
+    {
+      "DOI": "10.2139/ssrn.5937116",
+      "title": [
+        "England-wide injury-severity analysis of e-scooter riders using a Bayesian spatial field model"
+      ],
+      "author": [
+        {
+          "given": "Jingjing",
+          "family": "Zhao",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Garyfallos",
+          "family": "Konstantinoudis",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Shahram",
+          "family": "Heydari",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2025
+          ]
+        ]
+      },
+      "type": "posted-content",
+      "publisher": "Elsevier BV",
+      "URL": "https://doi.org/10.2139/ssrn.5937116"
+    },
+    {
+      "DOI": "10.1007/springerreference_29845",
+      "title": [
+        "Great britain: England"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            null
+          ]
+        ]
+      },
+      "container-title": [
+        "SpringerReference"
+      ],
+      "type": "reference-entry",
+      "publisher": "Springer-Verlag",
+      "URL": "https://doi.org/10.1007/springerreference_29845"
+    },
+    {
+      "DOI": "10.32614/cran.package.stats19",
+      "title": [
+        "stats19: Work with Open Road Traffic Casualty Data from Great Britain"
+      ],
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0001-5679-6536",
+          "authenticated-orcid": true,
+          "given": "Robin",
+          "family": "Lovelace",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-9488-9183",
+          "authenticated-orcid": true,
+          "given": "Malcolm",
+          "family": "Morgan",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-1912-4890",
+          "authenticated-orcid": true,
+          "given": "Layik",
+          "family": "Hama",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-2172-5265",
+          "authenticated-orcid": true,
+          "given": "Mark",
+          "family": "Padgham",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-2623-1598",
+          "authenticated-orcid": true,
+          "given": "Blaise",
+          "family": "Kelly",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-8563-7251",
+          "authenticated-orcid": true,
+          "given": "Roger",
+          "family": "Beecham",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2019,
+            1,
+            18
+          ]
+        ]
+      },
+      "container-title": [
+        "CRAN: Contributed Packages"
+      ],
+      "type": "dataset",
+      "publisher": "The R Foundation",
+      "URL": "https://doi.org/10.32614/cran.package.stats19"
+    },
+    {
+      "publisher": "Elsevier BV",
+      "DOI": "10.1016/j.aap.2026.108517",
+      "type": "journal-article",
+      "page": "108517",
+      "title": [
+        "England-wide injury-severity analysis of e-scooter riders using a Bayesian spatial field model"
+      ],
+      "volume": "232",
+      "author": [
+        {
+          "given": "Jingjing",
+          "family": "Zhao",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-7493-9334",
+          "authenticated-orcid": false,
+          "given": "Garyfallos",
+          "family": "Konstantinoudis",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5497-4909",
+          "authenticated-orcid": false,
+          "given": "Shahram",
+          "family": "Heydari",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "Accident Analysis &amp; Prevention"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            7
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1016/j.aap.2026.108517"
+    },
+    {
+      "publisher": "Elsevier BV",
+      "issue": "6",
+      "DOI": "10.1016/j.injury.2026.113175",
+      "type": "journal-article",
+      "page": "113175",
+      "title": [
+        "Disparities in incidence and severity of electric scooter injuries in children"
+      ],
+      "volume": "57",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-2654-5442",
+          "authenticated-orcid": false,
+          "given": "Mary Beth",
+          "family": "Howard",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-6029-6902",
+          "authenticated-orcid": false,
+          "given": "Laura",
+          "family": "Prichett",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-9318-8927",
+          "authenticated-orcid": false,
+          "given": "Joanna S.",
+          "family": "Cohen",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "Injury"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            6
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1016/j.injury.2026.113175"
+    },
+    {
+      "DOI": "10.1093/ref:odnb/92824",
+      "title": [
+        "Lord chancellors of England and Great Britain (1060s\u20132022)"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2004,
+            9,
+            23
+          ]
+        ]
+      },
+      "container-title": [
+        "Oxford Dictionary of National Biography"
+      ],
+      "type": "reference-entry",
+      "publisher": "Oxford University Press",
+      "URL": "https://doi.org/10.1093/ref:odnb/92824"
+    },
+    {
+      "DOI": "10.1017/cbo9781139225342.005",
+      "title": [
+        "A COLLECTION OF THE CHRONICLES AND ANCIENT HISTORIES OF GREAT BRITAIN, NOW CALLED ENGLAND"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2012,
+            11,
+            15
+          ]
+        ]
+      },
+      "container-title": [
+        "A Collection of the Chronicles and Ancient Histories of Great Britain, Now Called England"
+      ],
+      "type": "other",
+      "page": "1-3",
+      "publisher": "Cambridge University Press",
+      "URL": "https://doi.org/10.1017/cbo9781139225342.005"
+    },
+    {
+      "DOI": "10.1017/cbo9781139225342.002",
+      "title": [
+        "A COLLECTION OF THE CHRONICLES AND ANCIENT HISTORIES OF GREAT BRITAIN, NOW CALLED ENGLAND"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2012,
+            11,
+            15
+          ]
+        ]
+      },
+      "container-title": [
+        "A Collection of the Chronicles and Ancient Histories of Great Britain, Now Called England"
+      ],
+      "type": "book-chapter",
+      "page": "iv-iv",
+      "publisher": "Cambridge University Press",
+      "URL": "https://doi.org/10.1017/cbo9781139225342.002"
+    },
+    {
+      "DOI": "10.1017/cbo9781139225359.002",
+      "title": [
+        "A COLLECTION OF THE CHRONICLE AND ANCIENT HISTORIES OF GREAT BRITAIN, NOW CALLED ENGLAND"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2012,
+            11,
+            15
+          ]
+        ]
+      },
+      "container-title": [
+        "A Collection of the Chronicles and Ancient Histories of Great Britain, Now Called England"
+      ],
+      "type": "book-chapter",
+      "page": "v-viii",
+      "publisher": "Cambridge University Press",
+      "URL": "https://doi.org/10.1017/cbo9781139225359.002"
+    },
+    {
+      "DOI": "10.2471/b09389",
+      "title": [
+        "Cancer Drugs Fund in England, United Kingdom of Great Britain and Northern Ireland, 2011\u20132016"
+      ],
+      "author": [
+        {
+          "name": "World Health Organization",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2025,
+            5,
+            30
+          ]
+        ]
+      },
+      "type": "monograph",
+      "publisher": "World Health Organization",
+      "URL": "https://doi.org/10.2471/b09389"
+    }
+  ],
+  "e-scooter vs cyclist comparison": [
+    {
+      "DOI": "10.2139/ssrn.5344792",
+      "title": [
+        "Comparison of Injury Severity and Patterns in Standing E-Scooter and Bicycle Accidents: Two-Years Experience from a Turkish Emergency Department"
+      ],
+      "author": [
+        {
+          "given": "M\u00fcge",
+          "family": "Arslan",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "ibrahim",
+          "family": "Sarbay",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Melike",
+          "family": "Mercan Baspinar",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Mustafa",
+          "family": "Calik",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2025
+          ]
+        ]
+      },
+      "type": "posted-content",
+      "publisher": "Elsevier BV",
+      "URL": "https://doi.org/10.2139/ssrn.5344792"
+    },
+    {
+      "publisher": "Turkiye Klinikleri",
+      "DOI": "10.5336/978-625-395-824-4_p489",
+      "type": "book-chapter",
+      "page": "489-494",
+      "title": [
+        "PEDIATRIC FRACTURES DUE TO BICYCLE AND SCOOTER INJURIES"
+      ],
+      "author": [
+        {
+          "given": "HAKAN",
+          "family": "\u00c7ET\u0130N",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "CURRENT CONCEPTS IN PEDIATRIC ORTHOPEDIC FRACTURES"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.5336/978-625-395-824-4_p489"
+    },
+    {
+      "publisher": "Duzce Universitesi Saglik Bilimleri Enstitusu Dergisi",
+      "issue": "3",
+      "abstract": "<jats:p xml:lang=\"en\">Aim: Micromobility includes low-speed, lightweight vehicles such as electric scooters and bicycles used for short-distance urban travel. The growing popularity of e-scooters has been accompanied by increasing accident-related emergency admissions and safety concerns. This study aimed to compare injury severity, anatomical injury patterns, and hospital-related costs between patients presenting to a tertiary emergency department (ED) following e-scooter versus bicycle accidents.Material and Methods: This retrospective observational study included 373 trauma-related ED admissions between January 2023 and January 2025, comprising 87 e-scooter (23.3%) and 286 bicycle (76.7%) accidents. Demographic characteristics, accident timing, injury types, Injury Severity Scores (ISS), and cost data were assessed. Group comparisons were performed using the Chi-square test, the independent samples t-test, or the Mann\u2013Whitney U test, as appropriate.Results: Minor trauma accounted for 81.5% of cases and major trauma for 18.5%. Major trauma was slightly more common following e-scooter accidents (20.7%) than bicycle accidents (17.8%), though the difference was not statistically significant. Upper extremity fractures were the most frequent major injury in both groups. Rib and lower extremity fractures occurred more often in e-scooter users, whereas clavicular fractures occurred more frequently among bicycle users. The mean hospital cost per patient was $44.19. Hospitalization and ICU admission rates were comparable between groups.Conclusion: In this urban Turkish ED cohort, most micromobility-related injuries were minor, with low ISS values and modest per-patient costs. Bicycle users more frequently sustained facial, clavicle, and visceral injuries. Despite similar overall injury severity, vehicle-specific injury patterns warrant further multicenter investigation.</jats:p>",
+      "DOI": "10.33631/sabd.1832841",
+      "type": "journal-article",
+      "page": "465-470",
+      "title": [
+        "Injury Severity and Patterns in E-Scooter and Bicycle Accidents: A Two-year Experience from Our Emergency Department"
+      ],
+      "volume": "16",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-0426-2142",
+          "authenticated-orcid": false,
+          "given": "M\u00fcge",
+          "family": "Arslan",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "University of Health Sciences, Gaziosmanpa\u015fa Training and Research Hospital"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-8804-2501",
+          "authenticated-orcid": false,
+          "given": "\u0130brahim",
+          "family": "Sarbay",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Health Sciences, Gaziosmanpa\u015fa Training and Research Hospital"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-3183-3438",
+          "authenticated-orcid": false,
+          "given": "Melike",
+          "family": "Mercan Ba\u015fp\u0131nar",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Health Sciences, Gaziosmanpa\u015fa Training and Research Hospital, Department of Family Medicine"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-3184-2943",
+          "authenticated-orcid": false,
+          "given": "Mustafa",
+          "family": "\u00c7al\u0131k",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Health Sciences, Gaziosmanpa\u015fa Training and Research Hospital"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "Sa\u011fl\u0131k Bilimlerinde De\u011fer"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            9,
+            22
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.33631/sabd.1832841"
+    },
+    {
+      "publisher": "Springer Science and Business Media LLC",
+      "issue": "1",
+      "abstract": "<jats:title>Abstract</jats:title>\n                  <jats:sec>\n                    <jats:title>Purpose</jats:title>\n                    <jats:p>E-bike trauma is often presumed to result in greater injury severity than conventional cycling, yet evidence remains inconsistent. Furthermore, the impact of factors such as Body Mass Index (BMI) on injury patterns is poorly understood. This study therefore evaluated whether e-bike trauma is associated with increased overall severity or distinct regional injury patterns.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Methods</jats:title>\n                    <jats:p>\n                      This retrospective single-center cohort study analyzed 261 adult trauma-bay patients (e-bike\n                      <jats:italic>n</jats:italic>\n                      \u2009=\u200937; conventional bicycle\n                      <jats:italic>n</jats:italic>\n                      \u2009=\u2009224). Primary endpoints included Injury Severity Score (ISS) and regional maximum Abbreviated Injury Scale (AIS) scores. Secondary endpoints included physiological burden (SAPS II) and resource utilization (LOS, TISS-10). Multivariate logistic regression was used to identify independent predictors of intracranial hemorrhage, e-bike riding and extremity fractures. Event counts and events-per-variable (EPV) ratios are reported for each model.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Results</jats:title>\n                    <jats:p>\n                      E-bike riders had a significantly higher BMI than conventional cyclists (26.1 vs. 24.6\u00a0kg/m\u00b2;\n                      <jats:italic>p</jats:italic>\n                      \u2009=\u20090.029). However, the absolute difference of approximately 1.5\u00a0kg/m\u00b2 is modest, and both group medians fall within the normal-to-overweight range. No statistically significant differences were observed in ISS, physiological burden, or resource utilization. Conventional cyclists had a higher proportion of patients with AIS Pelvis/Extremities\u2009\u2265\u20093 (14.3% vs. 5.4%;\n                      <jats:italic>p</jats:italic>\n                      \u2009=\u20090.045). In the multivariate binary logistic regression models, ISS (OR 1.042; 95% CI 1.014\u20131.071;\n                      <jats:italic>p</jats:italic>\n                      \u2009=\u20090.003) and BMI (OR 0.901; 95% CI 0.840\u20130.967;\n                      <jats:italic>p</jats:italic>\n                      \u2009=\u20090.004) were independent predictors of extremity fractures; age was not (OR 1.012;\n                      <jats:italic>p</jats:italic>\n                      \u2009=\u20090.134). Age was the only independent predictor of intracranial hemorrhage (ICH) (OR 1.033; 95% CI 1.017\u20131.050;\n                      <jats:italic>p</jats:italic>\n                      \u2009&lt;\u20090.001). BMI was the only independent predictor of e-bike riding (OR 1.130; 95% CI 1.037\u20131.230;\n                      <jats:italic>p</jats:italic>\n                      \u2009=\u20090.005).\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Conclusion</jats:title>\n                    <jats:p>In this selected cohort of trauma-bay patients, e-bike-related injuries showed no statistically significant difference in overall injury severity or treatment burden compared to conventional cycling injuries. Rather than being inherent to the bicycle type, injury patterns appear driven by overall trauma severity (ISS) and patient age, while higher BMI independently predicts both e-bike riding (demographic self-selection) and a reduced risk of extremity fractures. Larger prospective studies are required however, before conclusions regarding comparative e-bike injury risk can be further drawn.</jats:p>\n                  </jats:sec>",
+      "DOI": "10.1007/s00068-026-03254-w",
+      "type": "journal-article",
+      "title": [
+        "Electric bicycle versus conventional bicycle crashes: comparative analysis of injury patterns, severity, and the modifying effect of body mass index"
+      ],
+      "volume": "52",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0009-0006-3981-9314",
+          "authenticated-orcid": false,
+          "given": "D.",
+          "family": "Bauer",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "J. P.",
+          "family": "Maier",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "L.",
+          "family": "Holzfurtner",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "C.",
+          "family": "Pietsch",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "F. C.",
+          "family": "Wagner",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "H.",
+          "family": "Schmal",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "B.",
+          "family": "Erdle",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "N.",
+          "family": "M\u00fchlenfeld",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "European Journal of Trauma and Emergency Surgery"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            8,
+            14
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1007/s00068-026-03254-w"
+    },
+    {
+      "DOI": "10.1098/rsos.231650/v1/review2",
+      "title": [
+        "Review for \"Design and optimization of a high-performance multi-barrier IPMS motor for an electric scooter and bicycle\""
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            1,
+            13
+          ]
+        ]
+      },
+      "type": "peer-review",
+      "publisher": "The Royal Society",
+      "URL": "https://doi.org/10.1098/rsos.231650/v1/review2"
+    },
+    {
+      "publisher": "Wiley",
+      "issue": "6",
+      "abstract": "<jats:title>ABSTRACT</jats:title>\n                  <jats:sec>\n                    <jats:title>Aim</jats:title>\n                    <jats:p>The increasing prevalence of E\u2010Scooters has led to a rise in related injuries, particularly affecting the maxillofacial region. While bicycle\u2010related facial trauma is well\u2010documented, comparative data on E\u2010Scooter injuries remain rare. This study aims to analyze and compare facial trauma patterns between E\u2010Scooter and bicycle accidents in a metropolitan setting.</jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Materials and Methods</jats:title>\n                    <jats:p>\n                      A retrospective analysis was conducted at the Department of Oral and Maxillofacial Surgery, including patients with facial trauma from E\u2010Scooter or bicycle accidents between January 2023 and July 2024. Demographic data, accident characteristics, and injury patterns, including dental trauma, soft tissue injuries, and fractures, were analyzed using Chi\u2010squared tests, independent\n                      <jats:italic>t</jats:italic>\n                      \u2010tests, and Fisher's exact test.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Results</jats:title>\n                    <jats:p>\n                      A total of 272 patients were included, with 84 (30.9%) sustaining E\u2010Scooter\u2010related injuries and 188 (69.1%) bicycle\u2010related injuries. E\u2010Scooter users were significantly younger (36.5\u2009\u00b1\u200912.4 vs. 47.0\u2009\u00b1\u200914.2\u2009years,\n                      <jats:italic>p</jats:italic>\n                      \u2009&lt;\u20090.001) and more often female (64.3% vs. 33.0%,\n                      <jats:italic>p</jats:italic>\n                      \u2009&lt;\u20090.001). Dental trauma was frequent in both groups, but tooth avulsions were significantly more common in E\u2010Scooter accidents (53.6% vs. 19.7%,\n                      <jats:italic>p</jats:italic>\n                      \u2009&lt;\u20090.001). Mandibular and nasal fractures occurred more frequently in E\u2010Scooter users, while bicycle accidents resulted in more zygomatic and Le Fort fractures.\n                    </jats:p>\n                  </jats:sec>\n                  <jats:sec>\n                    <jats:title>Conclusion</jats:title>\n                    <jats:p>E\u2010Scooter and bicycle accidents exhibit distinct facial trauma patterns, likely due to differences in injury mechanisms. These findings highlight the need for enhanced safety regulations, including the wearing of protective gear and targeted prevention strategies for E\u2010Scooter users.</jats:p>\n                  </jats:sec>",
+      "DOI": "10.1111/edt.13074",
+      "type": "journal-article",
+      "page": "641-648",
+      "title": [
+        "Facial Trauma in E\u2010Scooter vs. Bicycle Accidents: A Retrospective Comparative Analysis in a Metropolitan Setting"
+      ],
+      "volume": "41",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-1287-9775",
+          "authenticated-orcid": false,
+          "given": "Florian",
+          "family": "Dudde",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Department of Oral and Maxillofacial Surgery Army Hospital Hamburg  Hamburg Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Lawik",
+          "family": "Revend",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Plastic Surgery Army Hospital Berlin  Berlin Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Doha",
+          "family": "Revend",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Otolaryngology Army Hospital Berlin  Berlin Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Oliver",
+          "family": "Schuck",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Oral and Maxillofacial Surgery Army Hospital Hamburg  Hamburg Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Manfred",
+          "family": "Giese",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Oral and Maxillofacial Surgery Army Hospital Hamburg  Hamburg Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "Dental Traumatology"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2025,
+            5,
+            26
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1111/edt.13074"
+    },
+    {
+      "DOI": "10.1098/rsos.231650/v1/review1",
+      "title": [
+        "Review for \"Design and optimization of a high-performance multi-barrier IPMS motor for an electric scooter and bicycle\""
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2023,
+            11,
+            28
+          ]
+        ]
+      },
+      "type": "peer-review",
+      "publisher": "The Royal Society",
+      "URL": "https://doi.org/10.1098/rsos.231650/v1/review1"
+    },
+    {
+      "publisher": "Elsevier BV",
+      "DOI": "10.1016/j.treng.2025.100404",
+      "type": "journal-article",
+      "page": "100404",
+      "title": [
+        "Longitudinal and lateral performances of electrically assisted personal mobility vehicles: A comparative field test analysis of e-scooter, e-bicycle, and e-monowheel"
+      ],
+      "volume": "22",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-0762-1956",
+          "authenticated-orcid": false,
+          "given": "Claire",
+          "family": "Naude",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Ebrahim",
+          "family": "Riahi",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Bastien",
+          "family": "Canu",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2020-5885",
+          "authenticated-orcid": false,
+          "given": "Thierry",
+          "family": "Serre",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "Transportation Engineering"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2025,
+            12
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1016/j.treng.2025.100404"
+    },
+    {
+      "DOI": "10.1098/rsos.231650/v2/decision1",
+      "title": [
+        "Decision letter for \"Design and optimization of a high-performance multi-barrier IPMS motor for an electric scooter and bicycle\""
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            2,
+            12
+          ]
+        ]
+      },
+      "type": "peer-review",
+      "publisher": "The Royal Society",
+      "URL": "https://doi.org/10.1098/rsos.231650/v2/decision1"
+    },
+    {
+      "DOI": "10.1098/rsos.231650/v1/decision1",
+      "title": [
+        "Decision letter for \"Design and optimization of a high-performance multi-barrier IPMS motor for an electric scooter and bicycle\""
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            1,
+            30
+          ]
+        ]
+      },
+      "type": "peer-review",
+      "publisher": "The Royal Society",
+      "URL": "https://doi.org/10.1098/rsos.231650/v1/decision1"
+    }
+  ],
+  "e-scooter KSI trends": [
+    {
+      "DOI": "10.64628/aa.gj6hsjkhf",
+      "title": [
+        "Who\u2019s liable if you\u2019re injured or killed riding an e-scooter?"
+      ],
+      "author": [
+        {
+          "given": "Mark",
+          "family": "Giancaspro",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "University of Adelaide"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "David",
+          "family": "Brown",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Adelaide"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2022,
+            7,
+            26
+          ]
+        ]
+      },
+      "type": "posted-content",
+      "publisher": "The Conversation",
+      "URL": "https://doi.org/10.64628/aa.gj6hsjkhf"
+    },
+    {
+      "publisher": "Ryerson University Library and Archives",
+      "abstract": "<jats:p>&lt;p&gt;This research is intended to support policy makers, infrastructure designers, road safety planners, and law enforcement in the identification of the underlying characteristics of Killed or Seriously Injured (KSI) between 2006 and 2019, as a result of Motor Vehicle Collisions (MVCs) within the City of Toronto. A combination of global &amp; local spatial autocorrelation testing approaches with Moran\u2019s I and Getis-Ord followed by statistical modelling were leveraged. Results determined KSIs within the City of Toronto were not random in nature and spatial interaction was driven by underlying factors. Global autocorrelation was only present in the Downtown Toronto Area. Stepwise Regression Modelling (SRM) revealed a multitude of explanatory factors including: land use, infrastructure density, and demographics to explain the variation within the rate of KSI occurrences with statistical significance. Data for this research was acquired through open data and academic repositories from Toronto Police Service, City of Toronto, and Statistics Canada.&lt;/p&gt;</jats:p>",
+      "DOI": "10.32920/25169675.v1",
+      "type": "posted-content",
+      "title": [
+        "Spatial Analysis of Characteristics and Influencing Factors of Killed or Seriously Injured Persons from Motor Vehicle Collisions within the City of Toronto"
+      ],
+      "author": [
+        {
+          "given": "Andrew",
+          "family": "Thompson",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            2,
+            7
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.32920/25169675.v1"
+    },
+    {
+      "publisher": "Ryerson University Library and Archives",
+      "abstract": "<jats:p>&lt;p&gt;This research is intended to support policy makers, infrastructure designers, road safety planners, and law enforcement in the identification of the underlying characteristics of Killed or Seriously Injured (KSI) between 2006 and 2019, as a result of Motor Vehicle Collisions (MVCs) within the City of Toronto. A combination of global &amp; local spatial autocorrelation testing approaches with Moran\u2019s I and Getis-Ord followed by statistical modelling were leveraged. Results determined KSIs within the City of Toronto were not random in nature and spatial interaction was driven by underlying factors. Global autocorrelation was only present in the Downtown Toronto Area. Stepwise Regression Modelling (SRM) revealed a multitude of explanatory factors including: land use, infrastructure density, and demographics to explain the variation within the rate of KSI occurrences with statistical significance. Data for this research was acquired through open data and academic repositories from Toronto Police Service, City of Toronto, and Statistics Canada.&lt;/p&gt;</jats:p>",
+      "DOI": "10.32920/25169675",
+      "type": "posted-content",
+      "title": [
+        "Spatial Analysis of Characteristics and Influencing Factors of Killed or Seriously Injured Persons from Motor Vehicle Collisions within the City of Toronto"
+      ],
+      "author": [
+        {
+          "given": "Andrew",
+          "family": "Thompson",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            2,
+            7
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.32920/25169675"
+    },
+    {
+      "DOI": "10.26616/nioshfffacef201036",
+      "title": [
+        "One career fire fighter killed, another seriously injured when struck by a vehicle while working at a grass fire along an interstate highway - South Carolina."
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2012,
+            1,
+            20
+          ]
+        ]
+      },
+      "type": "report",
+      "publisher": "U.S. Department of Health and Human Services, Public Health Service, Centers for Disease Control and Prevention, National Institute for Occupational Safety and Health",
+      "URL": "https://doi.org/10.26616/nioshfffacef201036"
+    },
+    {
+      "DOI": "10.2139/ssrn.5389985",
+      "title": [
+        "Modelling the Impact of Bikeability Cycle Training on the Number of People Killed or Seriously Injured on UK Roads"
+      ],
+      "author": [
+        {
+          "given": "Daniel  Tony",
+          "family": "Bishop",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Nathan",
+          "family": "Harpham",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Rosa",
+          "family": "Shirm",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Ilaria",
+          "family": "Marino",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Lynne",
+          "family": "Smith",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "George",
+          "family": "Beard",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2025
+          ]
+        ]
+      },
+      "type": "posted-content",
+      "publisher": "Elsevier BV",
+      "URL": "https://doi.org/10.2139/ssrn.5389985"
+    },
+    {
+      "publisher": "Elsevier BV",
+      "DOI": "10.1016/j.aap.2015.12.022",
+      "type": "journal-article",
+      "page": "175-186",
+      "title": [
+        "How would increasing seat belt use affect the number of killed or seriously injured light vehicle occupants?"
+      ],
+      "volume": "88",
+      "author": [
+        {
+          "given": "Alena",
+          "family": "H\u00f8ye",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "Accident Analysis &amp; Prevention"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2016,
+            3
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1016/j.aap.2015.12.022"
+    },
+    {
+      "DOI": "10.26616/nioshfffacef200043",
+      "title": [
+        "A volunteer assistant chief was seriously injured and two volunteer fire fighters were injured while fighting a townhouse fire - Delaware."
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2001,
+            3,
+            7
+          ]
+        ]
+      },
+      "type": "report",
+      "publisher": "U.S. Department of Health and Human Services, Public Health Service, Centers for Disease Control and Prevention, National Institute for Occupational Safety and Health",
+      "URL": "https://doi.org/10.26616/nioshfffacef200043"
+    },
+    {
+      "DOI": "10.1163/2210-7975_hrd-9973-20190004",
+      "title": [
+        "NEPAL: Man seriously injured due to police torture"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            null
+          ]
+        ]
+      },
+      "container-title": [
+        "Human Rights Documents Online"
+      ],
+      "type": "dataset",
+      "publisher": "Walter de Gruyter GmbH",
+      "URL": "https://doi.org/10.1163/2210-7975_hrd-9973-20190004"
+    },
+    {
+      "DOI": "10.26616/nioshfffacef201619",
+      "title": [
+        "One firefighter killed and two firefighters injured in fire apparatus crash - Mississippi."
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2020,
+            8,
+            15
+          ]
+        ]
+      },
+      "type": "report",
+      "publisher": "U.S. Department of Health and Human Services, Public Health Service, Centers for Disease Control and Prevention, National Institute for Occupational Safety and Health",
+      "URL": "https://doi.org/10.26616/nioshfffacef201619"
+    },
+    {
+      "DOI": "10.26616/nioshfffacef200921",
+      "title": [
+        "Career fire fighter seriously injured from collapse of bowstring truss roof - California."
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2010,
+            12,
+            1
+          ]
+        ]
+      },
+      "type": "report",
+      "publisher": "U.S. Department of Health and Human Services, Public Health Service, Centers for Disease Control and Prevention, National Institute for Occupational Safety and Health",
+      "URL": "https://doi.org/10.26616/nioshfffacef200921"
+    }
+  ],
+  "powered transporter casualties": [
+    {
+      "DOI": "10.2139/ssrn.4574912",
+      "title": [
+        "A Spatiotemporal Analysis of Personal Casualty\u00a0Accidents in China's Electric Power Industry"
+      ],
+      "author": [
+        {
+          "given": "Shu",
+          "family": "Chen",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Dianxue",
+          "family": "Wang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Xinkai",
+          "family": "Zhang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Bo",
+          "family": "Shao",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Kunyu",
+          "family": "Cao",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Zhi",
+          "family": "Li",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2023
+          ]
+        ]
+      },
+      "type": "posted-content",
+      "publisher": "Elsevier BV",
+      "URL": "https://doi.org/10.2139/ssrn.4574912"
+    },
+    {
+      "DOI": "10.1021/acs.nanolett.4c01884.s001",
+      "title": [
+        "Light-Powered Propeller-like Transporter for Boosted Transmembrane Ion Transport"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            null
+          ]
+        ]
+      },
+      "type": "component",
+      "publisher": "American Chemical Society (ACS)",
+      "URL": "https://doi.org/10.1021/acs.nanolett.4c01884.s001"
+    },
+    {
+      "publisher": "Elsevier BV",
+      "abstract": "<jats:p>Cycles have come to existence from 1800\u2019s onwards and it was widely used for personal transportation ever since.  Cycle usages, on the other hand, are limited when it comes too indoors. However, we need to lessen the physical effort of a person to make the ride easy and also green enough to save the environment against pollution. The objective of this work is to design, fabricate and analyse the innovative personal transport vehicle. The vehicle consists of four wheels on both sides of a frame. This system uses four wheels to increase the balancing and spacing of the vehicle. The further system consists of a horizontal platform which is driven by an electric motor and the rider comfortably stands on the platform. The vertical handlebar is used for controlling the vehicle with the help of throttle accelerator. The Battery, DC Motor and Motor controller are also used in this system. 350 Watt power of motor makes this vehicle capable of bearing the human load. The energy source required for the Segway is rechargeable batteries, which can be charged by usual AC outlets with suitable chargers. This work is deliberate to provide pollution less vehicle on campus, which is manufactured with cost reduction in mind, without compromising towards the safety and other essential features of the existing Segway. The personal transport vehicle is designed and modeled through Creo Parametric designing software and analysed through ANSYS analysis software. Since fossil fuels are depleting from the environment, the future depends upon renewable resources. The personal transport vehicle can build a hybrid. Attaching the solar panels or using any other means of renewable sources for proving energy to the personal transport vehicle. Hybrid technology will play an active role in personal electric vehicles in the future.</jats:p>",
+      "DOI": "10.2139/ssrn.3432326",
+      "type": "posted-content",
+      "title": [
+        "Design and Analysis of Motorized Personal Transporter"
+      ],
+      "author": [
+        {
+          "given": "Gowthaman",
+          "family": "B",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Mariappan",
+          "family": "K",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Mohan Raj",
+          "family": "M",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Monish Kumar",
+          "family": "A",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Nandha Kumar",
+          "family": "P",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2019
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.2139/ssrn.3432326"
+    },
+    {
+      "publisher": "SAGE Publications",
+      "issue": "11",
+      "DOI": "10.1177/194336548202701136",
+      "type": "journal-article",
+      "page": "1432-1432",
+      "title": [
+        "Powered Transporter"
+      ],
+      "volume": "27",
+      "container-title": [
+        "Respiratory Care"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            1982,
+            11
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1177/194336548202701136"
+    },
+    {
+      "publisher": "Elsevier BV",
+      "issue": "13",
+      "DOI": "10.1016/j.heliyon.2024.e33855",
+      "type": "journal-article",
+      "page": "e33855",
+      "title": [
+        "A spatiotemporal analysis of personal casualty accidents in China's electric power industry"
+      ],
+      "volume": "10",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-7001-7735",
+          "authenticated-orcid": false,
+          "given": "Shu",
+          "family": "Chen",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Dianxue",
+          "family": "Wang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Xinkai",
+          "family": "Zhang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Bo",
+          "family": "Shao",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Kunyu",
+          "family": "Cao",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Zhi",
+          "family": "Li",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "Heliyon"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            7
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1016/j.heliyon.2024.e33855"
+    },
+    {
+      "publisher": "San Jose State University Library - DIGITAL COMMONS JOURNALS",
+      "issue": "1",
+      "DOI": "10.31979/2381-3679.2015.050107",
+      "type": "journal-article",
+      "title": [
+        "Attempted Repeal of Personal Casualty Loss Deduction"
+      ],
+      "volume": "5",
+      "author": [
+        {
+          "given": "Nidhi",
+          "family": "Jain",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "None"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "The Contemporary Tax Journal"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2015,
+            7,
+            1
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.31979/2381-3679.2015.050107"
+    },
+    {
+      "publisher": "Routledge",
+      "DOI": "10.4324/9781032677767-12",
+      "type": "book-chapter",
+      "page": "109-139",
+      "title": [
+        "Focus on Mass Casualty Events"
+      ],
+      "author": [
+        {
+          "given": "Charles E.",
+          "family": "Goslin",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "container-title": [
+        "Understanding Personal Security and Risk"
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            3,
+            3
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.4324/9781032677767-12"
+    }
+  ]
+}

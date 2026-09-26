@@ -1,0 +1,2 @@
+Raw STATS19 CSVs land here. Not committed (see .gitignore).
+Re-create with: python src/download_data.py

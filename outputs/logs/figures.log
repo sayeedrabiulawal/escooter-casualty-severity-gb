@@ -1,0 +1,21 @@
+python.exe : D:\Apply\Sayed\src\figures.py:313: UserWarning: No artists with 
+labels found to put in legend.  Note that artists whose label start with an 
+underscore are ignored when legend() is called with no argument.
+At line:1 char:64
++ ... igures')) { & .venv\Scripts\python.exe "src/$s.py" > "outputs/logs/$s ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (D:\Apply\Sayed\...th no argument. 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  ax.legend(title="", loc="lower right")
+=== Figures ===
+
+  saved -> D:\Apply\Sayed\outputs\figures\fig1_trends.png
+  saved -> D:\Apply\Sayed\outputs\figures\fig2_kasi_proportion.png
+  saved -> D:\Apply\Sayed\outputs\figures\fig3_age_sex.png
+  saved -> D:\Apply\Sayed\outputs\figures\fig4_urban_rural.png
+  saved -> D:\Apply\Sayed\outputs\figures\fig5_odds_ratios.png
+  saved -> D:\Apply\Sayed\outputs\figures\fig6_ibr_robustness.png
+
+Done. Figures are 300 dpi and greyscale-safe.

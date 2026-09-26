@@ -1,0 +1,30 @@
+# Raw data — 255 MB, reproducible via src/download_data.py. Never commit this.
+data/raw/*
+!data/raw/.gitkeep
+
+# Derived dataset — ~112 MB, which exceeds GitHub's file size limits.
+# Rebuilt by src/prepare_data.py from the raw files.
+data/processed/*
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Writing build artefacts
+paper/*.pdf
+paper/*.aux
+paper/*.log
+paper/*.out

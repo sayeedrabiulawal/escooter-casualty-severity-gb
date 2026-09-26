@@ -1,0 +1,193 @@
+Guide already present: D:\Apply\Sayed\docs\data-guide\dft-stats19-data-guide.xlsx
+Sheets found (2): 2024_code_list, 2011_to_2024_conversion
+
+==============================================================================
+SEARCH: "powered personal"  ->  0 matching cell(s)
+==============================================================================
+  (no matches)
+
+==============================================================================
+SEARCH: "e-scooter"  ->  4 matching cell(s)
+==============================================================================
+
+  sheet='2024_code_list'  row=1677
+    | vehicle | driver_imd_decile | -1 | Data missing or out of range | field introduced in 2016
+    | vehicle | lsoa_of_driver | England and Wales only. See Office for National Statistics (ONS) guidance: https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography
+    | vehicle | escooter_flag | 1 | Vehicle was an e-scooter | field introduced in 2023
+    | vehicle | escooter_flag | 0 | Vehicle was not an e-scooter | field introduced in 2023
+    | vehicle | driver_distance_banding | 1 | Collision occurred within 5km of drivers home postcode | field introduced in 2023
+
+  sheet='2024_code_list'  row=1678
+    | vehicle | lsoa_of_driver | England and Wales only. See Office for National Statistics (ONS) guidance: https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography
+    | vehicle | escooter_flag | 1 | Vehicle was an e-scooter | field introduced in 2023
+    | vehicle | escooter_flag | 0 | Vehicle was not an e-scooter | field introduced in 2023
+    | vehicle | driver_distance_banding | 1 | Collision occurred within 5km of drivers home postcode | field introduced in 2023
+    | vehicle | driver_distance_banding | 2 | Collision occurred between 5.001 and 10km of drivers home postcode | field introduced in 2023
+
+  sheet='2024_code_list'  row=1814
+    | casualty | casualty_distance_banding | 5 | Collision occurred over 100km of casualties home postcode | field introduced in 2023
+    | casualty | casualty_distance_banding | -1 | Data missing or out of range | field introduced in 2023
+    | casualty | escooter_flag | 1 | Casualty was using an e-scooter | field introduced in 2025
+    | casualty | escooter_flag | 0 | Casualty was not using an e-scooter | field introduced in 2025
+    | historical_revisions | accident_index | unique value for each accident. The accident_index combines the accident_year and accident_ref_no to form a unique ID. It can be used to join to Vehicle and Casualty
+
+  sheet='2024_code_list'  row=1815
+    | casualty | casualty_distance_banding | -1 | Data missing or out of range | field introduced in 2023
+    | casualty | escooter_flag | 1 | Casualty was using an e-scooter | field introduced in 2025
+    | casualty | escooter_flag | 0 | Casualty was not using an e-scooter | field introduced in 2025
+    | historical_revisions | accident_index | unique value for each accident. The accident_index combines the accident_year and accident_ref_no to form a unique ID. It can be used to join to Vehicle and Casualty
+    | historical_revisions | accident_year
+
+==============================================================================
+SEARCH: "escooter"  ->  4 matching cell(s)
+==============================================================================
+
+  sheet='2024_code_list'  row=1677
+    | vehicle | driver_imd_decile | -1 | Data missing or out of range | field introduced in 2016
+    | vehicle | lsoa_of_driver | England and Wales only. See Office for National Statistics (ONS) guidance: https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography
+    | vehicle | escooter_flag | 1 | Vehicle was an e-scooter | field introduced in 2023
+    | vehicle | escooter_flag | 0 | Vehicle was not an e-scooter | field introduced in 2023
+    | vehicle | driver_distance_banding | 1 | Collision occurred within 5km of drivers home postcode | field introduced in 2023
+
+  sheet='2024_code_list'  row=1678
+    | vehicle | lsoa_of_driver | England and Wales only. See Office for National Statistics (ONS) guidance: https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography
+    | vehicle | escooter_flag | 1 | Vehicle was an e-scooter | field introduced in 2023
+    | vehicle | escooter_flag | 0 | Vehicle was not an e-scooter | field introduced in 2023
+    | vehicle | driver_distance_banding | 1 | Collision occurred within 5km of drivers home postcode | field introduced in 2023
+    | vehicle | driver_distance_banding | 2 | Collision occurred between 5.001 and 10km of drivers home postcode | field introduced in 2023
+
+  sheet='2024_code_list'  row=1814
+    | casualty | casualty_distance_banding | 5 | Collision occurred over 100km of casualties home postcode | field introduced in 2023
+    | casualty | casualty_distance_banding | -1 | Data missing or out of range | field introduced in 2023
+    | casualty | escooter_flag | 1 | Casualty was using an e-scooter | field introduced in 2025
+    | casualty | escooter_flag | 0 | Casualty was not using an e-scooter | field introduced in 2025
+    | historical_revisions | accident_index | unique value for each accident. The accident_index combines the accident_year and accident_ref_no to form a unique ID. It can be used to join to Vehicle and Casualty
+
+  sheet='2024_code_list'  row=1815
+    | casualty | casualty_distance_banding | -1 | Data missing or out of range | field introduced in 2023
+    | casualty | escooter_flag | 1 | Casualty was using an e-scooter | field introduced in 2025
+    | casualty | escooter_flag | 0 | Casualty was not using an e-scooter | field introduced in 2025
+    | historical_revisions | accident_index | unique value for each accident. The accident_index combines the accident_year and accident_ref_no to form a unique ID. It can be used to join to Vehicle and Casualty
+    | historical_revisions | accident_year
+
+==============================================================================
+SEARCH: "electric scooter"  ->  0 matching cell(s)
+==============================================================================
+  (no matches)
+
+==============================================================================
+SEARCH: "scooter"  ->  12 matching cell(s)
+==============================================================================
+
+  sheet='2024_code_list'  row=1438
+    | vehicle | vehicle_type | 20 | Goods over 3.5t. and under 7.5t | category introduced in 1999 specification
+    | vehicle | vehicle_type | 21 | Goods 7.5 tonnes mgw and over | category introduced in 1999 specification
+    | vehicle | vehicle_type | 22 | Mobility scooter | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 23 | Electric motorcycle | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 33 | Personal powered transporter | cateogry introduced in 2024 specification
+
+  sheet='2024_code_list'  row=1445
+    | vehicle | vehicle_type | 98 | Goods vehicle - unknown weight | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 99 | Unknown vehicle type (self rep only) | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 103 | Motorcycle - Scooter (1979-1998) | cateogory discontinued in 1999 specification
+    | vehicle | vehicle_type | 104 | Motorcycle (1979-1998) | cateogory discontinued in 1999 specification
+    | vehicle | vehicle_type | 105 | Motorcycle - Combination (1979-1998) | cateogory discontinued in 1999 specification
+
+  sheet='2024_code_list'  row=1677
+    | vehicle | driver_imd_decile | -1 | Data missing or out of range | field introduced in 2016
+    | vehicle | lsoa_of_driver | England and Wales only. See Office for National Statistics (ONS) guidance: https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography
+    | vehicle | escooter_flag | 1 | Vehicle was an e-scooter | field introduced in 2023
+    | vehicle | escooter_flag | 0 | Vehicle was not an e-scooter | field introduced in 2023
+    | vehicle | driver_distance_banding | 1 | Collision occurred within 5km of drivers home postcode | field introduced in 2023
+
+  sheet='2024_code_list'  row=1677
+    | vehicle | driver_imd_decile | -1 | Data missing or out of range | field introduced in 2016
+    | vehicle | lsoa_of_driver | England and Wales only. See Office for National Statistics (ONS) guidance: https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography
+    | vehicle | escooter_flag | 1 | Vehicle was an e-scooter | field introduced in 2023
+    | vehicle | escooter_flag | 0 | Vehicle was not an e-scooter | field introduced in 2023
+    | vehicle | driver_distance_banding | 1 | Collision occurred within 5km of drivers home postcode | field introduced in 2023
+
+  sheet='2024_code_list'  row=1678
+    | vehicle | lsoa_of_driver | England and Wales only. See Office for National Statistics (ONS) guidance: https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography
+    | vehicle | escooter_flag | 1 | Vehicle was an e-scooter | field introduced in 2023
+    | vehicle | escooter_flag | 0 | Vehicle was not an e-scooter | field introduced in 2023
+    | vehicle | driver_distance_banding | 1 | Collision occurred within 5km of drivers home postcode | field introduced in 2023
+    | vehicle | driver_distance_banding | 2 | Collision occurred between 5.001 and 10km of drivers home postcode | field introduced in 2023
+
+  sheet='2024_code_list'  row=1678
+    | vehicle | lsoa_of_driver | England and Wales only. See Office for National Statistics (ONS) guidance: https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography
+    | vehicle | escooter_flag | 1 | Vehicle was an e-scooter | field introduced in 2023
+    | vehicle | escooter_flag | 0 | Vehicle was not an e-scooter | field introduced in 2023
+    | vehicle | driver_distance_banding | 1 | Collision occurred within 5km of drivers home postcode | field introduced in 2023
+    | vehicle | driver_distance_banding | 2 | Collision occurred between 5.001 and 10km of drivers home postcode | field introduced in 2023
+
+  ... and 6 more match(es)
+
+==============================================================================
+SEARCH: "pedal cycle"  ->  1 matching cell(s)
+==============================================================================
+
+  sheet='2024_code_list'  row=1423
+    | vehicle | collision_ref_no | In year id used by the police to reference a collision. It is not unique outside of the year, use collision_index for linking to other years
+    | vehicle | vehicle_reference | unique value for each vehicle in a singular accident. Can be used to join a Casualty to a vehicle
+    | vehicle | vehicle_type | 1 | Pedal cycle
+    | vehicle | vehicle_type | 2 | Motorcycle 50cc and under
+    | vehicle | vehicle_type | 3 | Motorcycle 125cc and under | category introduced in 1999 specification
+
+==============================================================================
+SEARCH: "motorcycle"  ->  22 matching cell(s)
+==============================================================================
+
+  sheet='2024_code_list'  row=1424
+    | vehicle | vehicle_reference | unique value for each vehicle in a singular accident. Can be used to join a Casualty to a vehicle
+    | vehicle | vehicle_type | 1 | Pedal cycle
+    | vehicle | vehicle_type | 2 | Motorcycle 50cc and under
+    | vehicle | vehicle_type | 3 | Motorcycle 125cc and under | category introduced in 1999 specification
+    | vehicle | vehicle_type | 4 | Motorcycle over 125cc and up to 500cc | category introduced in 2005 specification
+
+  sheet='2024_code_list'  row=1425
+    | vehicle | vehicle_type | 1 | Pedal cycle
+    | vehicle | vehicle_type | 2 | Motorcycle 50cc and under
+    | vehicle | vehicle_type | 3 | Motorcycle 125cc and under | category introduced in 1999 specification
+    | vehicle | vehicle_type | 4 | Motorcycle over 125cc and up to 500cc | category introduced in 2005 specification
+    | vehicle | vehicle_type | 5 | Motorcycle over 500cc | category introduced in 2005 specification
+
+  sheet='2024_code_list'  row=1426
+    | vehicle | vehicle_type | 2 | Motorcycle 50cc and under
+    | vehicle | vehicle_type | 3 | Motorcycle 125cc and under | category introduced in 1999 specification
+    | vehicle | vehicle_type | 4 | Motorcycle over 125cc and up to 500cc | category introduced in 2005 specification
+    | vehicle | vehicle_type | 5 | Motorcycle over 500cc | category introduced in 2005 specification
+    | vehicle | vehicle_type | 8 | Taxi/Private hire car | category introduced in 2005 specification
+
+  sheet='2024_code_list'  row=1427
+    | vehicle | vehicle_type | 3 | Motorcycle 125cc and under | category introduced in 1999 specification
+    | vehicle | vehicle_type | 4 | Motorcycle over 125cc and up to 500cc | category introduced in 2005 specification
+    | vehicle | vehicle_type | 5 | Motorcycle over 500cc | category introduced in 2005 specification
+    | vehicle | vehicle_type | 8 | Taxi/Private hire car | category introduced in 2005 specification
+    | vehicle | vehicle_type | 9 | Car | category introduced in 2005 specification
+
+  sheet='2024_code_list'  row=1439
+    | vehicle | vehicle_type | 21 | Goods 7.5 tonnes mgw and over | category introduced in 1999 specification
+    | vehicle | vehicle_type | 22 | Mobility scooter | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 23 | Electric motorcycle | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 33 | Personal powered transporter | cateogry introduced in 2024 specification
+    | vehicle | vehicle_type | 90 | Other vehicle | cateogry introduced in 2011 specification
+
+  sheet='2024_code_list'  row=1442
+    | vehicle | vehicle_type | 33 | Personal powered transporter | cateogry introduced in 2024 specification
+    | vehicle | vehicle_type | 90 | Other vehicle | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 97 | Motorcycle - unknown cc | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 98 | Goods vehicle - unknown weight | cateogry introduced in 2011 specification
+    | vehicle | vehicle_type | 99 | Unknown vehicle type (self rep only) | cateogry introduced in 2011 specification
+
+  ... and 16 more match(es)
+
+==============================================================================
+NEXT STEP
+==============================================================================
+  From the output above, record the exact vehicle_type code for
+  'powered personal transporter / e-scooter' (and for pedal cycle and
+  motorcycle) in docs/data-notes.md.
+
+  Then fill in VEHICLE_CODES in src/analysis.py and the PPT constants in
+  src/prepare_data.py, and set PPT_UNKNOWN = False.
