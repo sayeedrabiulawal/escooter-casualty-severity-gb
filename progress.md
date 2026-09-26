@@ -348,4 +348,4 @@ be.
 | `paper/references.bib`         | 99 DOI-verified references                                     |
 | `outputs/logs/`                | Run logs from each stage                                       |
 | `outputs/figures/`             | Six 300 dpi figures                                            |
-| `outputs/tables/`              | Eleven result tables                                           |
+| `outputs/tables/`              | Ten result tables                                              |

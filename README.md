@@ -85,7 +85,7 @@ you actually downloaded**, rather than trusting the guide or a remembered value.
 │   └── figures.py             Publication figures
 ├── outputs/
 │   ├── figures/               Six 300 dpi greyscale-safe figures
-│   ├── tables/                Eleven result tables as CSV
+│   ├── tables/                Ten result tables as CSV
 │   └── logs/                  Run logs from each stage
 └── paper/
     ├── outline.md             Section-by-section outline with word budget
@@ -118,10 +118,10 @@ or seriously injured compared with pedal cyclists (95% CI 1.49-1.69)**, versus 1
 The estimate is **robust to the concurrent change in severity reporting**, which is the
 most plausible competing explanation:
 
-| Specification | E-scooter OR (95% CI) |
-|---|---|
-| Raw outcome | 1.587 (1.490 - 1.690) |
-| DfT severity-adjusted outcome | 1.562 (1.468 - 1.663) |
+| Specification                      | E-scooter OR (95% CI) |
+| ---------------------------------- | --------------------- |
+| Raw outcome                        | 1.587 (1.490 - 1.690) |
+| DfT severity-adjusted outcome      | 1.562 (1.468 - 1.663) |
 | Injury-based-reporting forces only | 1.635 (1.502 - 1.780) |
 
 **Important:** no exposure denominator exists for this mode, so these are severity
@@ -129,7 +129,7 @@ proportions among casualties, **not** estimates of risk per trip or per kilometr
 
 ## Prior work — read before claiming novelty
 
-Zhao et al. (2026), *Accident Analysis & Prevention* (DOI 10.1016/j.aap.2026.108517),
+Zhao et al. (2026), _Accident Analysis & Prevention_ (DOI 10.1016/j.aap.2026.108517),
 published an England-wide e-scooter injury-severity study using a Bayesian spatial field
 model. This project overlaps it, and the novelty claim is narrowed accordingly: the
 distinct contributions are the three-way mode comparison including motorcyclists, the

@@ -15,12 +15,12 @@ Full licence text: <https://creativecommons.org/licenses/by/4.0/legalcode>
 
 ## Which licence applies to what
 
-| Material | Licence |
-|---|---|
-| Source code (`src/`) | MIT — see `LICENSE` |
-| Manuscript, figures, documentation | CC BY 4.0 |
-| Derived analysis dataset | CC BY 4.0 |
-| Raw STATS19 data | Open Government Licence v3.0, Crown copyright |
+| Material                           | Licence                                       |
+| ---------------------------------- | --------------------------------------------- |
+| Source code (`src/`)               | MIT — see `LICENSE`                           |
+| Manuscript, figures, documentation | CC BY 4.0                                     |
+| Derived analysis dataset           | CC BY 4.0                                     |
+| Raw STATS19 data                   | Open Government Licence v3.0, Crown copyright |
 
 ## Note on the raw data
 

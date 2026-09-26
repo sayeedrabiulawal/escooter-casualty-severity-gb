@@ -15,13 +15,13 @@
 
 ### Why this topic (and not another)
 
-| Criterion                                     | How this topic scores                                                                                                                                                                                                                                         |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Fits constraints (laptop, free tools, no lab) | Fully open data + open-source Python. Zero fieldwork.                                                                                                                                                                                                         |
-| Feasible in 8 weeks                           | Data download is a single script; analysis is standard regression.                                                                                                                                                                                            |
+| Criterion                                     | How this topic scores                                                                                                                                                                                                                                          |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fits constraints (laptop, free tools, no lab) | Fully open data + open-source Python. Zero fieldwork.                                                                                                                                                                                                          |
+| Feasible in 8 weeks                           | Data download is a single script; analysis is standard regression.                                                                                                                                                                                             |
 | Genuine novelty                               | The e-scooter flag in the Sept 2026 STATS19 release is **back-filled to 2021**, even though the data guide says it was introduced in 2023/2025. **BUT SEE THE WARNING BELOW** — Zhao et al. (2026) already published an England-wide e-scooter severity study. |
-| Relevant to a transport MSc                   | Micromobility, road safety, and sustainable mobility policy are current priorities for transport programmes.                                                                                                                                                  |
-| Risk of being scooped                         | **Realised, in part.** Zhao et al. (2026) published an England-wide e-scooter severity study in _Accident Analysis & Prevention_. The novelty claim has been narrowed — see §8. |
+| Relevant to a transport MSc                   | Micromobility, road safety, and sustainable mobility policy are current priorities for transport programmes.                                                                                                                                                   |
+| Risk of being scooped                         | **Realised, in part.** Zhao et al. (2026) published an England-wide e-scooter severity study in _Accident Analysis & Prevention_. The novelty claim has been narrowed — see §8.                                                                                |
 
 ### CRITICAL — prior work overlaps this study (found 2026-09-26)
 
@@ -360,17 +360,17 @@ mode-severity work.
 
 ### Realistic targets (revised)
 
-| Venue | Type | Fit | Notes |
-|---|---|---|---|
-| _Journal of Safety Research_ | Journal | **Primary** | Elsevier; welcomes applied safety analysis; comparative mode work is in scope |
-| _Traffic Injury Prevention_ | Journal | Strong | Taylor & Francis; explicitly publishes injury-severity comparison work |
-| _IATSS Research_ | Journal | Strong | Open access, no fee; practical transport safety |
-| _International Journal of Injury Control and Safety Promotion_ | Journal | Good | Taylor & Francis; safety-specific |
-| _Transportation Research Record_ (TRR) | Journal | Good | SAGE; accepts solid empirical papers; review ~2-4 months |
-| _Case Studies on Transport Policy_ | Journal | Moderate | Elsevier; policy angle |
-| _Accident Analysis & Prevention_ | Journal | **Lower priority** | Just published Zhao et al. (2026); novelty risk |
-| TRB Annual Meeting | Conference | Strong | Indexed proceedings; abstract deadline ~1 August, so not this cycle |
-| _Sustainability_ / MDPI titles | Journal | **Avoid** | See warning below |
+| Venue                                                          | Type       | Fit                | Notes                                                                         |
+| -------------------------------------------------------------- | ---------- | ------------------ | ----------------------------------------------------------------------------- |
+| _Journal of Safety Research_                                   | Journal    | **Primary**        | Elsevier; welcomes applied safety analysis; comparative mode work is in scope |
+| _Traffic Injury Prevention_                                    | Journal    | Strong             | Taylor & Francis; explicitly publishes injury-severity comparison work        |
+| _IATSS Research_                                               | Journal    | Strong             | Open access, no fee; practical transport safety                               |
+| _International Journal of Injury Control and Safety Promotion_ | Journal    | Good               | Taylor & Francis; safety-specific                                             |
+| _Transportation Research Record_ (TRR)                         | Journal    | Good               | SAGE; accepts solid empirical papers; review ~2-4 months                      |
+| _Case Studies on Transport Policy_                             | Journal    | Moderate           | Elsevier; policy angle                                                        |
+| _Accident Analysis & Prevention_                               | Journal    | **Lower priority** | Just published Zhao et al. (2026); novelty risk                               |
+| TRB Annual Meeting                                             | Conference | Strong             | Indexed proceedings; abstract deadline ~1 August, so not this cycle           |
+| _Sustainability_ / MDPI titles                                 | Journal    | **Avoid**          | See warning below                                                             |
 
 ### Required framing change
 
@@ -390,8 +390,8 @@ Verify indexing yourself at <https://www.scopus.com/sources> or the Web of Scien
 1. Pick two target journals. Read their author guidelines and one recent paper each.
 2. Format to the primary target. Do not try to satisfy two journals at once.
 3. Submit with a short, factual cover letter. Do not oversell. Mention explicitly how
-the paper relates to Zhao et al. — reviewers will find it anyway, and addressing it
-first reads as confidence rather than concealment.
+   the paper relates to Zhao et al. — reviewers will find it anyway, and addressing it
+   first reads as confidence rather than concealment.
 4. If rejected, the reviewer comments are free expert feedback. Revise and submit to the second target. This is normal and not a failure.
 
 ---
@@ -456,37 +456,52 @@ That paragraph shows data handling, statistical judgement, methodological honest
 
 ## 11. Status and next actions
 
+**Overall state:** the analysis is complete, reproducible, and committed as `v1.0.0`
+(commit `5c3c647`). The manuscript's methods and results are written from the real
+numbers. What remains is the literature review, four metadata placeholders, and steps
+that require your own accounts. See `progress.md` for the full log and
+`docs/zenodo-release-checklist.md` for the release steps.
+
 ### Completed 2026-09-26
 
 1. ~~Download the DfT data guide~~ — done; `docs/data-guide/`, search report in `docs/guide-search-report.txt`.
 2. ~~Fetch the three CSVs~~ — done; 255 MB in `data/raw/`, checksums written.
-3. ~~Confirm the e-scooter code~~ — done; `vehicle_type 33`, plus the `escooter_flag` fields. See `docs/data-notes.md`.
-4. ~~Build the analysis dataset~~ — done; 652,821 rows, SHA-256 recorded.
-5. ~~Run descriptives and models~~ — done; tables in `outputs/tables/`.
-6. ~~Generate figures~~ — done; five 300 dpi figures in `outputs/figures/`.
-7. ~~Add the injury-based-reporting sensitivity analysis~~ — done; three specifications,
-   and the headline finding survives all three. See below.
+3. ~~Confirm the e-scooter code~~ — done; `casualty_escooter_flag`, nesting exactly inside `vehicle_type 33`.
+4. ~~Build the analysis dataset~~ — done; 652,821 rows, SHA-256 recorded, reproduces byte-identically.
+5. ~~Run descriptives and models~~ — done; Table 1 plus 9 further tables in `outputs/tables/`.
+6. ~~Generate figures~~ — done; six 300 dpi figures in `outputs/figures/`.
+7. ~~Add the IBR sensitivity analysis~~ — done; three specifications, and the headline
+   finding survives all three. This is the strongest robustness claim in the paper.
 8. ~~Fix the date-parsing bug~~ — done; this had silently dropped ~60% of rows from
-   the trend tables. Per-year figures are now correct.
+   the trend tables. Per-year figures are now corrected throughout.
+9. ~~Literature search~~ — done; 99 DOI-verified references in `paper/references.bib`,
+   generated from Crossref with an off-topic filter.
+10. ~~Prior-work scan~~ — done; found Zhao et al. (2026). Novelty narrowed, journal
+    target changed. See `docs/prior-work-scan.txt`.
+11. ~~Write methods and results~~ — done; `paper/manuscript.md` §§3–4 and §6.
+12. ~~Zenodo packaging~~ — done; `.zenodo.json`, licences split, `CITATION.cff`,
+    dependency lock, release checklist.
+13. ~~Git repository and tag~~ — done; `v1.0.0`, 255 MB of data correctly excluded.
 
-### Next, in priority order
+### Remaining, in priority order
 
-1. **Create your ORCID and a public GitHub repo.** Link ORCID to Zenodo now, not in
-   Week 8. _(This week)_
-2. **Start the literature search.** 20 papers by end of Week 1 into
-   `paper/references.bib`. The results are already known, so the review can be
-   written to contextualise them rather than hunting for a question. _(Week 1)_
-3. **Decide on Model C.** Speed limit is not a significant predictor within the
-   e-scooter subset, so the mode × speed interaction adds little. Consider swapping it
-   for mode × urban/rural, which the RQ2 and Model A results suggest is more
-   informative. _(Week 1)_
-4. **Consider an exposure-denominator proxy.** This is the study's weakest point and
-   the most likely reason a reviewer rejects it. Even a crude denominator (e.g. rental
-   scheme trip data, or DfT vehicle licensing) would materially strengthen the paper.
-   If none can be sourced honestly, say so in the limitations rather than omitting it.
-   _(Week 2)_
-5. **Draft the abstract and methods now.** The analysis is complete, so these can be
-   written from the real numbers rather than retrofitted later. _(Week 2)_
+1. **Write the literature review (§2) and §5.2.** Read the papers; prune the 99
+   references to the ~40 you actually use. **Do not cite unread papers.** This is the
+   only substantial writing left, and it is the part that most needs your judgement.
+2. **Fill the four metadata placeholders**: your surname, ORCID, affiliation, GitHub
+   URL. Listed in `docs/zenodo-release-checklist.md` Step 1.
+3. **Create an ORCID iD and a public GitHub repository**, then link the repo to Zenodo
+   so the `v1.0.0` tag is archived and minted a DOI.
+4. **Consider an exposure-denominator proxy.** This remains the study's weakest point
+   and the most likely reason a reviewer rejects it. Even a crude denominator would
+   materially strengthen the paper. If none can be sourced honestly, the limitations
+   section already states the problem plainly — do not paper over it.
+5. **Decide on Model C.** Speed limit is not significant within the e-scooter subset, so
+   the mode × speed interaction adds little. Consider swapping it for mode × urban/rural,
+   which the RQ2 and Model A results suggest is more informative.
+6. **Proofread for claims unsupported by the numbers.** Every figure in the manuscript
+   traces to `outputs/tables/`; verify before submitting.
+7. **Draft the CV entry and SOP paragraph** from §9. Do this in parallel, not after.
 
 ### Two cautions before writing
 
