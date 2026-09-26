@@ -23,8 +23,11 @@ because a master's application reviewer may well read the repository.
 | Analysis pipeline     | Done — runs end to end, deterministic                                                 |
 | Descriptives + models | Done                                                                                  |
 | Robustness (IBR)      | Done — and the finding survives                                                       |
-| Literature search     | Done — 99 DOI-verified references                                                     |
-| Manuscript draft      | In progress                                                                           |
+| Literature search    | Done — 91 DOI-verified references (7 duplicate keys removed)                          |
+| §2 Literature review | Done — 1,703 words, drafted from publisher abstracts; needs author verification        |
+| §5.2 vs literature   | Done — 630 words, incl. explicit comparison with Zhao et al.                           |
+| Citation rendering   | Done — PDF now resolves citations and prints a real reference list                     |
+| Manuscript draft      | In progress — all sections drafted; 3 working-note markers remain                       |
 | Zenodo packaging      | In progress                                                                           |
 | **Blocking issue**    | **None. The prior-work overlap (below) requires a framing change, not new analysis.** |
 
@@ -276,27 +279,63 @@ The reframed contribution statement is in `paper/manuscript.md` §1.
 ## 8. What remains
 
 **See [`docs/TONIGHT.md`](docs/TONIGHT.md) for the exact steps to deposit the software
-record today.** The code is complete and ready; the preprint needs the literature review
-first.
+record today.** The code is complete and ready, and the manuscript now has every section
+drafted. What the preprint needs before deposit is author verification of the citations,
+not more writing.
 
-**Two sections remain unwritten: §2 (1,500 words) and §5.2 (400 words).** Both are
-scaffolded in `docs/literature-review-worksheet.md`, with the candidate papers and their
-abstracts inline. This is the whole remaining job on the preprint.
+**§2 (1,703 words) and §5.2 (630 words) are now drafted.** Both were written from the
+publisher abstracts collected in `docs/reading-list.md`; every claim is attached to a
+citation, and the places where the abstracts were not enough to verify a claim are
+listed in a visible note at the top of §2. **The author must read each cited paper and
+confirm it supports the sentence it is attached to, then delete that note.**
+
+Three working-note markers remain in the PDF, all intentional:
+
+1. the §2 verification note (delete once the papers are checked);
+2. the `## HOW TO FINISH THIS DRAFT` section (delete before submission);
+3. the `[TODO]` placeholder for the Zenodo DOI, which cannot be filled until the
+   deposit exists.
 
 The declarations (funding, AI use, author contributions) are resolved. **Verify each is
 true of your situation**, especially the AI-use disclosure.
 
+### Fixes made while drafting §2
+
+- **Seven duplicate BibTeX keys** were found (`cipriani2024make`, `thompson2024spatial`,
+  `lovelace2019stats`, `hama2019stats`, `bauernschuster2020speed`, `n.d.table`,
+  `2015collision`). Duplicate keys mean one entry silently shadows another. Removed;
+  the file now holds 91 unique entries, checked programmatically.
+- **The dataset citation was broken.** `[@dft_stats19_2026]` was cited in §3.2 but was
+  not in `references.bib` at all, so it rendered as a bare key. Added.
+- **The Zhao reference key was wrong.** The bib holds `zhao2025england` (SSRN preprint,
+  DOI 10.2139/ssrn.5937116), not `zhao2026england`. Corrected in both places it appears,
+  and flagged in the §2 note because a 2026 journal version appears to exist at
+  DOI 10.1016/j.aap.2026.108517 — confirm which to cite.
+- **The PDF was not publishable.** `render_manuscript.py` had no citation handling, so
+  all 46 `[@key]` markers printed literally, and no reference list was generated. The
+  renderer now resolves citations to author-year form and builds a reference list from
+  the works actually cited. Two further defects found in the same pass: bullets rendered
+  as `?` (U+2022 is not latin-1) and `**bold**` printed literally inside table cells and
+  blockquotes. All fixed and verified against the extracted PDF text.
+
 ### To finish the paper
 
-- [ ] Curate the 99 Crossref references: read them, delete any that do not support
-      the point they are cited for. **Do not cite unread papers.**
-- [ ] Fill the TODO markers in `paper/manuscript.md` (mostly the literature review).
-- [ ] Add Zhao et al. to the reference list and the novelty framing.
+- [ ] **Read every paper cited in §2 and §5.2** and confirm it supports its sentence,
+      then delete the verification note at the top of §2. This is the one task that
+      cannot be delegated — the analysis is yours and so is the responsibility for
+      what it cites.
+- [ ] Decide whether to cite the Zhao SSRN preprint or the 2026 journal version.
+- [ ] Fill the remaining `[TODO]` for the Zenodo DOI after depositing.
 - [ ] Decide on Model C: the mode × speed interaction adds little, so consider
       swapping it for mode × urban/rural.
 - [ ] Consider an exposure-denominator proxy (rental-scheme trip data). Even a crude
       one would materially strengthen the paper. If none can be sourced honestly, say
       so in the limitations instead of omitting the issue.
+- [ ] Only 25 of the 91 references are cited so far, almost all of them added by §2.
+      §3 and §4 cite almost nothing — a methods and modelling section normally cites
+      its method sources. Consider citing `chen2020modeling`, `asare2020crash` and
+      `khalili2013logistic` at the corresponding methods, and make sure every
+      uncited entry is either used or removed before deposit.
 - [ ] Proofread for claims unsupported by the numbers.
 
 ### To publish on Zenodo
@@ -345,21 +384,21 @@ be.
 
 ## 10. File map
 
-| File                           | Purpose                                                        |
-| ------------------------------ | -------------------------------------------------------------- |
-| `plan.md`                      | Full research plan, timeline, publishing and application steps |
-| `progress.md`                  | This file                                                      |
-| `README.md`                    | How to reproduce                                               |
-| `docs/data-notes.md`           | Data audit trail: codes, decisions, bugs, findings             |
-| `docs/prior-work-scan.txt`     | Papers that may overlap — read before claiming novelty         |
-| `docs/guide-search-report.txt` | How the e-scooter code was located                             |
-| `docs/escooter-inspection.txt` | Verification against the real data                             |
-| `paper/outline.md`             | Section-by-section outline with word budget                    |
-| `paper/manuscript.md`          | The draft                                                      |
-| `paper/references.bib`         | 99 DOI-verified references                                     |
-| `outputs/logs/`                | Run logs from each stage                                       |
-| `outputs/figures/`             | Six 300 dpi figures                                            |
-| `outputs/tables/`              | Ten result tables                                              |
-| `docs/reading-list.md`         | 100 candidates with verbatim abstracts, by manuscript section  |
-| `docs/reading-list.csv`        | The same, as a tracking sheet with a blank `read` column       |
-| `docs/literature-review-worksheet.md` | Paragraph-by-paragraph scaffold for §2 and §5.2         |
+| File                                  | Purpose                                                        |
+| ------------------------------------- | -------------------------------------------------------------- |
+| `plan.md`                             | Full research plan, timeline, publishing and application steps |
+| `progress.md`                         | This file                                                      |
+| `README.md`                           | How to reproduce                                               |
+| `docs/data-notes.md`                  | Data audit trail: codes, decisions, bugs, findings             |
+| `docs/prior-work-scan.txt`            | Papers that may overlap — read before claiming novelty         |
+| `docs/guide-search-report.txt`        | How the e-scooter code was located                             |
+| `docs/escooter-inspection.txt`        | Verification against the real data                             |
+| `paper/outline.md`                    | Section-by-section outline with word budget                    |
+| `paper/manuscript.md`                 | The draft                                                      |
+| `paper/references.bib`                | 91 DOI-verified references, keys checked unique                                |
+| `outputs/logs/`                       | Run logs from each stage                                       |
+| `outputs/figures/`                    | Six 300 dpi figures                                            |
+| `outputs/tables/`                     | Ten result tables                                              |
+| `docs/reading-list.md`                | 100 candidates with verbatim abstracts, by manuscript section  |
+| `docs/reading-list.csv`               | The same, as a tracking sheet with a blank `read` column       |
+| `docs/literature-review-worksheet.md` | Paragraph-by-paragraph scaffold for §2 and §5.2                |

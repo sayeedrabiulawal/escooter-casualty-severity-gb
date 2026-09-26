@@ -12,6 +12,11 @@ paper/manuscript.md: ATX headings, paragraphs, bullet and numbered lists, pipe
 tables, blockquotes, horizontal rules, and inline bold/code. It is not a general
 Markdown implementation and does not try to be.
 
+Pandoc-style citations such as [@key] or [@key1; @key2] are resolved against
+paper/references.bib into author-year text, and a reference list is generated
+from the works actually cited. A key that is missing from the .bib renders as
+?key? so a broken citation is visible rather than silent.
+
 LaTeX math is converted to readable plain text, because fpdf2 cannot typeset it.
 
 Usage:
@@ -22,7 +27,9 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import html
 import re
+import unicodedata
 from pathlib import Path
 
 from fpdf import FPDF
@@ -40,7 +47,8 @@ BODY_SIZE = 10.5
 UNICODE_MAP = {
     "\u2013": "-", "\u2014": "-", "\u2012": "-", "\u2010": "-", "\u2011": "-",
     "\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"',
-    "\u2026": "...", "\u00a0": " ",
+    "\u2026": "...", "\u00a0": " ", "\u2022": "-", "\u00b7": "-", "\u2032": "'",
+    "\u2033": "\"", "\u2010": "-", "\u2011": "-",
     "\u2264": "<=", "\u2265": ">=", "\u00d7": "x", "\u2212": "-",
     "\u2192": "->", "\u2190": "<-", "\u2248": "~",
     "\u00b5": "u", "\u03b1": "alpha", "\u03b2": "beta", "\u03c7": "chi",
@@ -57,10 +65,26 @@ LATEX_SYMBOLS = {
 
 
 def latin1_safe(text: str) -> str:
-    """Convert to something the core PDF fonts can encode."""
+    """Convert to something the core PDF fonts can encode.
+
+    A character that latin-1 cannot represent but whose accented letters can be
+    decomposed (e.g. Polish n-acute) is folded to its base letter rather than
+    replaced with "?", so author names survive with a diacritic lost instead of
+    being mangled.
+    """
     for original, replacement in UNICODE_MAP.items():
         text = text.replace(original, replacement)
-    return text.encode("latin-1", errors="replace").decode("latin-1")
+    out: list[str] = []
+    for char in text:
+        try:
+            char.encode("latin-1")
+        except UnicodeEncodeError:
+            folded = unicodedata.normalize("NFKD", char)
+            folded = "".join(c for c in folded if not unicodedata.combining(c))
+            out.append(folded.encode("latin-1", errors="replace").decode("latin-1"))
+        else:
+            out.append(char)
+    return "".join(out)
 
 
 def latex_to_text(latex: str) -> str:
@@ -80,6 +104,16 @@ def latex_to_text(latex: str) -> str:
     text = re.sub(r"\^\{([^{}]*)\}", r"^\1", text)
     text = text.replace("{", "").replace("}", "").replace("\\", "")
     return re.sub(r"\s+", " ", text).strip()
+
+
+def plain_emphasis(text: str) -> str:
+    """Drop Markdown emphasis markers in contexts where fpdf2 markup is off.
+
+    Table cells are drawn without markdown=True, so a stray **Bold** would reach
+    the page as literal asterisks. Single underscores are left untouched because
+    they appear in identifiers such as vehicle_type.
+    """
+    return text.replace("**", "")
 
 
 def preprocess(text: str) -> str:
@@ -107,6 +141,223 @@ def preprocess(text: str) -> str:
     # Backticked code loses its ticks but keeps the text, which is what a reader needs.
     text = text.replace("`", "")
     return text
+
+
+# ---------------------------------------------------------------------------
+# Citation resolution.
+#
+# The manuscript cites with Pandoc-style keys, e.g. [@shichman2022emergency] or
+# [@a2020x; @b2021y]. There is no pandoc or LaTeX on this machine, and leaving the
+# raw keys in the PDF would make the preprint unpublishable. They are therefore
+# resolved here from paper/references.bib into author-year text, and a reference
+# list is generated from exactly the works that are cited -- never from the whole
+# .bib file, because an uncited entry in a reference list is an error.
+#
+# A key that is not in the .bib is rendered as ?key? rather than dropped, so a
+# broken citation is visible in the PDF instead of silently disappearing.
+# ---------------------------------------------------------------------------
+
+BIB_PATH = "paper/references.bib"
+
+# Only these field names are read; anything else in an entry is ignored. Restricting
+# the set prevents a stray "=" inside a value from being mistaken for a field name.
+BIB_FIELDS = {
+    "author", "editor", "title", "year", "journal", "booktitle", "publisher",
+    "volume", "number", "pages", "doi", "url", "howpublished", "note", "type",
+    "school", "institution",
+}
+
+CITATION_RE = re.compile(r"\[([^\]]*@[^\]]+)\]")
+
+
+def _clean(value: str) -> str:
+    """Strip BibTeX braces and escapes from a field value."""
+    value = value.replace("\\&", "&").replace("\\%", "%").replace("\\_", "_")
+    value = value.replace("{", "").replace("}", "")
+    # Crossref returns HTML-escaped ampersands, which must not reach the page as
+    # "&amp;". unescape also covers &lt;, &gt;, &quot; and numeric references.
+    value = html.unescape(value)
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _parse_bib_fields(body: str) -> dict[str, str]:
+    """Read ``name = {value}`` pairs from a single BibTeX entry body."""
+    fields: dict[str, str] = {}
+    for match in re.finditer(r"(\w+)\s*=\s*", body):
+        name = match.group(1).lower()
+        if name not in BIB_FIELDS:
+            continue
+        cursor = match.end()
+        if cursor < len(body) and body[cursor] == "{":
+            depth = 1
+            walk = cursor + 1
+            while walk < len(body) and depth > 0:
+                if body[walk] == "{":
+                    depth += 1
+                elif body[walk] == "}":
+                    depth -= 1
+                walk += 1
+            fields[name] = body[cursor + 1:walk - 1].strip()
+    return fields
+
+
+def parse_bib(text: str) -> dict[str, dict[str, str]]:
+    """Parse a BibTeX file into ``{key: {field: value}}``."""
+    entries: dict[str, dict[str, str]] = {}
+    for match in re.finditer(r"@(\w+)\s*\{\s*([^,\s]+)\s*,", text):
+        key = match.group(2)
+        start = match.end()
+        depth = 1
+        walk = start
+        while walk < len(text) and depth > 0:
+            if text[walk] == "{":
+                depth += 1
+            elif text[walk] == "}":
+                depth -= 1
+            walk += 1
+        entries[key] = _parse_bib_fields(text[start:walk - 1])
+    return entries
+
+
+def _split_author_names(raw: str) -> list[tuple[str, str]]:
+    """Return ``[(surname, forename), ...]``.
+
+    A value wrapped in a second pair of braces is a corporate author and is kept
+    whole, so ``{{Department for Transport}}`` stays one name.
+    """
+    raw = raw.strip()
+    if not raw:
+        return []
+    if raw.startswith("{") and raw.endswith("}"):
+        return [(raw[1:-1].strip(), "")]
+    people: list[tuple[str, str]] = []
+    for name in raw.split(" and "):
+        name = name.strip()
+        if not name:
+            continue
+        if name.startswith("{") and name.endswith("}"):
+            people.append((name[1:-1].strip(), ""))
+        elif "," in name:
+            surname, forename = name.split(",", 1)
+            people.append((surname.strip(), forename.strip()))
+        else:
+            parts = name.split()
+            people.append((parts[-1], " ".join(parts[:-1])))
+    return people
+
+
+def _initials(forename: str) -> str:
+    """``Jingjing`` -> ``J.``; ``A.H.`` is left alone."""
+    out = []
+    for token in forename.split():
+        if "." in token:
+            out.append(token if token.endswith(".") else token + ".")
+        else:
+            out.append(token[0].upper() + ".")
+    return " ".join(out)
+
+
+def _in_text_label(entry: dict[str, str] | None, key: str) -> str:
+    """Author-year form for an in-text citation."""
+    if entry is None:
+        return f"?{key}?"
+    people = _split_author_names(entry.get("author", ""))
+    year = entry.get("year", "n.d.")
+    if not people:
+        title = _clean(entry.get("title", key)).split(":")[0]
+        short = title if len(title) <= 55 else title[:52].rstrip() + "..."
+        return f"{short}, {year}"
+    surnames = [surname for surname, _ in people]
+    if len(surnames) == 1:
+        who = surnames[0]
+    elif len(surnames) == 2:
+        who = f"{surnames[0]} & {surnames[1]}"
+    else:
+        who = f"{surnames[0]} et al."
+    return f"{who}, {year}"
+
+
+def _reference_entry(entry: dict[str, str]) -> str:
+    """Full reference-list line for one work."""
+    people = _split_author_names(entry.get("author", ""))
+    if len(people) == 1 and not people[0][1]:
+        rendered = [people[0][0]]                      # corporate author
+    else:
+        rendered = [
+            f"{surname}, {_initials(forename)}".rstrip(", ")
+            for surname, forename in people
+        ]
+    if not rendered:
+        authors = ""
+    elif len(rendered) == 1:
+        authors = rendered[0]
+    elif len(rendered) == 2:
+        authors = f"{rendered[0]}, & {rendered[1]}"
+    else:
+        authors = ", ".join(rendered[:-1]) + f", & {rendered[-1]}"
+
+    year = entry.get("year", "n.d.")
+    title = _clean(entry.get("title", ""))
+    venue = _clean(
+        entry.get("journal")
+        or entry.get("booktitle")
+        or entry.get("publisher")
+        or ""
+    )
+    doi = entry.get("doi", "").strip()
+
+    parts = [f"{authors} ({year})." if authors else f"({year})."]
+    if title:
+        parts.append(title + ".")
+    if venue:
+        parts.append(venue + ".")
+    line = " ".join(parts)
+    if doi:
+        line += f" https://doi.org/{doi}"
+    return line
+
+
+def resolve_citations(
+    text: str, bib: dict[str, dict[str, str]], cited: set[str]
+) -> str:
+    """Replace ``[@key]`` markers with author-year text, recording keys used."""
+
+    def replace(match: re.Match) -> str:
+        keys: list[str] = []
+        for raw in re.findall(r"@([A-Za-z0-9_:.\-]+)", match.group(1)):
+            key = raw.rstrip(".,;")
+            if key and key not in keys:
+                keys.append(key)
+        if not keys:
+            return match.group(0)
+        labels: list[str] = []
+        for key in keys:
+            cited.add(key)
+            label = _in_text_label(bib.get(key), key)
+            if label not in labels:
+                labels.append(label)
+        return "(" + "; ".join(labels) + ")"
+
+    return CITATION_RE.sub(replace, text)
+
+
+def build_reference_list(
+    bib: dict[str, dict[str, str]], cited: set[str]
+) -> list[str]:
+    """Alphabetised reference lines for every cited work."""
+    rows: list[tuple[str, str]] = []
+    for key in cited:
+        entry = bib.get(key)
+        if entry is None:
+            rows.append((key.lower(), f"[{key}] - NOT FOUND in {BIB_PATH}"))
+            continue
+        people = _split_author_names(entry.get("author", ""))
+        sort_key = (
+            people[0][0] if people else _clean(entry.get("title", key))
+        ).lower()
+        rows.append((sort_key, _reference_entry(entry)))
+    rows.sort(key=lambda row: row[0])
+    return [line for _, line in rows]
 
 
 class ManuscriptPDF(FPDF):
@@ -143,13 +394,40 @@ def parse_table(lines: list[str], start: int) -> tuple[list[list[str]], int]:
     return rows, index
 
 
-def render(markdown_text: str, output: Path) -> None:
+def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
     pdf = ManuscriptPDF(format=PAGE_FORMAT, unit="mm")
     pdf.set_margins(MARGIN, MARGIN, MARGIN)
     pdf.set_auto_page_break(True, margin=18)
     pdf.add_page()
 
+    bib_path = PROJECT_ROOT / BIB_PATH
+    bib = parse_bib(bib_path.read_text(encoding="utf-8")) if bib_path.exists() else {}
+    if not bib:
+        print(f"  [WARN] {BIB_PATH} not found; citations will NOT resolve.")
+
     text = preprocess(markdown_text)
+    cited: set[str] = set()
+    text = resolve_citations(text, bib, cited)
+
+    # Replace the placeholder References section with the generated list, built only
+    # from works actually cited above.
+    unknown = sorted(key for key in cited if key not in bib)
+    refs = build_reference_list(bib, cited)
+    ref_block = "\n\n".join(f"- {line}" for line in refs)
+    note = (
+        f"Generated from {BIB_PATH}, listing only the {len(refs)} work(s) cited in "
+        "this manuscript. DOI links resolve to the publisher record."
+    )
+    text, replaced = re.subn(
+        r"(^## References\s*$).*?(?=^---\s*$|^## |\Z)",
+        lambda m: f"{m.group(1)}\n\n{note}\n\n{ref_block}\n\n",
+        text,
+        flags=re.M | re.S,
+    )
+    if not replaced:
+        # No References heading: append one so the citation list is never lost.
+        text += f"\n\n---\n\n## References\n\n{note}\n\n{ref_block}\n"
+
     lines = text.splitlines()
     width = pdf.w - 2 * MARGIN
 
@@ -179,7 +457,7 @@ def render(markdown_text: str, output: Path) -> None:
         heading = re.match(r"^(#{1,4})\s+(.*)$", stripped)
         if heading:
             level = len(heading.group(1))
-            title = heading.group(2).strip()
+            title = heading.group(2).strip().replace("**", "")
             sizes = {1: 16, 2: 13, 3: 11.5, 4: 10.5}
             pdf.ln(4 if level <= 2 else 2.5)
             pdf.set_font(BODY_FONT, "B", sizes.get(level, 10.5))
@@ -206,7 +484,7 @@ def render(markdown_text: str, output: Path) -> None:
                         for row in rows:
                             cells = table.row()
                             for cell_text in row:
-                                cells.cell(latin1_safe(cell_text))
+                                cells.cell(latin1_safe(plain_emphasis(cell_text)))
                     pdf.set_font(BODY_FONT, "", BODY_SIZE)
                     pdf.ln(2.5)
                 except Exception as exc:  # noqa: BLE001 - degrade instead of failing
@@ -222,7 +500,13 @@ def render(markdown_text: str, output: Path) -> None:
             quote = stripped.lstrip(">").strip()
             pdf.set_font(BODY_FONT, "I", BODY_SIZE - 0.5)
             pdf.set_text_color(70)
-            pdf.multi_cell(width - 6, 5.2, latin1_safe(quote))
+            # markdown=True so **bold** inside a note renders as bold; __ would be
+            # read as italic markup, so it is escaped first.
+            pdf.multi_cell(
+                width - 6, 5.2,
+                latin1_safe(quote.replace("__", "_\\_")),
+                markdown=True,
+            )
             pdf.set_text_color(0)
             pdf.set_font(BODY_FONT, "", BODY_SIZE)
             pdf.ln(1.5)
@@ -277,6 +561,7 @@ def render(markdown_text: str, output: Path) -> None:
 
     output.parent.mkdir(parents=True, exist_ok=True)
     pdf.output(str(output))
+    return cited, unknown
 
 
 # Patterns that mean "this text is a working note, not part of the paper". A deposit
@@ -311,10 +596,15 @@ def main() -> int:
         raise SystemExit(f"Input not found: {source}")
 
     markdown_text = source.read_text(encoding="utf-8")
-    render(markdown_text, target)
+    cited, unknown = render(markdown_text, target)
 
     print(f"Rendered {source.name} -> {target}")
     print(f"  size : {target.stat().st_size / 1024:.0f} KB")
+    print(f"  cites: {len(cited)} work(s) cited, {len(cited) - len(unknown)} resolved")
+    if unknown:
+        print(f"  [WARN] citation key(s) not in {BIB_PATH}:")
+        for key in unknown:
+            print(f"           ?{key}?")
 
     markers = find_draft_markers(markdown_text)
     if markers:

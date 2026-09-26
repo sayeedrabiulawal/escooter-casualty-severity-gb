@@ -133,25 +133,197 @@ artefact of a mid-series change in how severity was recorded.
 
 ## 2. Literature Review
 
-> **TODO — THIS SECTION IS NOT YET WRITTEN.**
+> **TODO — VERIFY BEFORE SUBMITTING.** This section was drafted from the publishers'
+> deposited abstracts, which are quoted in full in `docs/literature-review-worksheet.md`.
+> Every claim below is intended to be traceable to an abstract. **Open each cited paper
+> and confirm it supports the sentence it is attached to**, then delete this note.
 >
-> Work from `docs/literature-review-worksheet.md`, which breaks this section into
-> paragraph-by-paragraph jobs with the candidate papers and their publisher abstracts
-> inline. Budget: 1,500 words across four themes plus a gap statement.
+> Two known items could not be resolved from abstracts alone and need a decision:
+> 1. **Zhao et al.** — the bibliography holds the SSRN preprint
+>    (`@zhao2025england`, DOI 10.2139/ssrn.5937116). A journal version appears to exist
+>    at DOI 10.1016/j.aap.2026.108517. Check which should be cited, and check whether the
+>    prose description here (England-wide Bayesian spatial field model) still matches the
+>    published version.
+> 2. **Cicchino et al.** reported injury proportions for e-scooters versus bicycles from a
+>    single emergency department. The comparison drawn here is between that study's
+>    *clinical* proportions and this study's *police-reported* proportions. Confirm the
+>    figures quoted (13.1%/37.7%, 24.5%/50.7%, 34.3%/22.6%) before submission.
 >
-> - **2.1 E-scooter injury epidemiology** — 450 words
-> - **2.2 Comparative injury severity across modes** — 400 words
-> - **2.3 Police-reported collision data as a research source** — 350 words
-> - **2.4 Spatial and environmental determinants** — 300 words
-> - **Gap statement** — 150 words, must be an evidence-based conclusion, not an
->   assertion, and must lead directly into §3.
->
-> **Rules:** read each paper in full before citing it as a finding; cite the specific
-> claim it supports; prefer the last 10 years except for methods and dataset provenance.
->
-> Zhao et al. (2026), DOI 10.1016/j.aap.2026.108517, must appear in 2.1 and be
-> distinguished explicitly from this study. It is the closest existing work and a
-> reviewer will know it.
+> Claims deliberately **not** made: that this is the first national e-scooter severity
+> analysis (Zhao et al. precludes it), and any statement about risk per trip or per
+> kilometre, which these data cannot support.
+
+### 2.1 E-scooter injury epidemiology
+
+The evidence base on e-scooter injury is dominated by single-centre clinical series
+drawn from emergency departments and trauma registries. These studies have been
+valuable in characterising how e-scooter injuries present, but they share structural
+limitations that constrain what they can say about population-level risk.
+
+The most consistent finding is rapid growth following the introduction of shared
+services. Shichman et al. report a six-fold increase in e-scooter presentations at a
+level I trauma centre, from an average of 26.9 per month before shared services were
+introduced to 152.6 per month afterwards, across 3,331 patients [@shichman2022emergency].
+Beck et al. found 56 e-scooter presentations in a six-week period that had recorded none
+the previous year, a volume comparable to the 62 bicycle presentations in the same
+window [@beck2019emergency]. McConnell et al. similarly observed that hospital
+admissions rose from 9% to 32% of e-scooter presentations after hire scooters were
+introduced [@mcconnell2026retrospective]. This recurrence across settings and countries
+establishes that a new injury mechanism appeared with micromobility, but a rise in
+presentations is not evidence about severity per trip, because none of these studies has
+a denominator.
+
+The reported injury profile is dominated by falls rather than collisions with vehicles.
+Shichman et al. record rider fall as the mechanism in 79.1% of cases, with 2,637
+orthopaedic injuries of which 599 (22.7%) were fractures, and 8.9% of patients
+hospitalised [@shichman2022emergency]. Beck et al. found fractures or dislocations in
+32% of patients and head injury in 26%, while nonetheless concluding that the majority
+of presentations were for minor injury [@beck2019emergency]. The contrast between those
+two observations within a single study is instructive: most e-scooter injuries are
+minor, and a meaningful minority are not.
+
+Two sub-populations recur. Alcohol features prominently in adult cases: Andersson et al.
+found a positive alcohol history in 28% of 369 patients in Stockholm, and those patients
+were more likely to arrive at night and by ambulance [@andersson2023electric]. Children
+feature prominently too, with Reykjavik data showing 45% of patients under 18
+[@anon2021emergency] and US national data showing e-scooter injuries concentrated among
+males aged 12 to 18 [@douglas2026pediatric]. Helmet use is markedly lower among adults
+than children — 17% versus 79% in the Reykjavik sample [@anon2021emergency]. In the UK
+specifically, McGalliard et al. document increasing paediatric presentations despite
+rental scooters being unavailable to under-16s and private use being lawful only on
+private land [@mcgalliard2022electric].
+
+Three limitations run through this body of work. It is almost entirely single-centre and
+often single-city; it selects on presentation, so cases that do not reach an emergency
+department are invisible; and it rarely includes a comparison group drawn from the same
+source. Cicchino et al. are an exception, comparing e-scooter with bicycle presentations
+at one emergency department, and their findings complicate the assumption that
+e-scooters are simply more dangerous — e-scooter incidents less often involved a moving
+vehicle (13.1% versus 37.7%) and less often occurred on the road (24.5% versus 50.7%)
+[@cicchino2021injuries]. More recently, Zhao et al. have moved the literature toward
+national-scale severity modelling, presenting an England-wide injury-severity analysis of
+e-scooter riders using a Bayesian spatial field model [@zhao2025england]. That work
+addresses the geographical limitation of the clinical literature but remains focused on
+a single mode.
+
+### 2.2 Comparative injury severity across modes
+
+Treating injury severity as an ordered or binary outcome and modelling its determinants
+with regression is long-established in road safety research. Asare et al. use ordinal
+logistic regression on three decades of national collision records and identify vehicle
+type, road class, speeding, and urban or rural location as significant correlates of
+severity [@asare2020crash]. Chen et al. compare logistic regression against classification
+trees and random forests for the same purpose, finding that the statistical model remains
+competitive and offers more interpretable coefficients [@chen2020modeling]. More recent
+work has moved toward interpretable machine learning, although Budzyński et al., using
+152,567 Polish cyclist records, report only modest ordinal discrimination (quadratic
+weighted kappa of approximately 0.20) and flag a substantial false-positive trade-off for
+fatal outcomes [@budzyski2026explainable]. That result is a useful caution: severity is
+predicted from environmental and casualty covariates with limited accuracy, which argues
+for parsimonious, interpretable models over complex ones.
+
+Comparisons across road user modes are also well established. Motorcyclists are the most
+frequently used benchmark for elevated severity risk, being estimated at 28 times more
+likely to die than car occupants while representing under 3% of registered vehicles
+[@geary2023infrastructure]. Freeman et al. review the evidence that motorcyclists share
+with younger and older drivers an elevated risk of crash or serious injury
+[@freeman2012vulnerable]. Jackson et al. show that severity within a single mode varies
+substantially by casualty age, finding a threefold increase in the odds of hospitalisation
+among motorcyclists aged 60 and over compared with younger riders (OR 3.05, 95% CI
+2.58–3.59) [@jackson2013injury]. For cyclists specifically, Fuad et al. apply latent class
+and random-parameter models to 11,433 bicyclist collisions and demonstrate that
+conventional single-model approaches can mask context-dependent severity mechanisms
+[@fuad2026unraveling].
+
+This literature supports two design choices made here: severity modelled as a binary
+outcome with an established regression approach, and comparison against more than one
+mode, since the choice of benchmark materially affects the resulting contrast. It also
+supplies a directly relevant benchmark, Cicchino et al.'s e-scooter versus bicycle
+comparison, which is clinical rather than population-based [@cicchino2021injuries].
+
+### 2.3 Police-reported collision data as a research source
+
+National police-reported collision databases are widely used for population-scale road
+safety research. STATS19, the Great Britain casualty database, is sufficiently established
+that dedicated tooling exists to access and clean it [@lovelace2019stats]. Its principal
+advantages are national coverage, linkage between collision, vehicle, and casualty
+records, and a long unbroken series.
+
+Its principal weakness is under-reporting, and the magnitude is not uniform. Dandona et al.
+compared population and hospital records with police records in urban India and found that
+only 2.3% of non-fatal injuries treated as outpatients and 17.2% of those treated as
+inpatients had been reported to the police, against 77.8% of fatal injuries
+[@dandona2008under]. The pattern is critical for interpreting the present study: reporting
+probability rises steeply with severity. Severity proportions computed from police data are
+therefore inflated relative to the true injury distribution, and the degree of inflation
+depends on how severely injured the affected mode typically is.
+
+Under-reporting is also plausibly differential by mode, which is the more serious problem
+for a cross-mode comparison. Modes whose injuries are comparatively minor, or which are
+less likely to involve a reported party, will be under-represented, which biases the
+severity proportions of the modes being compared in opposite directions. Municipal
+officials interviewed by Cipriani et al. identified obtaining accurate e-scooter safety
+data as one of four principal safety challenges they face, alongside riders constituting a
+new category of vulnerable road user [@cipriani2024make]. This study's own analysis of
+severity-recording practice, described in §3.7 and §4.5, addresses one specific measurement
+change but cannot correct for general under-reporting.
+
+### 2.4 Spatial, environmental, and regulatory determinants
+
+The road environment is an established determinant of injury severity, which is why
+environmental covariates belong in a severity model. Speed limit is the most studied.
+Keall et al., comparing 2,682 pedestrian injury outcomes against vehicle safety ratings
+across speed limit areas, found that the reduced risk associated with safer vehicles
+appeared only in areas limited to 40 km/h or below, concluding that both lower speed
+limits and a safer vehicle fleet are required for meaningful risk reduction
+[@keall2022association]. The interaction between speed environment and other protective
+factors is thus conditional rather than additive.
+
+Spatial structure matters independently of the road environment. Thompson et al. analysed
+killed-or-seriously-injured collisions in Toronto using Moran's I and Getis-Ord statistics,
+finding that such casualties were not randomly distributed and that global spatial
+autocorrelation was present only in the downtown area, with land use, infrastructure
+density, and demographics explaining variation in KSI rates [@thompson2024spatial]. This
+supports the urban concentration observed in the present study and indicates that urban
+form, not merely road class, is relevant to where severe casualties occur.
+
+For e-scooters specifically, the regulatory and behavioural literature is comparatively
+young. Siebert et al. exploited Denmark's mandatory helmet law to measure helmet use before
+and after implementation using computer vision on video footage [@siebert2023computer].
+Sievert et al. surveyed 329 riders and found protected cycle lanes rated as the safest
+infrastructure by 62.4% of respondents, though preferred by fewer (49.7%), with a
+relationship between riding frequency and helmet use [@sievert2023survey]. Speak et al.,
+studying a UK shared-scheme trial with 222 participants, found e-scooters regarded as
+useful, affordable, and flexible, and substituting for some urban car trips
+[@speak2023scooter]. These studies establish that rider behaviour and infrastructure
+preference are measurable, but they also make visible a gap in the present analysis:
+STATS19 records no helmet-use field, so protective-equipment effects cannot be tested here,
+and the helmet literature cannot be used to interpret these findings.
+
+### 2.5 Gap statement
+
+Across these four strands the evidence is characterised by a consistent imbalance. The
+e-scooter literature is dominated by single-centre clinical series that select on
+presentation, lack a comparison group from the same source, and cannot supply a
+population denominator [@shichman2022emergency; @beck2019emergency; @mcconnell2026retrospective].
+Where national-scale analysis exists, as in Zhao et al.'s England-wide severity model
+[@zhao2025england], it remains focused on a single mode and does not provide a
+like-for-like contrast against other two-wheel modes. The comparative severity literature,
+meanwhile, is well developed for motorcyclists [@geary2023infrastructure; @jackson2013injury]
+and cyclists [@fuad2026unraveling], but has largely not been extended to e-scooters in a
+population dataset. Finally, although under-reporting in police data is well documented
+and known to rise with severity [@dandona2008under], the specific effect of the concurrent
+change to injury-based severity recording on e-scooter casualty comparisons does not appear
+to have been quantified.
+
+This study addresses that combination directly. It compares e-scooter casualties against
+both pedal cyclists and motorcyclists within a single national dataset and a single
+specification; it reports five-year trends in both counts and severity proportions; and it
+tests explicitly whether the central severity contrast survives the mid-series change in
+severity-recording practice. It does not claim to be the first national analysis of
+e-scooter severity, and should be read alongside Zhao et al. rather than in place of it.
+Consistent with the under-reporting evidence, it reports severity proportions among
+casualties and makes no claim about risk per trip or per kilometre.
 
 ---
 
@@ -415,24 +587,58 @@ concurrent change in severity-recording practice.
 
 ### 5.2 Comparison with existing literature
 
-> **TODO — NOT YET WRITTEN.** Work from `docs/literature-review-worksheet.md`,
-> Part 2. Budget: 400 words.
->
-> This is not a second review. It compares your findings with published ones and offers
-> a mechanism where they disagree. Points to cover:
->
-> - Compare the age and urban profile against the clinical literature, which reports a
->   young, male, urban-dominant e-scooter injury population. State whether this dataset
->   agrees. Your median age is 22 versus 35 for pedal cyclists, and 94.0% of your cohort
->   is urban.
-> - Compare the severity finding against Zhao et al. (2026) and state explicitly what
->   this analysis adds: the three-way mode comparison including motorcyclists, the
->   five-year trend in counts and severity, and the injury-based-reporting robustness
->   analysis.
-> - Where this study disagrees with published work, offer a mechanism. An unexplained
->   disagreement reads as an error.
-> - Do not claim that this is the first national e-scooter severity analysis. Zhao et al.
->   preclude that, and a reviewer will know it.
+The age and urban profile reported here agrees closely with the clinical literature.
+A median age of 22 and a 94.0% urban concentration match the young, urban-dominant
+populations described in emergency department series: Andersson et al. found 49% of
+patients under 30 [@andersson2023electric], Reykjavik data found 45% under 18
+[@anon2021emergency], and United States national data found injuries concentrated among
+males aged 12 to 18 [@douglas2026pediatric]. The profile appears robust across settings
+and data sources.
+
+Two results sit less comfortably against published work, and both warrant a mechanism
+rather than being passed over.
+
+First, the flat casualty counts contrast with the growth reported clinically. Shichman
+et al. record a sixfold increase in presentations and McConnell et al. a rise in
+admissions after scheme introduction [@shichman2022emergency; @mcconnell2026retrospective].
+The likely explanation is that those studies observe the period in which exposure was
+expanding, whereas this five-year window begins after shared schemes were already
+established in Great Britain. Presentations at a hospital reflect exposure growth and
+per-trip risk jointly; with exposure already high at the start of the window, flat counts
+are compatible with a large and stable injury burden rather than a small one. This dataset
+cannot separate the two, because it contains no exposure denominator.
+
+Second, Cicchino et al. found a larger share of injured e-scooter riders aged 50 and over
+than injured cyclists (34.3% versus 22.6%), whereas this cohort is markedly younger than
+its cyclist comparison (median 22 versus 35) [@cicchino2021injuries]. The disagreement is
+plausibly one of case ascertainment and regulatory context rather than of underlying risk.
+Their sample is a single United States emergency department, serving a jurisdiction with
+no licensing restriction on shared scooters; in Great Britain rental scooters are
+restricted to licence holders and private use on public roads is unlawful
+[@mcgalliard2022electric], and this analysis draws on police-reported casualties rather
+than emergency department attendances. The same study nevertheless agrees on mechanism:
+e-scooter incidents involved moving vehicles less often and occurred on roads less often
+than cycling incidents, and produced more distal lower extremity trauma
+[@cicchino2021injuries]. That is a fall-dominant, low-speed impact profile, consistent
+with the absence of any speed-limit effect in Model A and with the predominance of rider
+falls reported elsewhere [@shichman2022emergency].
+
+Against Zhao et al.'s England-wide Bayesian severity model [@zhao2025england], this study
+adds three things rather than superseding it: a three-way comparison including
+motorcyclists, which supplies the severity benchmark that motorcyclist-focused work
+normally provides [@geary2023infrastructure]; a five-year series in both counts and
+severity proportions; and an explicit test of whether the severity contrast survives the
+concurrent change in severity-recording practice. It is intended as a complement to that
+work, and is not the first national analysis of e-scooter severity.
+
+One further comparison concerns what the model can support. Its discriminative performance
+is limited (pseudo-R² 0.052), which is consistent with Budzyński et al.'s finding that
+severity models built on comparable covariates achieve only modest ordinal discrimination
+[@budzyski2026explainable]. The odds ratio should therefore be read as a group-level
+association between mode and severity, not as a basis for predicting individual outcomes.
+Consistently with the under-reporting literature [@dandona2008under], all severity
+proportions reported here are among casualties recorded by the police, and are not
+estimates of the severity distribution of all e-scooter injuries.
 
 ### 5.3 Interpretation and implications
 
