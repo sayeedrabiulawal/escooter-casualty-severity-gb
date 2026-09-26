@@ -23,11 +23,12 @@ because a master's application reviewer may well read the repository.
 | Analysis pipeline     | Done — runs end to end, deterministic                                                 |
 | Descriptives + models | Done                                                                                  |
 | Robustness (IBR)      | Done — and the finding survives                                                       |
-| Literature search    | Done — 91 DOI-verified references (7 duplicate keys removed)                          |
-| §2 Literature review | Done — 1,703 words, drafted from publisher abstracts; needs author verification        |
-| §5.2 vs literature   | Done — 630 words, incl. explicit comparison with Zhao et al.                           |
-| Citation rendering   | Done — PDF now resolves citations and prints a real reference list                     |
-| Manuscript draft      | In progress — all sections drafted; 3 working-note markers remain                       |
+| Literature search     | Done — 91 DOI-verified references (7 duplicate keys removed)                          |
+| §2 Literature review  | Done — 1,703 words, drafted from publisher abstracts; needs author verification       |
+| §5.2 vs literature    | Done — 630 words, incl. explicit comparison with Zhao et al.                          |
+| Citation rendering    | Done — PDF now resolves citations and prints a real reference list                    |
+| PDF layout            | Done — checked mechanically, 16 pages, no text inside any margin                      |
+| Manuscript draft      | In progress — all sections drafted; 3 working-note markers remain                     |
 | Zenodo packaging      | In progress                                                                           |
 | **Blocking issue**    | **None. The prior-work overlap (below) requires a framing change, not new analysis.** |
 
@@ -299,8 +300,41 @@ Three working-note markers remain in the PDF, all intentional:
 The declarations (funding, AI use, author contributions) are resolved. **Verify each is
 true of your situation**, especially the AI-use disclosure.
 
-### Fixes made while drafting §2
+### PDF layout: text was spilling past the left and right margins
 
+Reported by the author and confirmed by measurement. Nine of sixteen pages had ink
+outside the 22 mm margin. Two separate causes:
+
+- **`multi_cell` leaves the cursor at the right edge.** fpdf2's `multi_cell` defaults to
+  `new_x=XPos.RIGHT`, so `pdf.x` ends up at the right edge of the cell just drawn. The
+  bullet and numbered-list branches never reset it, so **every list item after the first
+  was drawn starting at x = 188 mm** — off the page. On page 13 the continuations of
+  list items appeared as a phantom column in the right margin with Markdown asterisks
+  still in them. Fixed by routing every full-width block through `_block()`, which pins
+  `x` to the left margin before and after drawing.
+- **List continuations were rendered as separate paragraphs.** Prose in the manuscript is
+  hard-wrapped, and list items carry a three-space continuation indent. The list branches
+  took only the first line and ignored the rest, so each item was cut off mid-sentence and
+  its continuation became an unindented paragraph of its own. Fixed by extracting
+  `_gather()`, so bullet, numbered and paragraph blocks all join their continuation lines.
+  This is what now produces the hanging indent.
+
+Two smaller defects found in the same pass: numbered/bullet markers rendered as `?`
+(U+2022 is not in latin-1; a hyphen marker is used instead), and fpdf2 tables draw their
+rules marginally outside the width they are given, so a **centred** full-width table
+overhung *both* margins. Tables are now inset by 1.6 mm and left-aligned.
+
+Also corrected: `set_auto_page_break(margin=18)` allowed body text to come within 18 mm of
+the bottom edge — closer than the 22 mm margin it was supposed to respect. It now breaks
+at the margin, and `_ensure_room()` keeps section rules and headings out of the bottom
+margin.
+
+**Guarded against recurrence.** `src/check_layout.py` rasterises every page and fails if
+any ink falls inside a margin, so this cannot ship unnoticed again. Layout faults are
+invisible in the usual checks: the PDF opens, the page count is right, and the text is
+simply cut off or stranded in the margin.
+
+### Fixes made while drafting §2
 - **Seven duplicate BibTeX keys** were found (`cipriani2024make`, `thompson2024spatial`,
   `lovelace2019stats`, `hama2019stats`, `bauernschuster2020speed`, `n.d.table`,
   `2015collision`). Duplicate keys mean one entry silently shadows another. Removed;
@@ -395,7 +429,11 @@ be.
 | `docs/escooter-inspection.txt`        | Verification against the real data                             |
 | `paper/outline.md`                    | Section-by-section outline with word budget                    |
 | `paper/manuscript.md`                 | The draft                                                      |
-| `paper/references.bib`                | 91 DOI-verified references, keys checked unique                                |
+| `paper/manuscript.pdf`                | Rendered preprint, 16 pages                                    |
+| `paper/references.bib`                | 91 DOI-verified references, keys checked unique                |
+| `src/render_manuscript.py`            | Markdown -> PDF, resolves citations, builds the reference list |
+| `src/check_layout.py`                 | Fails if rendered text falls inside a page margin              |
+| `outputs/qa/`                         | Page rasters used to verify layout (git-ignored)               |
 | `outputs/logs/`                       | Run logs from each stage                                       |
 | `outputs/figures/`                    | Six 300 dpi figures                                            |
 | `outputs/tables/`                     | Ten result tables                                              |

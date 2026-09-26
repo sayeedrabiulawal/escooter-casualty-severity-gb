@@ -21,6 +21,11 @@ fpdf2>=2.8
 # Verifying the rendered PDF actually contains the expected text.
 pypdf>=4.0
 
+# Rasterising pages so src/check_layout.py can prove no text fell into the margins.
+# pypdfium2 ships wheels and needs no system packages; Pillow comes with matplotlib.
+pypdfium2>=4.30
+Pillow>=10.0
+
 # Visualisation
 matplotlib>=3.7
 seaborn>=0.12

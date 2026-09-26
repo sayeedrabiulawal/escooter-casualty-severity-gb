@@ -36,3 +36,12 @@ outputs/deposit/
 # OpenAlex response cache. Regenerable, and it depends on a shared daily request
 # budget, so it is not worth committing.
 docs/reading-list-cache.json
+
+# Page rasters written while verifying PDF layout. Regenerable at any time by
+#   python src/check_layout.py
+# which is what proves no text fell inside a page margin.
+outputs/qa/
+
+# Scratch extraction of the reading list used while drafting the literature
+# review. Derived from docs/reading-list.md.
+docs/_lit_working.txt

@@ -45,10 +45,20 @@ python src/analysis.py
 
 # 7. Figures
 python src/figures.py
+
+# 8. Render the manuscript to PDF and PROVE it respects the page margins
+python src/render_manuscript.py
+python src/check_layout.py
 ```
 
 Step 4 is not optional. It confirms which code identifies an e-scooter **in the data
 you actually downloaded**, rather than trusting the guide or a remembered value.
+
+Step 8 is not optional either. `render_manuscript.py` resolves the `[@key]` citations
+in `manuscript.md` against `references.bib` into author-year text and generates the
+reference list from the works actually cited. `check_layout.py` then rasterises every
+page and fails if any ink landed inside a margin — layout errors are otherwise
+invisible, because the PDF still opens and simply has text cut off or stranded.
 
 ## Repository layout
 
@@ -82,7 +92,9 @@ you actually downloaded**, rather than trusting the guide or a remembered value.
 │   ├── codes.py               Map integer codes to the guide's labels
 │   ├── build_bibliography.py  Generate DOI-verified BibTeX from Crossref
 │   ├── analysis.py            Table 1, RQ1-RQ4, sensitivity analyses
-│   └── figures.py             Publication figures
+│   ├── figures.py             Publication figures
+│   ├── render_manuscript.py   Markdown -> print-ready PDF, resolving citations
+│   └── check_layout.py        Fail if rendered text falls inside a page margin
 ├── outputs/
 │   ├── figures/               Six 300 dpi greyscale-safe figures
 │   ├── tables/                Ten result tables as CSV
@@ -90,7 +102,8 @@ you actually downloaded**, rather than trusting the guide or a remembered value.
 └── paper/
     ├── outline.md             Section-by-section outline with word budget
     ├── manuscript.md          The draft
-    └── references.bib         99 DOI-verified references
+    ├── manuscript.pdf         Rendered preprint (16 pages)
+    └── references.bib         91 DOI-verified references, keys checked unique
 ```
 
 ## Key decisions (all detailed in `docs/data-notes.md`)

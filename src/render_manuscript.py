@@ -32,7 +32,7 @@ import re
 import unicodedata
 from pathlib import Path
 
-from fpdf import FPDF
+from fpdf import FPDF, XPos, YPos
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -360,6 +360,70 @@ def build_reference_list(
     return [line for _, line in rows]
 
 
+# fpdf2's multi_cell defaults to new_x=XPos.RIGHT, which leaves pdf.x at the RIGHT
+# edge of the cell just drawn. The next full-width block then starts from there and
+# runs off the page -- that is what pushed list items past the right margin. Every
+# full-width block therefore goes through _block() or _list_item(), which move x back
+# to the left margin before drawing and after finishing.
+def _block(
+    pdf: FPDF, w: float, h: float, text: str, x: float | None = None, **kwargs
+) -> None:
+    """Draw a text block, starting and finishing at the left margin."""
+    pdf.set_x(pdf.l_margin if x is None else x)
+    pdf.multi_cell(w, h, text, new_x=XPos.LMARGIN, new_y=YPos.NEXT, **kwargs)
+
+
+def _list_item(
+    pdf: FPDF, marker: str, text: str, indent: float, width: float, h: float, **kwargs
+) -> None:
+    """Draw a list item with a hanging indent so wrapped lines stay aligned."""
+    pdf.set_x(pdf.l_margin)
+    pdf.cell(indent, h, marker)
+    pdf.set_x(pdf.l_margin + indent)
+    pdf.multi_cell(
+        width - indent, h, text, new_x=XPos.LMARGIN, new_y=YPos.NEXT, **kwargs
+    )
+
+
+def _ensure_room(pdf: FPDF, needed_mm: float) -> None:
+    """Start a new page if `needed_mm` no longer fits inside the text area.
+
+    A rule or a heading near the foot of a page would otherwise be drawn inside the
+    bottom margin, outside the printable block. multi_cell breaks pages on its own,
+    but pdf.line() and a lone heading do not, so they are checked explicitly.
+    """
+    if pdf.get_y() + needed_mm > pdf.h - pdf.b_margin:
+        pdf.add_page()
+
+
+def _gather(lines: list[str], index: int, first: str) -> tuple[str, int]:
+    """Join a block of prose starting with `first` at lines[index].
+
+    Prose in this manuscript is hard-wrapped, and list items are hard-wrapped with
+    an indented continuation, so a list item and its following lines have to be
+    gathered into one string. Without this, the continuation lines are rendered as
+    separate paragraphs at the left margin and the item reads as if it were cut off
+    mid-sentence.
+    """
+    chunks = [first]
+    cursor = index
+    while cursor < len(lines):
+        candidate = lines[cursor].strip()
+        if not candidate:
+            break
+        if re.match(r"^#{1,4}\s", candidate) or candidate.startswith(">"):
+            break
+        if is_table_row(candidate):
+            break
+        if re.match(r"^[-*+]\s", candidate) or re.match(r"^\d+\.\s", candidate):
+            break
+        if re.fullmatch(r"-{3,}", candidate):
+            break
+        chunks.append(candidate)
+        cursor += 1
+    return " ".join(chunks), cursor
+
+
 class ManuscriptPDF(FPDF):
     """A4 PDF with a running footer showing page numbers."""
 
@@ -367,6 +431,7 @@ class ManuscriptPDF(FPDF):
         if self.page_no() == 1:
             return
         self.set_y(-15)
+        self.set_x(self.l_margin)
         self.set_font(BODY_FONT, "", 8)
         self.set_text_color(110)
         self.cell(0, 5, str(self.page_no()), align="C")
@@ -397,7 +462,9 @@ def parse_table(lines: list[str], start: int) -> tuple[list[list[str]], int]:
 def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
     pdf = ManuscriptPDF(format=PAGE_FORMAT, unit="mm")
     pdf.set_margins(MARGIN, MARGIN, MARGIN)
-    pdf.set_auto_page_break(True, margin=18)
+    # Break at the margin, not inside it: a smaller value would let body text run
+    # closer to the page edge than the margin allows.
+    pdf.set_auto_page_break(True, margin=MARGIN)
     pdf.add_page()
 
     bib_path = PROJECT_ROOT / BIB_PATH
@@ -446,6 +513,7 @@ def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
         # Horizontal rule.
         if re.fullmatch(r"-{3,}|\*{3,}|_{3,}", stripped):
             pdf.ln(1)
+            _ensure_room(pdf, 3)
             y = pdf.get_y()
             pdf.set_draw_color(190)
             pdf.line(MARGIN, y, MARGIN + width, y)
@@ -460,10 +528,13 @@ def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
             title = heading.group(2).strip().replace("**", "")
             sizes = {1: 16, 2: 13, 3: 11.5, 4: 10.5}
             pdf.ln(4 if level <= 2 else 2.5)
+            # Keep a heading together with a couple of lines under it rather than
+            # stranding it alone at the foot of a page.
+            _ensure_room(pdf, 20 if level <= 2 else 16)
             pdf.set_font(BODY_FONT, "B", sizes.get(level, 10.5))
             if level == 1:
                 pdf.set_text_color(0)
-            pdf.multi_cell(width, 6.5, latin1_safe(title))
+            _block(pdf, width, 6.5, latin1_safe(title))
             pdf.set_font(BODY_FONT, "", BODY_SIZE)
             pdf.ln(1.2)
             index += 1
@@ -475,8 +546,12 @@ def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
             if rows:
                 try:
                     pdf.set_font(BODY_FONT, "", 8.5)
+                    # A hair narrower than the text block and left-aligned: fpdf2
+                    # draws a table's rules slightly outside the width it is given,
+                    # so a full-width centred table overhangs BOTH margins.
                     with pdf.table(
-                        width=width,
+                        width=width - 1.6,
+                        align="LEFT",
                         line_height=5,
                         first_row_as_headings=True,
                         borders_layout="HORIZONTAL_LINES",
@@ -490,7 +565,7 @@ def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
                 except Exception as exc:  # noqa: BLE001 - degrade instead of failing
                     # A malformed table must not abort the whole document.
                     pdf.set_font(BODY_FONT, "", BODY_SIZE)
-                    pdf.multi_cell(width, 5, latin1_safe(" ".join(rows[0])))
+                    _block(pdf, width, 5, latin1_safe(" ".join(rows[0])))
                     pdf.ln(1)
                     print(f"  [warn] table fallback used: {exc}")
             continue
@@ -500,12 +575,15 @@ def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
             quote = stripped.lstrip(">").strip()
             pdf.set_font(BODY_FONT, "I", BODY_SIZE - 0.5)
             pdf.set_text_color(70)
+            pdf.set_x(pdf.l_margin + 4)
             # markdown=True so **bold** inside a note renders as bold; __ would be
             # read as italic markup, so it is escaped first.
             pdf.multi_cell(
-                width - 6, 5.2,
+                width - 8, 5.2,
                 latin1_safe(quote.replace("__", "_\\_")),
                 markdown=True,
+                new_x=XPos.LMARGIN,
+                new_y=YPos.NEXT,
             )
             pdf.set_text_color(0)
             pdf.set_font(BODY_FONT, "", BODY_SIZE)
@@ -517,46 +595,29 @@ def render(markdown_text: str, output: Path) -> tuple[set[str], list[str]]:
         bullet = re.match(r"^[-*+]\s+(.*)$", stripped)
         if bullet:
             pdf.set_font(BODY_FONT, "", BODY_SIZE)
-            pdf.multi_cell(width, 5.4, latin1_safe("  \u2022  " + bullet.group(1)), markdown=True)
-            index += 1
+            body, index = _gather(lines, index + 1, bullet.group(1))
+            item = latin1_safe(body.replace("__", "_\\_"))
+            _list_item(pdf, "-", item, 4.5, width, 5.4, markdown=True)
+            pdf.ln(0.5)
             continue
 
         # Numbered list.
         numbered = re.match(r"^(\d+)\.\s+(.*)$", stripped)
         if numbered:
             pdf.set_font(BODY_FONT, "", BODY_SIZE)
-            pdf.multi_cell(
-                width, 5.4,
-                latin1_safe(f"  {numbered.group(1)}.  {numbered.group(2)}"),
-                markdown=True,
-            )
-            index += 1
+            body, index = _gather(lines, index + 1, numbered.group(2))
+            item = latin1_safe(body.replace("__", "_\\_"))
+            _list_item(pdf, f"{numbered.group(1)}.", item, 6.5, width, 5.4, markdown=True)
+            pdf.ln(0.5)
             continue
 
-        # Paragraph: gather until a blank line or a structural line.
-        paragraph = [stripped]
-        index += 1
-        while index < len(lines):
-            candidate = lines[index].strip()
-            if not candidate:
-                break
-            if re.match(r"^#{1,4}\s", candidate) or candidate.startswith(">"):
-                break
-            if is_table_row(candidate) or re.match(r"^[-*+]\s", candidate):
-                break
-            if re.match(r"^\d+\.\s", candidate):
-                break
-            if re.fullmatch(r"-{3,}", candidate):
-                break
-            paragraph.append(candidate)
-            index += 1
-
+        # Paragraph.
         pdf.set_font(BODY_FONT, "", BODY_SIZE)
-        joined = " ".join(paragraph)
+        joined, index = _gather(lines, index + 1, stripped)
         # fpdf2 reads __ as italic markup; identifiers with double underscores would
         # be mangled, so escape them before handing the text over.
         joined = joined.replace("__", "_\\_")
-        pdf.multi_cell(width, 5.4, latin1_safe(joined), markdown=True)
+        _block(pdf, width, 5.4, latin1_safe(joined), markdown=True)
         pdf.ln(1.8)
 
     output.parent.mkdir(parents=True, exist_ok=True)
