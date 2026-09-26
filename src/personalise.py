@@ -19,6 +19,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -84,6 +85,10 @@ def build_replacements(
         replacements.append((r"\[username\]/\[repo\]", github, "github url"))
         replacements.append((r"\[GitHub URL\]", github, "github url"))
     if surname:
+        # The author line renders as "Sayed `[surname]`", so the backticks must be
+        # consumed together with the placeholder. Replacing only the bracketed part
+        # leaves `Khan` visible in the output.
+        replacements.append((r"`\[surname[^\]]*\]`", surname_full, "surname"))
         replacements.append((r"\[Surname\]", surname_full, "surname"))
         replacements.append((r"Sayed \[surname[^\]]*\]", f"Sayed {surname_full}", "author name"))
         replacements.append((r"\[surname[^\]]*\]", surname_full, "surname"))
@@ -119,6 +124,151 @@ def analyse() -> dict[str, list[tuple[str, int]]]:
     return report
 
 
+# ---------------------------------------------------------------------------
+# Absent-value handling
+#
+# None of ORCID, affiliation, or a public repository is required to deposit on
+# Zenodo. What IS unacceptable is leaving a placeholder in the metadata, because the
+# record is permanent and "0000-0000-0000-0000" looks broken. A missing value must
+# therefore be REMOVED cleanly, not ignored.
+# ---------------------------------------------------------------------------
+
+DEFAULT_AFFILIATION = "Independent Researcher"
+
+ABSENT_ORCID_RULES: list[tuple[str, str, str]] = [
+    ("paper/manuscript.md", r"\*\*ORCID:\*\*[^\n]*\n", ""),
+]
+
+ABSENT_AFFILIATION_RULES: list[tuple[str, str, str]] = [
+    ("paper/manuscript.md", r"\*\*Affiliation:\*\*[^\n]*\n", ""),
+]
+
+ABSENT_GITHUB_RULES: list[tuple[str, str, str]] = [
+    (
+        "paper/manuscript.md",
+        # Replace only the placeholder fragment, not the whole sentence, or the
+        # result repeats the word "pipeline" twice in a row.
+        r"`\[GitHub URL\]`, tag `v1\.0\.0`",
+        "Included in the archived deposit, tag `v1.0.0`",
+    ),
+    ("CITATION.cff", r"^repository-code: [^\n]*\n", ""),
+    ("CITATION.cff", r"^url: [^\n]*\n", ""),
+    ("README.md", r"\[username\]/\[repo\]", "the archived deposit"),
+    ("plan.md", r"\[username\]/\[repo\]", "the archived deposit"),
+    ("progress.md", r"\[username\]/\[repo\]", "the archived deposit"),
+]
+
+# CITATION.cff ships with a commented-out ORCID/affiliation block. Left in place it
+# would still assert these are required, which is not true and would mislead a reader
+# of the archived record.
+ABSENT_OPTIONAL_METADATA_RULES: list[tuple[str, str, str]] = [
+    (
+        "CITATION.cff",
+        r"^\s*# TODO: uncomment and complete before releasing[^\n]*\n(?:\s*#[^\n]*\n)*",
+        "",
+    ),
+]
+
+
+def apply_rules(rules: list[tuple[str, str, str]], dry_run: bool) -> int:
+    """Apply (file, pattern, replacement) rules. Returns the number of edits made."""
+    edits = 0
+    for relative, pattern, replacement in rules:
+        path = PROJECT_ROOT / relative
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        new_text, count = re.subn(pattern, replacement, text, flags=re.M)
+        if count:
+            edits += count
+            if not dry_run:
+                path.write_text(new_text, encoding="utf-8")
+    return edits
+
+
+def update_zenodo_json(
+    surname: str, orcid: str, affiliation: str, github: str, dry_run: bool
+) -> list[str]:
+    """Edit .zenodo.json with the json module so the file cannot become invalid.
+
+    Regex surgery on JSON risks a trailing comma that breaks the deposit, and Zenodo
+    rejects the entire upload if the metadata will not parse. Parsing, modifying, and
+    re-serialising is the only safe way to do this.
+    """
+    path = PROJECT_ROOT / ".zenodo.json"
+    if not path.exists():
+        return ["[warn] .zenodo.json not found"]
+
+    notes: list[str] = []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"[warn] .zenodo.json is not valid JSON, left unchanged: {exc}"]
+
+    creators = data.get("creators") or [{}]
+    creator = creators[0]
+
+    if surname:
+        creator["name"] = f"{surname}, Sayed"
+    creator["affiliation"] = affiliation or DEFAULT_AFFILIATION
+    if not affiliation:
+        notes.append(f"affiliation defaulted to '{DEFAULT_AFFILIATION}'")
+
+    if orcid:
+        creator["orcid"] = orcid.replace("https://orcid.org/", "").strip()
+    else:
+        # Dropping the key is correct: Zenodo accepts creators without an ORCID.
+        creator.pop("orcid", None)
+        notes.append("no ORCID supplied, so the orcid field was removed")
+
+    data["creators"] = creators
+
+    related = data.get("related_identifiers") or []
+    if github:
+        for entry in related:
+            if "github" in str(entry.get("identifier", "")).lower():
+                entry["identifier"] = github
+    else:
+        # Remove only the placeholder repository link, keeping the dataset link.
+        kept = [
+            entry
+            for entry in related
+            if "github" not in str(entry.get("identifier", "")).lower()
+        ]
+        if len(kept) != len(related):
+            notes.append("no repository URL supplied, so the GitHub link was removed")
+        data["related_identifiers"] = kept
+
+    if not dry_run:
+        path.write_text(
+            json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
+    return notes
+
+
+def verify_zenodo_json() -> bool:
+    """Confirm .zenodo.json parses and has no leftover placeholders."""
+    path = PROJECT_ROOT / ".zenodo.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"  [FAIL] .zenodo.json does not parse: {exc}")
+        return False
+
+    blob = json.dumps(data)
+    problems = [
+        placeholder
+        for placeholder in ("0000-0000-0000", "[Surname]", "[Your University]", "[username]", "[TODO")
+        if placeholder in blob
+    ]
+    if problems:
+        print(f"  [FAIL] .zenodo.json still contains: {', '.join(problems)}")
+        return False
+
+    print("  [ OK ] .zenodo.json parses and contains no placeholders")
+    return True
+
+
 def apply_all(patterns: list[tuple[str, str, str]], dry_run: bool) -> dict[str, int]:
     """Apply substitutions. Returns substitution counts per file."""
     counts: dict[str, int] = {}
@@ -140,69 +290,114 @@ def apply_all(patterns: list[tuple[str, str, str]], dry_run: bool) -> dict[str, 
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--surname", default="", help="Your family name, e.g. Khan")
-    parser.add_argument("--orcid", default="", help="ORCID iD, e.g. 0000-0002-1234-5678")
-    parser.add_argument("--affiliation", default="", help="Institution, e.g. University of Example")
-    parser.add_argument("--github", default="", help="Repository URL")
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        epilog=(
+            "Only --surname is required. Affiliation defaults to "
+            f"'{DEFAULT_AFFILIATION}'. ORCID and --github are optional, and their "
+            "placeholders are removed cleanly if not supplied."
+        ),
+    )
+    parser.add_argument("--surname", default="", help="Your family name (the one value worth supplying)")
+    parser.add_argument("--orcid", default="", help="ORCID iD, e.g. 0000-0002-1234-5678 (optional)")
+    parser.add_argument("--affiliation", default="", help="Institution (optional)")
+    parser.add_argument("--github", default="", help="Public repository URL (optional)")
     parser.add_argument("--dry-run", action="store_true", help="Show changes without writing")
     args = parser.parse_args()
 
     if not any([args.surname, args.orcid, args.affiliation, args.github]):
-        print("No details supplied, so nothing can be changed. Showing current state.\n")
+        print("No details supplied. Showing what is still missing.\n")
         report = analyse()
         if not report:
             print("No placeholders found. Nothing to do.")
             return 0
-        print("Placeholders still present:")
         for relative, found in report.items():
-            print(f"\n  {relative}")
+            print(f"  {relative}")
             for label, count in found:
                 print(f"    {count:>2} x {label}")
         print(
-            "\nSupply --surname, --orcid, --affiliation and --github to fill these.\n"
-            "ORCID: get one free at https://orcid.org (takes about two minutes)."
+            "\nMinimum needed: --surname. Everything else is optional:\n"
+            "  ORCID        free at https://orcid.org (about 2 minutes, recommended)\n"
+            "  affiliation  defaults to 'Independent Researcher' if omitted\n"
+            "  github       omit if the code is not public yet; the deposit still holds it"
         )
         return 0
 
-    if args.orcid and not re.fullmatch(r"\d{4}-\d{4}-\d{4}-[\dX]{4}", args.orcid.replace("https://orcid.org/", "")):
+    if not args.surname:
+        print(
+            "[warn] --surname not supplied, so the author name keeps its placeholder.\n"
+            "       An author placeholder in a permanent record looks broken, so\n"
+            "       supply at least this one value.",
+            file=sys.stderr,
+        )
+
+    cleaned_orcid = args.orcid.replace("https://orcid.org/", "").strip()
+    if cleaned_orcid and not re.fullmatch(r"\d{4}-\d{4}-\d{4}-[\dX]{4}", cleaned_orcid):
         print(
             f"[warn] '{args.orcid}' does not look like an ORCID iD "
-            "(expected 0000-0000-0000-0000). Publishing a malformed ORCID to Zenodo "
-            "is permanent, so check it before continuing.",
+            "(expected 0000-0000-0000-0000). Publishing a malformed ORCID is\n"
+            "       permanent, so verify it before continuing.",
             file=sys.stderr,
         )
     if args.github and not args.github.startswith("http"):
         print(f"[warn] --github '{args.github}' does not look like a URL.", file=sys.stderr)
 
-    patterns = build_replacements(args.surname, args.orcid, args.affiliation, args.github)
+    suffix = " (DRY RUN - nothing written)" if args.dry_run else ""
+    print(f"Personalising metadata{suffix}\n")
 
-    if args.dry_run:
-        print("DRY RUN - nothing will be written.\n")
-        counts = apply_all(patterns, dry_run=True)
-        for relative, count in counts.items():
-            print(f"  would change {relative} ({count} substitution(s))")
-        print(f"\n{len(counts)} file(s) would change. Re-run without --dry-run to apply.")
-        return 0
+    # 1. Structured edit of the Zenodo metadata, via the json module.
+    notes = update_zenodo_json(
+        args.surname, cleaned_orcid, args.affiliation, args.github, args.dry_run
+    )
+    print("  .zenodo.json handled with the json module (cannot become invalid)")
+    for note in notes:
+        print(f"    - {note}")
 
-    counts = apply_all(patterns, dry_run=False)
-    print("Applied:")
+    # 2. Substitute any supplied values across the text files.
+    patterns = build_replacements(
+        args.surname, cleaned_orcid, args.affiliation, args.github
+    )
+    counts = apply_all(patterns, dry_run=args.dry_run)
     for relative, count in counts.items():
-        print(f"  {relative} ({count} substitution(s))")
+        print(f"    {relative} ({count} substitution(s))")
 
-    print("\n--- Remaining placeholders ---")
+    # 3. Remove placeholders for values that were NOT supplied. Leaving them would
+    #    put a broken-looking field into a record that cannot be deleted.
+    removal_edits = 0
+    if not cleaned_orcid:
+        removal_edits += apply_rules(ABSENT_ORCID_RULES, args.dry_run)
+    if not args.affiliation:
+        removal_edits += apply_rules(ABSENT_AFFILIATION_RULES, args.dry_run)
+    if not args.github:
+        removal_edits += apply_rules(ABSENT_GITHUB_RULES, args.dry_run)
+    if not (cleaned_orcid and args.affiliation):
+        removal_edits += apply_rules(ABSENT_OPTIONAL_METADATA_RULES, args.dry_run)
+    print(f"    {removal_edits} placeholder(s) removed for unsupplied values")
+
+    print("\n--- Verification ---")
+    if args.dry_run:
+        print("  (skipped in dry run)")
+    else:
+        verify_zenodo_json()
+
     report = analyse()
     if not report:
-        print("  None. Metadata is fully personalised.")
+        print("  [ OK ] No placeholders remain in any file.")
+        if args.dry_run:
+            print("\nDry run complete. Re-run without --dry-run to apply.")
+        else:
+            print("\nMetadata is fully personalised. Next:")
+            print("  python src/make_deposit.py --include-pdf paper/manuscript.pdf")
         return 0
+
+    print("\n  Remaining:")
     for relative, found in report.items():
-        print(f"\n  {relative}")
+        print(f"\n    {relative}")
         for label, count in found:
-            print(f"    {count:>2} x {label}")
-    print(
-        "\nReview the above before publishing. Anything listed as 'unresolved' is a\n"
-        "TODO you must fill in by hand."
-    )
+            marker = "  <-- must fix before publishing" if label == "TODO" else ""
+            print(f"      {count:>2} x {label}{marker}")
+    if args.dry_run:
+        print("\nDry run complete. Re-run without --dry-run to apply.")
     return 0
 
 

@@ -43,36 +43,61 @@ A software DOI is a normal, respected deposit. It is honest, and it is finished.
 
 ---
 
-## Step 1 — Get an ORCID iD (2 minutes)
+## Good news: you don't need ORCID, an affiliation, or GitHub
 
-<https://orcid.org> → Register. Free. **Do this first** — several of the steps below
-need it, and it is the one thing you cannot do without.
+None of those are required to deposit on Zenodo. The tooling now handles their
+absence by **removing** the fields cleanly, because a placeholder like
+`0000-0000-0000-0000` in a permanent record looks broken.
 
-Use the same form of your name everywhere: ORCID, Zenodo, GitHub, CV.
+| Thing | Required? | What happens if you skip it |
+|---|---|---|
+| Your surname | **Yes** — the one essential | Author name would read as a placeholder |
+| ORCID iD | No | The `orcid` field is removed from the metadata |
+| Affiliation | No | Defaults to **"Independent Researcher"** |
+| GitHub repo | No | The GitHub link is removed; the code is still in the deposit |
+
+**"Independent Researcher" is the correct and honest affiliation** for someone not
+currently enrolled or employed at an institution. It is a standard value on Zenodo, and
+it is what you are. Do not invent an affiliation.
+
+You can add ORCID and an affiliation later by publishing a new version — so registering
+one is worth doing when you have five minutes, but it should not hold up tonight.
 
 ---
 
-## Step 2 — Fill in your details (1 minute)
+## Step 1 — Fill in your surname (1 minute)
 
-One command writes your name, ORCID, and affiliation into all eight files. Check it
-first with `--dry-run`:
+Replace `YourSurname` with your actual family name. Everything else is optional, so
+this is a complete command:
 
 ```powershell
 cd 'd:\Apply\Sayed'
-& .venv\Scripts\python.exe src/personalise.py --dry-run `
-    --surname "YourSurname" `
-    --orcid "0000-0000-0000-0000" `
-    --affiliation "Your University" `
-    --github "https://github.com/yourname/your-repo"
+& .venv\Scripts\python.exe src/personalise.py --dry-run --surname "YourSurname"
 ```
 
-If the dry run looks right, run the same command **without** `--dry-run`.
+Check the dry run, then run it again **without** `--dry-run`.
 
-The script prints anything it could not resolve, so nothing is left behind silently.
+### If you do have an ORCID, add it
+
+Registering takes about two minutes at <https://orcid.org> and is genuinely worth doing
+— it links your publications to you permanently. If you have one:
+
+```powershell
+& .venv\Scripts\python.exe src/personalise.py `
+    --surname "YourSurname" `
+    --orcid "0000-0000-0000-0000"
+```
+
+Add `--affiliation "University Name"` if you are currently at an institution, and
+`--github "https://github.com/you/repo"` if you make a public repo.
+
+The script **verifies** afterwards that `.zenodo.json` still parses and contains no
+placeholders. It also prints anything it could not resolve, including the manuscript
+`TODO` markers, so nothing is left behind silently.
 
 ---
 
-## Step 3 — Build the archive (30 seconds)
+## Step 2 — Build the archive (30 seconds)
 
 ```powershell
 & .venv\Scripts\python.exe src/make_deposit.py --include-pdf paper/manuscript.pdf
@@ -82,7 +107,7 @@ This produces:
 
 | File | What it is |
 |---|---|
-| `outputs/deposit/escooter-casualty-severity-gb-v1.0.0.zip` | The archive to upload (~0.85 MB, 46 files) |
+| `outputs/deposit/escooter-casualty-severity-gb-v1.0.0.zip` | The archive to upload (~0.85 MB) |
 | `outputs/deposit/zenodo-metadata-SOFTWARE.txt` | Field-by-field metadata to paste |
 | `outputs/deposit/zenodo-metadata-PREPRINT.txt` | Same, for later |
 
@@ -92,27 +117,27 @@ That is why a 380 MB project becomes a 0.85 MB deposit.
 
 ---
 
-## Step 4 — Upload to Zenodo (5 minutes)
+## Step 3 — Upload to Zenodo (5 minutes)
 
-1. Sign in at <https://zenodo.org>. **Signing in with GitHub or ORCID is easiest** and
-   links your identities automatically.
+1. Sign in at <https://zenodo.org>. Signing in **with ORCID** is easiest if you have
+   one; otherwise register an account with your email.
 2. Click **New upload**.
 3. Upload `escooter-casualty-severity-gb-v1.0.0.zip`.
 4. Open `outputs/deposit/zenodo-metadata-SOFTWARE.txt` and paste each field into the
    matching box.
 5. Set **Resource type: Software**, **Licence: MIT**, **Access: Open**.
-6. Add the related identifier for the STATS19 dataset (in the sheet).
-7. **Proofread the title, your name, and your ORCID.** Then click **Publish**.
+6. Add the related identifier for the STATS19 dataset (it is in the sheet).
+7. **Proofread the title and your name.** Then click **Publish**.
 
 Zenodo mints the DOI immediately. It appears under **Upload → My uploads**.
 
 ---
 
-## Step 5 — Record the DOI (2 minutes)
+## Step 4 — Record the DOI (2 minutes)
 
 Once you have it, paste it into:
 
-- `CITATION.cff` → the `doi:` line and the corresponding URL
+- `CITATION.cff` → the `doi:` line
 - `paper/manuscript.md` → the **Code availability** declaration
 - `progress.md` → the status table
 - Your CV
