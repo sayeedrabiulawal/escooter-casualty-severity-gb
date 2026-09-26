@@ -279,6 +279,25 @@ def render(markdown_text: str, output: Path) -> None:
     pdf.output(str(output))
 
 
+# Patterns that mean "this text is a working note, not part of the paper". A deposit
+# is permanent, so every one of these must be reported rather than quietly rendered.
+DRAFT_MARKERS: list[tuple[str, str]] = [
+    (r"\[TODO[^\]]*\]", "bracketed TODO"),
+    (r"\*\*TODO[^*]*\*\*", "bold TODO marker"),
+    (r"^## HOW TO FINISH THIS DRAFT", "author-facing instruction section"),
+]
+
+
+def find_draft_markers(markdown_text: str) -> list[tuple[str, int]]:
+    """Report every working-note marker that would be visible in the PDF."""
+    found: list[tuple[str, int]] = []
+    for pattern, label in DRAFT_MARKERS:
+        count = len(re.findall(pattern, markdown_text, flags=re.M))
+        if count:
+            found.append((label, count))
+    return found
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", default="paper/manuscript.md")
@@ -297,14 +316,24 @@ def main() -> int:
     print(f"Rendered {source.name} -> {target}")
     print(f"  size : {target.stat().st_size / 1024:.0f} KB")
 
-    # A silent truncation would be worse than an error, so report obvious gaps.
-    leftover = re.findall(r"\[TODO[^\]]*\]", markdown_text)
-    if leftover:
+    markers = find_draft_markers(markdown_text)
+    if markers:
+        total = sum(count for _, count in markers)
         print(
-            f"\n  [WARN] The source still contains {len(leftover)} TODO marker(s).\n"
-            "         These will appear in the PDF. Do not deposit it as a finished\n"
-            "         preprint until they are resolved."
+            f"\n  [WARN] {total} draft marker(s) will be visible in the PDF:"
         )
+        for label, count in markers:
+            print(f"           {count:>2} x {label}")
+        print(
+            "         This is a WORKING DRAFT, not a finished preprint. A Zenodo\n"
+            "         record is permanent and cannot be deleted, so do not deposit\n"
+            "         the PDF until these are gone.\n"
+            "\n"
+            "         Note that the author-facing instruction sections are meant to\n"
+            "         be deleted before submission, not just the TODOs."
+        )
+    else:
+        print("\n  [ OK ] No draft markers. The manuscript is presentation-ready.")
     return 0
 
 

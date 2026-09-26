@@ -157,7 +157,32 @@ The only substantial thing left is the **literature review** (§2) and the **§5
 comparison**. Roughly 1,500 words. Everything else — methods, results, discussion,
 limitations, figures, tables — is written from the real numbers.
 
-### Start here: the reading list
+### Start here: the worksheet
+
+**`docs/literature-review-worksheet.md` (118 KB) is the thing to open first.** It breaks
+§2 into paragraph-by-paragraph jobs. For each one it gives you:
+
+- the argument that paragraph has to make in your paper
+- the word budget, so the section cannot sprawl
+- the candidate papers, with their **publisher abstracts quoted verbatim, inline**
+- the specific questions to answer while reading
+- what each paragraph sets up in your own contribution
+
+Generate or regenerate it:
+
+```powershell
+& .venv\Scripts\python.exe src/make_lit_review_worksheet.py
+```
+
+**It is a scaffold, not a draft.** No prose has been written for you and no paper has
+been characterised beyond quoting its own abstract. Every prompt is a job for you to do
+— which is the point, because §2 is the section a reviewer or interviewer probes first,
+and prose written from abstracts nobody has read cannot be defended.
+
+Rough budget: **six to eight hours** for the whole remaining job, spread however you
+like. Time estimates per subsection are in the worksheet.
+
+### Also useful: the raw reading list
 
 `docs/reading-list.md` (**120 KB**) is the thing that unlocks the review. It holds
 **100 entries across 99 papers, 61 of them with the publisher's abstract quoted

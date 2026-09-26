@@ -17,18 +17,29 @@ STATS19 Data
 
 ## HOW TO FINISH THIS DRAFT
 
-Methods and results below are written from the actual analysis output and can be used
-once proofread. Three things remain, and they are **yours to do** — I have deliberately
-not done them for you:
+Everything below is written from the actual analysis output. **Two sections remain, and
+they are yours to write** — deliberately, because they are the parts that require your
+own reading and judgement:
 
-1. **The literature review (§2).** 99 real references are in `references.bib`, each with
-   a DOI verified against Crossref. But a citation is only legitimate if you have read
-   the paper. **Do not cite anything you have not read**, and do not accept another
-   party's characterisation of a paper's findings.
-2. **The prior-work positioning in §1 and §5.2.** Zhao et al. (2026) overlaps this study
-   substantially — see `progress.md` §6. It must be cited and positioned against, and the
-   novelty claim narrowed accordingly.
-3. **Verification of every number** against `outputs/tables/` and `outputs/logs/`.
+1. **§2, the literature review.** Start from `docs/literature-review-worksheet.md`, which
+   breaks it into paragraph-by-paragraph jobs with the candidate papers and their
+   publisher abstracts inline. Budget 1,500 words. **Do not cite anything you have not
+   read in full**, and do not accept another party's characterisation of a paper's
+   findings — including mine.
+2. **§5.2, the comparison with existing literature.** Same worksheet, Part 2. Budget
+   400 words. Zhao et al. (2026) must be cited and your contribution distinguished from
+   theirs.
+
+Two further tasks, neither of them writing:
+
+3. **Verify every number** against `outputs/tables/` and `outputs/logs/`. The pipeline is
+   deterministic, so any figure in this manuscript can be traced to a file in that output.
+4. **Confirm the declarations.** Funding, AI use, and author contributions are filled in
+   with defaults. Check that each is true of your situation, especially the AI-use
+   disclosure and the journal's policy on it.
+
+A Zenodo record is permanent and cannot be deleted. Do not deposit this manuscript while
+any `TODO` marker remains in the PDF — `src/render_manuscript.py` warns you if one does.
 
 ---
 
@@ -122,23 +133,25 @@ artefact of a mid-series change in how severity was recorded.
 
 ## 2. Literature Review
 
-> **TODO — YOU MUST WRITE THIS SECTION.**
+> **TODO — THIS SECTION IS NOT YET WRITTEN.**
 >
-> Four themes, matching `outline.md` §2:
+> Work from `docs/literature-review-worksheet.md`, which breaks this section into
+> paragraph-by-paragraph jobs with the candidate papers and their publisher abstracts
+> inline. Budget: 1,500 words across four themes plus a gap statement.
 >
-> - **2.1 E-scooter injury epidemiology** — themes `escooter_epi`, `escooter_severity`
-> - **2.2 Comparative injury severity across modes** — themes `vru_severity`,
->   `cycling_severity`
-> - **2.3 Police-reported collision data as a research source** — theme
->   `police_reported_bias`
-> - **2.4 Spatial and environmental determinants** — themes `speed_limit`,
->   `spatial_analysis`
-> - **Gap statement** — end with an evidence-based gap that RQ1–RQ4 answer directly.
+> - **2.1 E-scooter injury epidemiology** — 450 words
+> - **2.2 Comparative injury severity across modes** — 400 words
+> - **2.3 Police-reported collision data as a research source** — 350 words
+> - **2.4 Spatial and environmental determinants** — 300 words
+> - **Gap statement** — 150 words, must be an evidence-based conclusion, not an
+>   assertion, and must lead directly into §3.
 >
-> **Rules:** read each paper before citing it; cite the specific claim it supports; prefer
-> the last 10 years except for methods and dataset provenance.
+> **Rules:** read each paper in full before citing it as a finding; cite the specific
+> claim it supports; prefer the last 10 years except for methods and dataset provenance.
 >
-> Zhao et al. (2026) belongs in §2.1 and must be discussed explicitly.
+> Zhao et al. (2026), DOI 10.1016/j.aap.2026.108517, must appear in 2.1 and be
+> distinguished explicitly from this study. It is the closest existing work and a
+> reviewer will know it.
 
 ---
 
@@ -402,19 +415,24 @@ concurrent change in severity-recording practice.
 
 ### 5.2 Comparison with existing literature
 
-> **TODO — write once §2 is written.**
+> **TODO — NOT YET WRITTEN.** Work from `docs/literature-review-worksheet.md`,
+> Part 2. Budget: 400 words.
 >
-> Key points, using sources you have actually read:
+> This is not a second review. It compares your findings with published ones and offers
+> a mechanism where they disagree. Points to cover:
 >
 > - Compare the age and urban profile against the clinical literature, which reports a
 >   young, male, urban-dominant e-scooter injury population. State whether this dataset
->   agrees.
-> - Compare the severity finding against Zhao et al. (2026), which is England-wide and
->   severity-focused. State explicitly what the present analysis adds: the three-way mode
->   comparison, the five-year trend, and the reporting-method robustness.
-> - Compare against comparative clinical studies of e-scooter versus bicycle injuries.
-> - Where this study disagrees with published work, offer a mechanism rather than leaving
->   the disagreement unexplained.
+>   agrees. Your median age is 22 versus 35 for pedal cyclists, and 94.0% of your cohort
+>   is urban.
+> - Compare the severity finding against Zhao et al. (2026) and state explicitly what
+>   this analysis adds: the three-way mode comparison including motorcyclists, the
+>   five-year trend in counts and severity, and the injury-based-reporting robustness
+>   analysis.
+> - Where this study disagrees with published work, offer a mechanism. An unexplained
+>   disagreement reads as an error.
+> - Do not claim that this is the first national e-scooter severity analysis. Zhao et al.
+>   preclude that, and a reviewer will know it.
 
 ### 5.3 Interpretation and implications
 
@@ -498,19 +516,23 @@ all code are archived at Zenodo: DOI `[TODO]`.
 **Code availability.** `[GitHub URL]`, tag `v1.0.0`. The full pipeline reruns from raw
 data and reproduces the derived dataset byte-identically.
 
-**Funding.** `[TODO — state "This research received no external funding" if accurate.]`
+**Funding.** This research received no external funding.
 
 **Conflicts of interest.** The author declares no conflict of interest.
 
 **Ethics.** Secondary analysis of anonymised, aggregate, publicly available data; no
 ethical approval required.
 
-**AI use.** `[TODO — check the target journal's policy. Many publishers require disclosure
-of AI assistance with code or language editing. Disclose in the terms the journal
-specifies.]`
+**AI use.** Substantial AI-assisted tooling was used in this project. The analysis and
+validation code, the figure and table generation, and a working draft of this manuscript
+were developed with AI assistance. All reported quantities are outputs of the archived
+pipeline and are reproducible from the raw data without any AI involvement, and the
+complete pipeline, including its validation checks, is included in the deposit. The
+author is responsible for the content of this manuscript and for any errors in it.
 
-**Author contributions.** `[TODO — single author: conceptualisation, methodology, software,
-formal analysis, writing.]`
+**Author contributions.** Sole author: conceptualisation, methodology, software, formal
+analysis, data curation, visualisation, writing (original draft), and writing (review and
+editing).
 
 ---
 

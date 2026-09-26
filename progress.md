@@ -279,6 +279,13 @@ The reframed contribution statement is in `paper/manuscript.md` §1.
 record today.** The code is complete and ready; the preprint needs the literature review
 first.
 
+**Two sections remain unwritten: §2 (1,500 words) and §5.2 (400 words).** Both are
+scaffolded in `docs/literature-review-worksheet.md`, with the candidate papers and their
+abstracts inline. This is the whole remaining job on the preprint.
+
+The declarations (funding, AI use, author contributions) are resolved. **Verify each is
+true of your situation**, especially the AI-use disclosure.
+
 ### To finish the paper
 
 - [ ] Curate the 99 Crossref references: read them, delete any that do not support
@@ -355,3 +362,4 @@ be.
 | `outputs/tables/`              | Ten result tables                                              |
 | `docs/reading-list.md`         | 100 candidates with verbatim abstracts, by manuscript section  |
 | `docs/reading-list.csv`        | The same, as a tracking sheet with a blank `read` column       |
+| `docs/literature-review-worksheet.md` | Paragraph-by-paragraph scaffold for §2 and §5.2         |
