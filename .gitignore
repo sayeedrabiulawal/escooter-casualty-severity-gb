@@ -32,3 +32,7 @@ paper/*.out
 # Zenodo deposit build artefacts. Regenerable in seconds by:
 #   python src/make_deposit.py --include-pdf paper/manuscript.pdf
 outputs/deposit/
+
+# OpenAlex response cache. Regenerable, and it depends on a shared daily request
+# budget, so it is not worth committing.
+docs/reading-list-cache.json

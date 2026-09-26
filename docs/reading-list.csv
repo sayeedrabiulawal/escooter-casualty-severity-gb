@@ -1,0 +1,101 @@
+section,theme,year,author,title,venue,citations,has_abstract,read,notes,doi
+2.1,escooter_epi,2019,Beck et al.,Emergency department impact following the introduction of an electric scooter sharing service,Emergency Medicine Australasia,114,yes,,,10.1111/1742-6723.13419
+2.1,escooter_epi,2022,Shichman et al.,"Emergency department electric scooter injuries after the introduction of shared e-scooter services: A retrospective review of 3,331 cases",World Journal of Emergency Medicine,84,yes,,,10.5847/wjem.j.1920-8642.2022.002
+2.1,escooter_epi,2021,Cicchino et al.,"Injuries related to electric scooter and bicycle use in a Washington, DC, emergency department",Traffic Injury Prevention,60,yes,,,10.1080/15389588.2021.1913280
+2.1,escooter_epi,2023,Andersson et al.,"Electric scooter accidents leading to emergency department visits: influence of alcohol and outcomes in Stockholm, Sweden",Scientific Reports,17,yes,,,10.1038/s41598-023-32857-1
+2.1,escooter_epi,2023,Kim et al.,Epidemiology of Fractures Following Electric Scooter Injury,Indian Journal of Orthopaedics,9,no,,,10.1007/s43465-023-00862-1
+2.1,escooter_epi,2019,Allen et al.,262 Epidemiology of Dockless Electric Rental Scooter Injuries,Annals of Emergency Medicine,3,no,,,10.1016/j.annemergmed.2019.08.220
+2.1,escooter_epi,2021,"The Emergency Department, Landspítali University Hospital in Reykjavík, Iceland. et al.",Emergency department visits in Reykjavik for electric scooter related injuries during the summer of 2020,Læknablaðið,2,yes,,,10.17992/lbl.2021.05.635
+2.1,escooter_epi,2025,Younis et al.,"Orthopedic Injuries Associated With Electric Scooter (E-scooter) Use: Epidemiology, Injury Patterns, Management Strategies, and Prevention",Cureus,1,yes,,,10.7759/cureus.95141
+2.1,escooter_epi,2025,Arslan et al.,Comparison of Injury Severity and Patterns in Standing E-Scooter and Bicycle Accidents: Two-Years Experience from a Turkish Emergency Department,,1,no,,,10.2139/ssrn.5344792
+2.1,escooter_epi,2026,McConnell et al.,A Retrospective Evaluation of Emergency Department Electric Scooter Impact Before and After the Introduction of a Hire Electric Scooter Service,Emergency Medicine Australasia,1,yes,,,10.1111/1742-6723.70227
+2.1,escooter_epi,2022,McGalliard et al.,307 Electric scooter injuries in children – a public health perfect storm: a 2-year single centre paediatric emergency department audit,Association of Paediatric Emergency Medicine,0,yes,,,10.1136/archdischild-2022-rcpch.11
+2.1,escooter_epi,2026,Douglas et al.,Pediatric E-Scooter and Traditional Scooter Injuries,Pediatric Emergency Care,0,yes,,,10.1097/pec.0000000000003652
+2.1 / 5.2,escooter_severity,2013,Blackman et al.,"Comparison of moped, scooter and motorcycle crash risk and crash severity",Accident Analysis &amp; Prevention,119,no,,,10.1016/j.aap.2013.03.026
+2.1 / 5.2,escooter_severity,2008,Pai et al.,Modelling motorcyclist injury severity by various crash types at T-junctions in the UK,Safety Science,116,no,,,10.1016/j.ssci.2007.07.005
+2.1 / 5.2,escooter_severity,2020,Asare et al.,Crash severity modelling using ordinal logistic regression approach,International Journal of Injury Control and Safety Promotion,42,yes,,,10.1080/17457300.2020.1790615
+2.1 / 5.2,escooter_severity,2014,Shyhalla,Alcohol Involvement and Other Risky Driver Behaviors: Effects on Crash Initiation and Crash Severity,Traffic Injury Prevention,41,yes,,,10.1080/15389588.2013.822491
+2.1 / 5.2,escooter_severity,2020,Rezapour et al.,Application of multi-group structural equation modelling for investigation of traffic barrier crash severity,International Journal of Injury Control and Safety Promotion,11,yes,,,10.1080/17457300.2020.1734943
+2.1 / 5.2,escooter_severity,2020,Rezapour et al.,Bayesian hierarchical modelling of traffic barrier crash severity,International Journal of Injury Control and Safety Promotion,6,yes,,,10.1080/17457300.2020.1849312
+2.1 / 5.2,escooter_severity,2026,Park et al.,Linking built environments and pre-crash pedestrian behaviors: A Safe Systems approach to crash severity,Traffic Injury Prevention,4,yes,,,10.1080/15389588.2026.2628070
+2.1 / 5.2,escooter_severity,2026,Howard et al.,Disparities in incidence and severity of electric scooter injuries in children,Injury,3,no,,,10.1016/j.injury.2026.113175
+2.1 / 5.2,escooter_severity,2026,Su et al.,Age-gender heterogeneities and temporal variation in e-scooter crash injury severity risk: An empirical study using model-based recursive partitioning,Safety Science,1,no,,,10.1016/j.ssci.2026.107350
+2.1 / 5.2,escooter_severity,2025,Zhao et al.,England-wide injury-severity analysis of e-scooter riders using a Bayesian spatial field model,,0,no,,,10.2139/ssrn.5937116
+2.1 / 5.2,escooter_severity,2026,Liu et al.,Toward safer micromobility: Identifying urban e-scooter crash severity factors through automated machine learning and crash narrative analysis,Cities,0,no,,,10.1016/j.cities.2026.107384
+2.1 / 5.2,escooter_severity,2026,Islam et al.,A Multidimensional Analysis of E-Scooter Crash Severity: Integrating Cluster Correspondence and SHAP Interpretability,,0,no,,,10.21203/rs.3.rs-9751845/v1
+2.1 / 5.3,micromobility_safety,2023,Speak et al.,Scooter Stories: User and Non-User Experiences of a Shared E-Scooter Trial,Active Travel Studies,25,yes,,,10.16997/ats.1195
+2.1 / 5.3,micromobility_safety,2024,Weiss et al.,Scooting into place: How comfort on different infrastructure types influences shared e-scooter trip making,Journal of Cycling and Micromobility Research,9,yes,,,10.1016/j.jcmr.2024.100047
+2.1 / 5.3,micromobility_safety,2023,Cloud et al.,Shared E-Scooter Services and Road Safety: Evidence from Six European Countries,,6,no,,,10.2139/ssrn.4340551
+2.1 / 5.3,micromobility_safety,2023,Oluwajana et al.,"Rationale for governance and effective guidelines towards attainment of shared e-scooter micromobility benefits in Windsor, Ontario",Case Studies on Transport Policy,2,no,,,10.1016/j.cstp.2023.101051
+2.1 / 5.3,micromobility_safety,2025,Anke et al.,How e-scooter riders navigate road safety hazards –Understanding the perceptions and strategies of regular riders,Journal of Cycling and Micromobility Research,2,yes,,,10.1016/j.jcmr.2025.100065
+2.1 / 5.3,micromobility_safety,2024,McCarthy,Navigating the Urban E-Scooter Landscape: A Five-Stage Framework for Shared Micromobility Diffusion,,1,no,,,10.2139/ssrn.5034711
+2.1 / 5.3,micromobility_safety,2024,Cipriani,How Can We Make Shared E-scooter Systems Safer? Municipal Perspectives on Safety in Shared E-scooter Programs,,0,yes,,,10.32920/25417390.v1
+2.1 / 5.3,micromobility_safety,2024,Cipriani,How Can We Make Shared E-scooter Systems Safer? Municipal Perspectives on Safety in Shared E-scooter Programs,,0,yes,,,10.32920/25417390
+2.1 / 5.3,micromobility_safety,2026,Vaezi,"Comprehensive Analysis of Shared E-Scooter Micromobility Services in Turin, Italy",,0,no,,,10.2139/ssrn.6063748
+2.1 / 5.3,micromobility_safety,2026,Barati et al.,How accessibility shapes shared e-scooter trip length: Insights for sustainable micromobility deployment,,0,no,,,10.2139/ssrn.6114215
+2.2,vru_severity,2022,Sun et al.,Exploring injury severity of vulnerable road user involved crashes across seasons: A hybrid method integrating random parameter logit model and Bayesian network,Safety Science,62,no,,,10.1016/j.ssci.2022.105682
+2.2,vru_severity,1986,Waters,Should pedal cyclists wear helmets? A comparison of head injuries sustained by pedal cyclists and motorcyclists in road traffic accidents,Injury,35,no,,,10.1016/0020-1383(86)90073-2
+2.2,vru_severity,2018,Winkler et al.,"The changing epidemiology of open fractures in vehicle occupants, pedestrians, motorcyclists and cyclists",Injury,27,no,,,10.1016/j.injury.2017.11.009
+2.2,vru_severity,2013,Jackson et al.,"Injury patterns and severity among motorcyclists treated in US emergency departments, 2001–2008: a comparison of younger and older riders",Injury Prevention,22,yes,,,10.1136/injuryprev-2012-040619
+2.2,vru_severity,2012,Freeman et al.,"Vulnerable road user groups: a review of younger drivers, motorcyclists and older drivers",Vulnerable Groups &amp; Inclusion,15,yes,,,10.3402/vgi.v3i0.14889
+2.2,vru_severity,2024,Uba Abdulazeez et al.,Child vulnerable road user crash injury severity,Case Studies on Transport Policy,3,yes,,,10.1016/j.cstp.2024.101268
+2.2,vru_severity,2023,Geary,Infrastructure Measures to Protect the Unrecognized Vulnerable Road User: Motorcyclists,MAIREINFRA 2023,2,yes,,,10.3390/engproc2023036036
+2.2,vru_severity,2025,Rizzi et al.,Real life motorcycle crashes into road barriers – does motorcyclists’ injury severity vary between different types of barriers and the presence of motorcycle protection systems?,Traffic Injury Prevention,1,yes,,,10.1080/15389588.2025.2489640
+2.2,vru_severity,2025,Sura et al.,Realistic Micro-Doppler Radar Simulation of Cyclists for Vulnerable Road User Classification,2025 22nd European Radar Conference (EuRAD),0,yes,,,10.23919/eurad65285.2025.11233995
+2.2,vru_severity,2026,Fuad et al.,Unraveling vulnerable road user crash severity: a latent class and random parameter approach with COVID-19 temporal insights,Traffic Injury Prevention,0,yes,,,10.1080/15389588.2026.2681919
+2.2,vru_severity,2026,McCreery-Phillips et al.,Modelling Injury Severity Among Vulnerable Road Users in Collisions Involving Transport for London Buses,,0,no,,,10.2139/ssrn.6486399
+2.2,vru_severity,2026,Keall et al.,"Analysis of real word safety benefits of pedestrian autonomous emergency braking (PAEB) for pedestrians, cyclists and motorcyclists",Traffic Injury Prevention,0,yes,,,10.1080/15389588.2026.2673090
+2.2 / 3.6,severity_methods,2020,Chen et al.,"Modeling Road Accident Severity with Comparisons of Logistic Regression, Decision Tree and Random Forest",Information,117,yes,,,10.3390/info11050270
+2.2 / 3.6,severity_methods,2013,Khalili et al.,Logistic Regression Approach in Road Defects Impact on Accident Severity,Journal of Emerging Technologies in Web Intelligence,9,yes,,,10.4304/jetwi.5.2.132-135
+2.2 / 3.6,severity_methods,2009,Soar,Resuscitation of the Seriously Injured Casualty,Practical Resuscitation for Healthcare Professionals,0,yes,,,10.1002/9781444316056.ch16
+2.2 / 3.6,severity_methods,2014,Unknown,Management of the seriously injured casualty,Expedition Medicine,0,yes,,,10.4324/9781315063621-21
+2.2 / 3.6,severity_methods,2024,Thompson,Spatial Analysis of Characteristics and Influencing Factors of Killed or Seriously Injured Persons from Motor Vehicle Collisions within the City of Toronto,,0,yes,,,10.32920/25169675.v1
+2.2 / 3.6,severity_methods,2024,Thompson,Spatial Analysis of Characteristics and Influencing Factors of Killed or Seriously Injured Persons from Motor Vehicle Collisions within the City of Toronto,,0,yes,,,10.32920/25169675
+2.2 / 3.6,severity_methods,n.d.,Unknown,Table 4: Multinomial logistic regression models for CAD severity.,,0,no,,,10.7717/peerj.15471/table-4
+2.2 / 3.6,severity_methods,n.d.,Unknown,Table 4: Univariate and multivariable logistic regression model for NSSI severity.,,0,no,,,10.7717/peerj.12665/table-4
+2.3,police_reported_bias,2015,Watson et al.,Estimating under-reporting of road crash injuries to police using multiple linked data collections,Accident Analysis &amp; Prevention,164,no,,,10.1016/j.aap.2015.06.011
+2.3,police_reported_bias,2008,Dandona et al.,Under-reporting of road traffic injuries to the police: results from two data sources in urban India,Injury Prevention,150,yes,,,10.1136/ip.2008.019638
+2.3,police_reported_bias,2019,Lovelace et al.,stats19: A package for working with open road crash data,Journal of Open Source Software,24,yes,,,10.21105/joss.01181
+2.3,police_reported_bias,2019,Hama et al.,stats19: a package for road safety research,,2,yes,,,10.59350/146t8-j0505
+2.3,police_reported_bias,2018,"Senior Resident Department of Biochemistry, GMC Amritsar et al.","An Epidemological Study of Road Traffic Injuries Reporting in Casualty Department of Guru Nanak Dev Hospital, Amritsar",Journal of Medical Science And clinical Research,1,yes,,,10.18535/jmscr/v6i11.106
+2.3,police_reported_bias,1991,Reinhardt-Rutland,Risk on the Road: The Reason Casualty Rates Do Not Fall?,"The Police Journal: Theory, Practice and Principles",0,yes,,,10.1177/0032258x9106400410
+2.3,police_reported_bias,2019,Lovelace et al.,stats19: Work with Open Road Traffic Casualty Data from Great Britain,CRAN: Contributed Packages,0,yes,,,10.32614/cran.package.stats19
+2.3,police_reported_bias,2019,Hama et al.,stats19: a package for road safety research,,0,yes,,,10.59350/sbggt-m4q69
+2.4 / 5.3,speed_limit,2000,Adesunkanmi et al.,Road traffic accidents to African children: assessment of severity using the Injury Severity Score (ISS),Injury,52,no,,,10.1016/s0020-1383(99)00236-3
+2.4 / 5.3,speed_limit,2015,Mitchell et al.,Risk factors associated with the severity of injury outcome for paediatric road trauma,Injury,35,no,,,10.1016/j.injury.2015.02.006
+2.4 / 5.3,speed_limit,2008,Gonçalves et al.,Air quality models sensitivity to on-road traffic speed representation: Effects on air quality of 80 km h−1 speed limit in the Barcelona Metropolitan area,Atmospheric Environment,25,no,,,10.1016/j.atmosenv.2008.08.022
+2.4 / 5.3,speed_limit,2022,Keall et al.,Association Between Australasian New Car Assessment Program Pedestrian Ratings and Injury Severity in Real-Life Crashes in Different Speed Limit Areas,Journal of Road Safety,5,yes,,,10.33492/jrs-d-22-00005
+2.4 / 5.3,speed_limit,2020,Bauernschuster et al.,Speed Limit Enforcement and Road Safety,SSRN Electronic Journal,4,no,,,10.2139/ssrn.3521680
+2.4 / 5.3,speed_limit,2019,Zhang et al.,Research on Speed Limit Method of Expressway Main Road Based on Rainy Environment and Its Influence on Vehicle Confluence,CICTP 2019,3,yes,,,10.1061/9780784482292.304
+2.4 / 5.3,speed_limit,2020,Bauernschuster et al.,Speed Limit Enforcement and Road Safety,,0,no,,,10.2139/ssrn.3523528
+2.4 / 5.3,speed_limit,2021,Zhao et al.,Research on Speed Limit Value of Expressway Considering the Influence of Road Traffic Environment,CICTP 2021,0,yes,,,10.1061/9780784483565.167
+2.4 / 5.3,speed_limit,2021,Mitra et al.,Do Speed Limit Reductions Help Road Safety?,,0,yes,,,10.1596/36109
+2.4 / 5.3,speed_limit,2026,Unknown,Pedestrian Movement and Accident Causation as Determinants of Injury Severity in Road Traffic Accidents,International Journal of Medicine,0,yes,,,10.61336/im/26-07-111
+2.4,spatial_analysis,2021,Liu et al.,A Spatial Scan Statistic to Detect Spatial Communities of Vehicle Movements on Urban Road Networks,Geographical Analysis,18,yes,,,10.1111/gean.12278
+2.4,spatial_analysis,2014,Wei et al.,The Random Walk Value for Ranking Spatial Characteristics in Road Networks,Geographical Analysis,7,yes,,,10.1111/gean.12064
+2.4,spatial_analysis,2001,Yu,Road network simplification with knowledge-based spatial analysis,Journal of Geographical Sciences,2,no,,,10.1007/bf02837444
+2.4,spatial_analysis,2023,Alam et al.,Spatial Pattern Identification and Crash Severity Analysis of Road Traffic Crash Hot Spots in Ohio,,2,no,,,10.2139/ssrn.4342849
+2.4,spatial_analysis,2024,Gedamu et al.,Spatio-Temporal Analysis of Road Traffic Crash Severity and Collision Type,,1,no,,,10.2139/ssrn.4895003
+2.4,spatial_analysis,2015,Unknown,Collision Density in Two-Dimensional Space,Spatial Analysis Methods of Road Traffic Collisions,0,yes,,,10.1201/b18937-8
+2.4,spatial_analysis,2015,Unknown,Collision Density in Two-Dimensional Space,Spatial Analysis Methods of Road Traffic Collisions,0,no,,,10.1201/b18937-3
+2.4,spatial_analysis,2024,Samia et al.,Spatial-Temporal Analysis of Road Accidents in Haraz Road Using Spatial Statistics and Geographical Information System,Disaster Prevention and Management Knowledge,0,yes,,,10.32598/dmkp.13.4.768.1
+2.2,cycling_severity,2016,Chen et al.,Built environment effects on cyclist injury severity in automobile-involved bicycle crashes,Accident Analysis &amp; Prevention,150,no,,,10.1016/j.aap.2015.11.002
+2.2,cycling_severity,2021,Samerei et al.,Using latent class clustering and binary logistic regression to model Australian cyclist injury severity in motor vehicle–bicycle crashes,Journal of Safety Research,74,no,,,10.1016/j.jsr.2021.09.005
+2.2,cycling_severity,2021,Ye et al.,Exploring Factors Associated with Cyclist Injury Severity in Vehicle-Electric Bicycle Crashes Based on a Random Parameter Logit Model,Journal of Advanced Transportation,24,yes,,,10.1155/2021/5563704
+2.2,cycling_severity,2021,Wei et al.,Electric cyclist injury of the collision between right turn of truck and electric bicycle,Computer Methods in Biomechanics and Biomedical Engineering,7,yes,,,10.1080/10255842.2021.1892662
+2.2,cycling_severity,2005,Bellogi et al.,Car-to-Bicycle Side Crash Simulation~Cyclist Head Injury Prediction and Car Design Optimization,,3,yes,,,10.4271/2005-08-0523
+2.2,cycling_severity,2020,Handa et al.,Investigation of Collision Position and Orientation of Elderly Cyclist for <scp>Car‐Bicycle</scp> Collision Simulation: Factors Causing Accidents on the Side of a Cyclist when Turning Right on Two Lane Straight Road,IEEJ Transactions on Electrical and Electronic Engineering,2,yes,,,10.1002/tee.23240
+2.2,cycling_severity,2021,Leden,Bicycle Collision Avoidance Systems: Can Cyclist Safety be Improved with Intelligent Transport Systems?,International Encyclopedia of Transportation,2,no,,,10.1016/b978-0-08-102671-7.10115-0
+2.2,cycling_severity,2025,WANG et al.,EFFECTS OF CYCLIST RIDING POSTURE ON HEAD KINEMATICS RESPONSE AND INJURY IN VEHICLE–BICYCLE COLLISION,Journal of Mechanics in Medicine and Biology,1,yes,,,10.1142/s0219519425500034
+2.2,cycling_severity,2026,Budzyński et al.,Explainable Machine Learning for Cyclist Injury Severity in Bicycle–Vehicle Crashes in Poland: Association Patterns and Implications for Sustainable Road Safety,Sustainability,1,yes,,,10.3390/su18115501
+2.2,cycling_severity,2019,Nakahara et al.,Influence of Bicycle Deformation and Type on Head Injury Values of a Cyclist in a Car-to-Bicycle Collision,International Journal of Automotive Engineering,0,yes,,,10.20485/jsaeijae.10.4_316
+2.4 / 5.3,scooter_regulation,2023,Sievert et al.,"A Survey of Electric-Scooter Riders’ Route Choice, Safety Perception, and Helmet Use",Sustainability,30,yes,,,10.3390/su15086609
+2.4 / 5.3,scooter_regulation,2023,Siebert et al.,Computer vision-based helmet use registration for e-scooter riders – The impact of the mandatory helmet law in Copenhagen,Journal of Safety Research,18,yes,,,10.1016/j.jsr.2023.09.021
+2.4 / 5.3,scooter_regulation,2019,Allen et al.,262 Epidemiology of Dockless Electric Rental Scooter Injuries,Annals of Emergency Medicine,3,no,,,10.1016/j.annemergmed.2019.08.220
+2.4 / 5.3,scooter_regulation,2013,Takáč et al.,The Legal Regulation of Rental Contracts on the Land Rental Market in Slovakia,EU agrarian Law,2,yes,,,10.2478/eual-2013-0005
+2.4 / 5.3,scooter_regulation,2022,Popov et al.,Development of concept of a geographic information system for analyzing the statistics of the electric scooter rental service in the city of Novosibirsk,Interexpo GEO-Siberia,1,yes,,,10.33764/2618-981x-2022-6-204-212
+2.4 / 5.3,scooter_regulation,2023,Yin et al.,Helmet Detection and Speed Reminder System for Enhanced Safety in Electric Scooter Usage,Software Engineering and Applications,1,yes,,,10.5121/csit.2023.131712
+2.4 / 5.3,scooter_regulation,2019,Townson et al.,Helmet churn adds to challenges of e-scooter disruption,,0,no,,,10.64628/aa.sn3w7f9fe
+2.4 / 5.3,scooter_regulation,2020,Kuzmenko,ADMINISTRATIVE AND LEGAL ASPECT OF REGULATION OF LAND RENTAL RELATIONS,Law Bulletin,0,no,,,10.32850/lb2414-4207.2020.13.14
+2.4 / 5.3,scooter_regulation,2021,Thompson,Electric scooter regulation,British Dental Journal,0,no,,,10.1038/s41415-021-3581-z
+2.4 / 5.3,scooter_regulation,2023,Unknown,Electric Scooter Related Orthopaedic Injuries,OrthoMedia,0,no,,,10.1302/3114-230092

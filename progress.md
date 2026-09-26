@@ -353,3 +353,5 @@ be.
 | `outputs/logs/`                | Run logs from each stage                                       |
 | `outputs/figures/`             | Six 300 dpi figures                                            |
 | `outputs/tables/`              | Ten result tables                                              |
+| `docs/reading-list.md`         | 100 candidates with verbatim abstracts, by manuscript section  |
+| `docs/reading-list.csv`        | The same, as a tracking sheet with a blank `read` column       |

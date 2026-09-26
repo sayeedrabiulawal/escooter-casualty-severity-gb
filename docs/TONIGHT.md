@@ -49,12 +49,12 @@ None of those are required to deposit on Zenodo. The tooling now handles their
 absence by **removing** the fields cleanly, because a placeholder like
 `0000-0000-0000-0000` in a permanent record looks broken.
 
-| Thing | Required? | What happens if you skip it |
-|---|---|---|
-| Your surname | **Yes** — the one essential | Author name would read as a placeholder |
-| ORCID iD | No | The `orcid` field is removed from the metadata |
-| Affiliation | No | Defaults to **"Independent Researcher"** |
-| GitHub repo | No | The GitHub link is removed; the code is still in the deposit |
+| Thing        | Required?                   | What happens if you skip it                                  |
+| ------------ | --------------------------- | ------------------------------------------------------------ |
+| Your surname | **Yes** — the one essential | Author name would read as a placeholder                      |
+| ORCID iD     | No                          | The `orcid` field is removed from the metadata               |
+| Affiliation  | No                          | Defaults to **"Independent Researcher"**                     |
+| GitHub repo  | No                          | The GitHub link is removed; the code is still in the deposit |
 
 **"Independent Researcher" is the correct and honest affiliation** for someone not
 currently enrolled or employed at an institution. It is a standard value on Zenodo, and
@@ -105,11 +105,11 @@ placeholders. It also prints anything it could not resolve, including the manusc
 
 This produces:
 
-| File | What it is |
-|---|---|
+| File                                                       | What it is                       |
+| ---------------------------------------------------------- | -------------------------------- |
 | `outputs/deposit/escooter-casualty-severity-gb-v1.0.0.zip` | The archive to upload (~0.85 MB) |
-| `outputs/deposit/zenodo-metadata-SOFTWARE.txt` | Field-by-field metadata to paste |
-| `outputs/deposit/zenodo-metadata-PREPRINT.txt` | Same, for later |
+| `outputs/deposit/zenodo-metadata-SOFTWARE.txt`             | Field-by-field metadata to paste |
+| `outputs/deposit/zenodo-metadata-PREPRINT.txt`             | Same, for later                  |
 
 Raw data and the derived dataset are **deliberately excluded**. They are already
 published by the Department for Transport and regenerate from the included scripts.
@@ -157,19 +157,48 @@ The only substantial thing left is the **literature review** (§2) and the **§5
 comparison**. Roughly 1,500 words. Everything else — methods, results, discussion,
 limitations, figures, tables — is written from the real numbers.
 
-To do it:
+### Start here: the reading list
 
-1. Open `paper/references.bib`. The 99 entries are grouped by theme name in
-   `src/build_bibliography.py` (`SEARCHES`). The theme tells you which section a paper
-   belongs in.
-2. Skim the candidates, pick the ~40 that genuinely support a point you want to make,
-   and **delete the rest**. A tight 40 is stronger than a loose 99.
-3. **Read each paper before citing it.** Do not cite from a title or abstract alone,
-   and do not accept anyone else's summary of what a paper found — including mine.
-4. Read `docs/prior-work-scan.txt` and cite Zhao et al. (2026) in §1 and §5.2.
-5. Resolve the remaining `TODO` markers in `paper/manuscript.md`:
-   funding, AI-use disclosure, and author contributions.
-6. Re-render and check no TODOs remain:
+`docs/reading-list.md` (**120 KB**) is the thing that unlocks the review. It holds
+**100 entries across 99 papers, 61 of them with the publisher's abstract quoted
+verbatim**, grouped by the manuscript section each one feeds, most-cited first.
+
+Regenerate or refresh it:
+
+```powershell
+& .venv\Scripts\python.exe src/build_reading_list.py
+& .venv\Scripts\python.exe src/build_reading_list.py --offline   # cache only
+```
+
+How to use it:
+
+1. **Work theme by theme.** Each theme maps to one section (`2.1` epidemiology,
+   `2.2` methods, `2.3` under-reporting, `2.4` spatial). You finish a section's
+   reading and can write it straight away.
+2. **Start with 2.1 and 2.2.** They carry the most weight and set up your three-way
+   comparison.
+3. **Use `docs/reading-list.csv` to track progress.** It has a blank `read` column
+   and a `notes` column.
+4. **38 papers have no abstract** in the source. Open the DOI for those.
+
+**The abstracts are the publishers' own words, quoted verbatim — not my summaries.**
+I have not read these papers. An abstract is a claim by an author about their own
+work, and abstracts routinely omit the limitations, the sample, and the direction of
+an effect that does not flatter the framing. For anything you cite as a finding, open
+the paper and check that it supports the exact sentence you are attaching it to.
+
+A review that misrepresents three papers is worse than one that cites fifteen
+accurately.
+
+### Then
+
+1. **Prune `paper/references.bib`.** Pick the ~40 that genuinely support a point and
+   delete the rest. A tight 40 is stronger than a loose 99.
+2. **Read `docs/prior-work-scan.txt`** and cite Zhao et al. (2026) in §1 and §5.2.
+   Your novelty claim depends on how you position against it.
+3. **Resolve the remaining `TODO` markers** in `paper/manuscript.md`: funding,
+   AI-use disclosure, and author contributions.
+4. **Re-render and check no TODOs remain:**
 
 ```powershell
 & .venv\Scripts\python.exe src/render_manuscript.py
@@ -182,10 +211,10 @@ warning is gone, the preprint is ready to deposit as a second Zenodo record.
 
 ## The one-line summary
 
-| Record | Ready now? | Action |
-|---|---|---|
-| **Software** | **Yes** | Deposit tonight — Steps 1 to 5 |
-| Preprint | Not yet — needs the literature review | Deposit after §2 is written |
+| Record       | Ready now?                            | Action                         |
+| ------------ | ------------------------------------- | ------------------------------ |
+| **Software** | **Yes**                               | Deposit tonight — Steps 1 to 5 |
+| Preprint     | Not yet — needs the literature review | Deposit after §2 is written    |
 
 A software DOI tonight is a genuine result you can put on your CV tomorrow. The
 preprint becomes a second DOI when it is worth reading in full.
