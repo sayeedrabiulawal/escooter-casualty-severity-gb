@@ -48,12 +48,12 @@ A software DOI is a normal, respected deposit. It is honest, and it is finished.
 The author name and affiliation are already set in every file, via
 `src/personalise.py`, so there is nothing to fill in here.
 
-| Item         | Value                                                                       |
-| ------------ | --------------------------------------------------------------------------- |
-| Author       | Rabiul Awal Sayeed                                                          |
-| Affiliation  | Department of Civil Engineering, Hebei University of Science and Technology |
-| ORCID iD     | not supplied — the `orcid` field was **removed**, not left as a placeholder  |
-| GitHub repo  | not supplied — the GitHub link was removed; the code is still in the deposit |
+| Item        | Value                                                                        |
+| ----------- | ---------------------------------------------------------------------------- |
+| Author      | Rabiul Awal Sayeed                                                           |
+| Affiliation | Department of Civil Engineering, Hebei University of Science and Technology  |
+| ORCID iD    | not supplied — the `orcid` field was **removed**, not left as a placeholder  |
+| GitHub repo | not supplied — the GitHub link was removed; the code is still in the deposit |
 
 ORCID and a repository URL are **not required** by Zenodo. The tooling handles their
 absence by removing the fields cleanly, because a placeholder like

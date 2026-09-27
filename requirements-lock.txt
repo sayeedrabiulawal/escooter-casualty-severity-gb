@@ -1,4 +1,7 @@
-﻿certifi==2026.7.22
+﻿# Pinned versions of the exact environment the reported results were produced in.
+# Regenerate with: python -m pip freeze --all   (then drop the pip line)
+# pypdfium2 is required by src/check_layout.py, not just by the renderer.
+certifi==2026.7.22
 charset-normalizer==3.5.1
 colorama==0.4.6
 contourpy==1.4.0
@@ -21,6 +24,7 @@ patsy==1.0.3
 pillow==12.3.0
 pyparsing==3.3.3
 pypdf==6.19.0
+pypdfium2==5.13.0
 python-dateutil==2.9.0.post0
 requests==2.34.2
 scipy==1.18.1
@@ -31,4 +35,4 @@ tqdm==4.70.1
 typing_extensions==4.16.0
 tzdata==2026.4
 urllib3==2.8.0
-wrapt==2.5.0rc1
+wrapt==2.5.0
